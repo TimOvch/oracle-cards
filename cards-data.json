@@ -1,0 +1,1385 @@
+{
+  "schema_version": 1,
+  "scope": {
+    "semester": 7,
+    "oracle_version": "11.2",
+    "block": 1,
+    "topics": [
+      "architecture",
+      "installation",
+      "dbca",
+      "instance-management"
+    ],
+    "question_style": "theory_first",
+    "practical_scenarios": "only_for_error_reinforcement_or_key_boundaries",
+    "rac_depth": "overview_only",
+    "teacher_transcript": {
+      "ui": "expand_reconciled_excerpt_with_time_range",
+      "audio": false,
+      "verbatim_teacher_quote": false,
+      "locator_status_required": true,
+      "separate_documentation_clarification": true
+    },
+    "answer_layers": {
+      "teacher_default": "say_by_default_on_defense",
+      "documentation_addition": "do_not_say_unless_teacher_asks_for_more",
+      "documentation_correction": "mandatory_when_teacher_wording_is_technically_wrong",
+      "explicit_importance_marker": "show_with_source_status_and_time_range"
+    }
+  },
+  "cards": [
+    {
+      "id": "s07-b01-arch-database-instance",
+      "topic": "architecture",
+      "front": "Чем database отличается от instance?",
+      "answer_short": "Database — постоянные файлы; instance — SGA и фоновые процессы.",
+      "answer_deep": "Файлы могут существовать при остановленном instance. Процессы не находятся внутри SGA: память и фоновые процессы вместе образуют instance.",
+      "terms": [
+        "база данных (database)",
+        "экземпляр (instance)",
+        "системная глобальная область (SGA)",
+        "фоновые процессы (background processes)"
+      ],
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "recording": "s07-lecture01",
+        "time_range": "00:27:00-00:36:00",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "Для этой лекции полезно строго разделять три уровня: database — сохраняемые на диске физические файлы; instance — SGA и запущенные для неё Oracle background processes; Oracle Database server — работающие вместе database, instance и server processes, обслуживающие client/user processes."
+      },
+      "slides": [
+        "Less01_DBA1.pdf:5-8"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/intro.htm#CNCPT88788"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-arch-buffer-cache-vs-shared-pool",
+      "topic": "architecture",
+      "front": "Где находятся блок данных, план SQL и запись redo?",
+      "answer_short": "Блок — в database buffer cache; план — в shared pool/library cache; redo entry — в redo log buffer.",
+      "answer_deep": "Повторное использование плана и повторное использование блока — разные механизмы. Server process обычно читает отсутствующий блок в buffer cache; DBWn записывает dirty buffers из cache в datafiles.",
+      "terms": [
+        "буферный кэш базы данных (database buffer cache)",
+        "разделяемый пул (shared pool)",
+        "кэш библиотеки (library cache)",
+        "буфер журнала повторного выполнения (redo log buffer)"
+      ],
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "recording": "s07-lecture01",
+        "time_range": "00:36:00-00:53:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "Результат обычного запроса не является содержимым shared SQL area: там находятся parse tree и execution plan. В Oracle существует отдельный server result cache, но его использование — самостоятельный механизм, а не автоматическое свойство каждого statement."
+      },
+      "user_error": "План выполнения был ошибочно назван подчастью database buffer cache, а блок — помещаемым в shared pool.",
+      "slides": [
+        "Less01_DBA1.pdf:10-13"
+      ],
+      "visuals_local_only": [
+        "derived/study-reader/lectures/s07-lecture01/images/architecture-page-9.png"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/memory.htm#CNCPT7777"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-instance-pfile-spfile-scope",
+      "topic": "instance-management",
+      "front": "Чем PFILE отличается от SPFILE и что делает SCOPE?",
+      "answer_short": "PFILE — внешний текстовый read-only input для startup; SPFILE — двоичный server-side read/write parameter file. MEMORY меняет текущее значение, SPFILE — следующее startup, BOTH — оба.",
+      "answer_deep": "ALTER SYSTEM не переписывает PFILE: для него нет SCOPE=PFILE. При запуске из PFILE постоянное изменение вносят вручную либо создают SPFILE. Допустимость SCOPE зависит от modifiability параметра.",
+      "terms": [
+        "текстовый файл параметров (PFILE)",
+        "серверный файл параметров (SPFILE)",
+        "область изменения (SCOPE)"
+      ],
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "recording": "s07-lecture03",
+        "time_range": "00:39:30-00:58:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-03_dbca-instance_date-unknown/reconciled.md",
+        "text": "SPFILE двоичный и меняется командами Oracle; PFILE текстовый. Параметры просматриваются через V$PARAMETER и SQL*Plus SHOW PARAMETER. Static parameters требуют следующего startup; dynamic parameters могут меняться на session/system level. SCOPE=MEMORY, SPFILE, BOTH различают немедленное действие и сохранение."
+      },
+      "slides": [
+        "Less04_Instance.pdf:11",
+        "Less04_Instance.pdf:17-18"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/start.htm#sthref363",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_2014.htm#SQLRF53147"
+      ],
+      "status": "verified_fact_teacher_wording_pending"
+    },
+    {
+      "id": "s07-b01-instance-parameter-classifications",
+      "topic": "instance-management",
+      "front": "Почему required/optional, basic/advanced и static/dynamic — три разные классификации параметров?",
+      "answer_short": "Required отвечает за наличие значения, basic/advanced — за типичность настройки, static/dynamic — за возможность изменить работающий instance.",
+      "answer_deep": "Для минимального initialization parameter file Oracle 11.2 требует DB_NAME; остальные параметры имеют defaults. Basic не означает mandatory. Static требует restart; dynamic может меняться во время работы с разрешённой областью session/system.",
+      "terms": [
+        "обязательный/необязательный (required/optional)",
+        "основной/расширенный (basic/advanced)",
+        "статический/динамический (static/dynamic)"
+      ],
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt_with_documented_clarification",
+        "recording": "s07-lecture03",
+        "time_range": "00:39:30-00:58:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-03_dbca-instance_date-unknown/reconciled.md",
+        "text": "Параметры просматриваются через V$PARAMETER и SQL*Plus SHOW PARAMETER. Static parameters требуют следующего startup; dynamic parameters могут меняться на session/system level.",
+        "documentation_clarification": "Для минимального initialization parameter file Oracle 11.2 требует DB_NAME; basic/advanced и required/optional — разные классификации."
+      },
+      "slides": [
+        "Less04_Instance.pdf:12-15"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/create.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40402/initparams002.htm"
+      ],
+      "status": "verified_fact_teacher_wording_pending"
+    },
+    {
+      "id": "s07-b01-arch-soft-hard-parse-shared-cursor",
+      "topic": "architecture",
+      "front": "Как поиск подходящего shared cursor определяет soft parse и hard parse?",
+      "answer_short": "Сначала parse call ищет совместимый shared cursor. Найден и пригоден — soft parse; не найден — hard parse создаёт новый shared cursor/child cursor и план.",
+      "answer_deep": "Проверка library cache предшествует классификации разбора как hard. Совпадения SQL text недостаточно: существующий child cursor должен быть совместим с текущей schema, optimizer environment, bind metadata и другими условиями. Поэтому parent cursor может существовать, но Oracle всё равно создаст новый child cursor.",
+      "terms": [
+        "вызов разбора (parse call)",
+        "разделяемый курсор (shared cursor)",
+        "родительский курсор (parent cursor)",
+        "дочерний курсор (child cursor)",
+        "мягкий разбор (soft parse)",
+        "жёсткий разбор (hard parse)"
+      ],
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt_plus_documentation_depth",
+        "recording": "s07-lecture01",
+        "time_range": "00:44:00-00:50:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "Результат обычного запроса не является содержимым shared SQL area: там находятся parse tree и execution plan.",
+        "documentation_clarification": "Различие parent/child cursor и проверка совместимости раскрыты глубже, чем в сведённом фрагменте лекции."
+      },
+      "user_error": "Поиск подходящего shared cursor был неточно включён внутрь уже начавшегося hard parse; он предшествует выбору soft/hard parse.",
+      "slides": [
+        "Less01_DBA1.pdf:12-13"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/memory.htm#CNCPT1227"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-arch-shared-server-uga-pga",
+      "topic": "architecture",
+      "front": "Почему при shared server UGA находится в SGA, а PGA каждого server process остаётся частной?",
+      "answer_short": "Разные запросы одного session могут выполнять разные shared server processes, поэтому состояние session должно быть доступно им через SGA. PGA по определению принадлежит одному process и не разделяется.",
+      "answer_deep": "Shared означает, что пул server processes поочерёдно обслуживает множество sessions, а не то, что процессы совместно используют одну PGA. В каждый момент shared server process обрабатывает конкретный request, используя собственную PGA и UGA соответствующего session из SGA.",
+      "terms": [
+        "разделяемый сервер (shared server)",
+        "пользовательская глобальная область (UGA)",
+        "программная глобальная область (PGA)",
+        "системная глобальная область (SGA)"
+      ],
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "recording": "s07-lecture01",
+        "time_range": "00:53:30-00:57:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "В dedicated server для client connection выделяется свой server process; в shared server запросы принимает dispatcher, а пул shared server processes обслуживает разных клиентов."
+      },
+      "user_error": "PGA shared server process была ошибочно названа разделяемой; также доступ к UGA был приписан пользователям вместо server processes.",
+      "slides": [
+        "Less01_DBA1.pdf:16-17"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/memory.htm#CNCPT1238",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/process.htm#CNCPT1248"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-arch-dbwn-lgwr-ckpt",
+      "topic": "architecture",
+      "front": "Как связаны DBWn, LGWR и CKPT при изменении данных, COMMIT и checkpoint?",
+      "answer_short": "LGWR пишет redo в online redo log; DBWn пишет dirty blocks в data files; CKPT сигнализирует DBWn и обновляет checkpoint metadata, но сам блоки не пишет.",
+      "answer_deep": "COMMIT требует долговечности redo, а не немедленной записи изменённых data blocks. По write-ahead protocol redo соответствующего dirty block должно попасть в online redo log раньше, чем DBWn сможет записать block в data file. COMMIT не делает dirty buffer чистым: он может оставаться dirty до записи DBWn.",
+      "terms": [
+        "процесс записи базы данных (DBWn)",
+        "процесс записи журнала (LGWR)",
+        "процесс контрольной точки (CKPT)",
+        "изменённый буфер (dirty buffer)",
+        "упреждающая запись журнала (write-ahead protocol)"
+      ],
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "recording": "s07-lecture01",
+        "time_range": "00:57:30-01:07:10",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "При COMMIT LGWR синхронно записывает commit record, соответствующий SCN и redo transaction в online redo log. Dirty data blocks при этом могут остаться в buffer cache: их позже пишет DBWn. Это write-ahead protocol — необходимый redo должен попасть на диск до соответствующих dirty blocks. CKPT не пишет ни redo, ни сами data blocks."
+      },
+      "slides": [
+        "Less01_DBA1.pdf:18-20"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/process.htm#CNCPT1251",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/process.htm#CNCPT1252"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-arch-lgwr-write-conditions",
+      "topic": "architecture",
+      "front": "В каких случаях LGWR записывает redo log buffer в online redo log?",
+      "answer_short": "При COMMIT, log switch, примерно через три секунды после прошлой записи, заполнении redo buffer на треть или накоплении 1 MB, а также перед записью соответствующих dirty buffers процессом DBWn.",
+      "answer_deep": "Условия относятся к записи redo, а не data blocks. Перед DBWn действует write-ahead protocol: сначала на диск должно попасть redo соответствующего dirty buffer. Записанное до COMMIT redo само по себе не делает транзакцию подтверждённой — нужен commit record.",
+      "terms": [
+        "процесс записи журнала (LGWR)",
+        "буфер журнала повторного выполнения (redo log buffer)",
+        "оперативный журнал повторного выполнения (online redo log)",
+        "переключение журнала (log switch)",
+        "упреждающая запись журнала (write-ahead protocol)"
+      ],
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt_with_speech_scope",
+        "recording": "s07-lecture01",
+        "time_range": "01:02:30-01:05:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "В Oracle 11.2 LGWR также пишет при log switch, примерно каждые три секунды, при заполнении redo buffer на треть или достижении порога 1 MB и перед записью dirty buffers DBWn.",
+        "speech_scope": "В распознанной речи преподаватель явно называет COMMIT, заполнение на треть, запись перед DBWn и дополнительный порог 1 MB. Log switch и интервал около трёх секунд подтверждены документацией, но в этом фрагменте речи явно не установлены.",
+        "explicit_importance_marker": false
+      },
+      "slides": [
+        "Less01_DBA1.pdf:19"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/process.htm#CNCPT1251"
+      ],
+      "status": "verified_fact_teacher_scope_separated"
+    },
+    {
+      "id": "s07-b01-arch-smon",
+      "topic": "architecture",
+      "front": "Какова роль SMON и какие функции ему нельзя приписывать?",
+      "answer_short": "SMON выполняет instance recovery при startup после сбоя и системную очистку, включая unused temporary segments. Он не создаёт SGA и не запускает все background processes.",
+      "answer_layers": {
+        "teacher_default": "SMON работает при запуске экземпляра, при необходимости выполняет восстановление экземпляра по redo и очищает неиспользуемые временные сегменты.",
+        "documentation_addition": [
+          "SMON восстанавливает пропущенные при instance recovery транзакции после возврата недоступного file/tablespace online.",
+          "SMON объединяет соседние free extents в dictionary-managed tablespaces."
+        ],
+        "documentation_correction": [
+          "SMON не выделяет SGA и её компоненты.",
+          "SMON не запускает остальные background processes и не формирует instance."
+        ],
+        "default_defense_answer": "SMON — системный монитор: при запуске выполняет instance recovery после аварийного завершения и занимается системной очисткой, например unused temporary segments."
+      },
+      "terms": [
+        "системный монитор (SMON)",
+        "восстановление экземпляра (instance recovery)",
+        "неиспользуемые временные сегменты (unused temporary segments)"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled_with_documented_conflict",
+        "recording": "s07-lecture01",
+        "time_range": "01:07:00-01:09:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "В речи роли двух процессов были существенно перепутаны. SMON не является процессом, который выделяет SGA и запускает остальные процессы; SMON отвечает прежде всего за instance recovery.",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "agreed_by_both_asr_not_manually_listened",
+          "text": "Преподаватель вводит SMON и PMON как два процесса, очень важные для работы системы."
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:21"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/process.htm#CNCPT1253"
+      ],
+      "status": "verified_fact_with_teacher_conflict"
+    },
+    {
+      "id": "s07-b01-arch-pmon",
+      "topic": "architecture",
+      "front": "Какова роль PMON и почему он не является процессом штатного shutdown?",
+      "answer_short": "PMON выполняет process recovery после аварийного завершения server/dispatcher process, освобождает его ресурсы и регистрирует instance/dispatchers у listener. Он не управляет штатным shutdown.",
+      "answer_layers": {
+        "teacher_default": "Из технически корректной части речи: PMON освобождает ресурсы пользовательского процесса и регистрирует базу/instance у listener.",
+        "documentation_addition": [
+          "PMON наблюдает за другими background processes.",
+          "При process recovery PMON сбрасывает состояние transaction table, освобождает locks и удаляет process ID из списка активных processes."
+        ],
+        "documentation_correction": [
+          "PMON не является процессом, обратным SMON.",
+          "PMON не выполняет штатную остановку instance, не останавливает все background processes и не откатывает все незавершённые транзакции при shutdown."
+        ],
+        "default_defense_answer": "PMON — монитор процессов: после аварийного завершения server или dispatcher process выполняет process recovery, освобождает его ресурсы и в Oracle 11.2 регистрирует instance и dispatchers у listener."
+      },
+      "terms": [
+        "монитор процессов (PMON)",
+        "восстановление процесса (process recovery)",
+        "регистрация сервиса у listener (service registration)"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled_with_documented_conflict",
+        "recording": "s07-lecture01",
+        "time_range": "01:09:30-01:11:00",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "PMON восстанавливает состояние после отказа process и освобождает принадлежавшие ему ресурсы; это не штатный shutdown manager.",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "agreed_by_both_asr_not_manually_listened",
+          "text": "Преподаватель вводит SMON и PMON как два процесса, очень важные для работы системы."
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:22"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/process.htm#CNCPT1254"
+      ],
+      "status": "verified_fact_with_teacher_conflict"
+    },
+    {
+      "id": "s07-b01-arch-background-process-lifecycle",
+      "topic": "architecture",
+      "front": "Все ли фоновые процессы (background processes) существуют и непрерывно работают при каждом запущенном экземпляре?",
+      "answer_short": "Нет. Набор процессов зависит от конфигурации и выполняемых функций. Запущенный процесс обычно большую часть времени ожидает событие и получает CPU только при появлении своей работы.",
+      "answer_layers": {
+        "teacher_default": "Большая часть фоновых процессов запускается вместе с экземпляром, а некоторые запускаются только для конкретных задач.",
+        "documentation_addition": [
+          "Существование процесса не означает непрерывное выполнение: фоновый процесс может находиться в ожидании и просыпаться по событию или таймеру.",
+          "ARCn требуется только при ARCHIVELOG и включённом automatic archiving; CJQ0/Jnnn связаны с выполнением jobs, а QMNC — с Oracle Streams/AQ.",
+          "SMON после instance recovery не завершается: он остаётся доступным для последующей системной очистки и восстановления отдельных объектов после возврата files/tablespaces online."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "Нет. Состав background processes зависит от конфигурации и функций экземпляра. Даже постоянно существующий процесс не выполняется непрерывно: обычно он ждёт событие и начинает работу при необходимости."
+      },
+      "terms": [
+        "фоновые процессы (background processes)",
+        "ожидание события (wait event)",
+        "процессы, зависящие от конфигурации"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_excerpt_not_manually_listened",
+        "recording": "s07-lecture01",
+        "time_range": "01:14:30-01:15:00",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "Большая часть фоновых процессов запускается при запуске экземпляра. Некоторые запускаются при выполнении конкретных задач.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_detected",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:25"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/process.htm"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-arch-reco",
+      "topic": "architecture",
+      "front": "Для чего нужен процесс восстановления (RECO)?",
+      "answer_short": "RECO автоматически разрешает сомнительные распределённые транзакции (in-doubt distributed transactions), когда связь между участниками восстановлена.",
+      "answer_layers": {
+        "teacher_default": "RECO связан с распределёнными транзакциями между несколькими серверами и доводит до согласованного результата транзакции, выполнение которых было прервано сбоем связи.",
+        "documentation_addition": [
+          "RECO подключается к другим базам, участвующим в in-doubt distributed transaction, и автоматически согласует commit или rollback.",
+          "После разрешения транзакции RECO удаляет соответствующие pending transaction records."
+        ],
+        "documentation_correction": [
+          "RECO не координирует каждую обычную распределённую транзакцию; его специальная роль — восстановление и разрешение именно in-doubt transactions."
+        ],
+        "default_defense_answer": "RECO — процесс восстановления распределённых транзакций: он автоматически разрешает in-doubt transaction после восстановления связи между участвующими базами."
+      },
+      "terms": [
+        "процесс восстановления (RECO)",
+        "распределённая транзакция (distributed transaction)",
+        "сомнительная транзакция (in-doubt transaction)"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled",
+        "recording": "s07-lecture01",
+        "time_range": "01:11:15-01:13:00",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "RECO рассматривается как процесс для распределённых транзакций, выполняемых на нескольких серверах, и проверки их завершения после нарушения связи.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_detected",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:23"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/process.htm"
+      ],
+      "status": "verified_fact_with_teacher_refinement"
+    },
+    {
+      "id": "s07-b01-arch-arcn",
+      "topic": "architecture",
+      "front": "Для чего нужен архиватор (ARCn) и всегда ли он существует?",
+      "answer_short": "ARCn после переключения журнала копирует заполненную группу online redo log в архивные журналы. Он работает при ARCHIVELOG и включённом automatic archiving, поэтому нужен не в каждой конфигурации.",
+      "answer_layers": {
+        "teacher_default": "ARCn архивирует заполненные файлы оперативного журнала повторного выполнения после переключения журнала.",
+        "documentation_addition": [
+          "ARCn создаётся при работе базы в ARCHIVELOG с automatic archiving; в NOARCHIVELOG архивирование заполненных online redo logs не выполняется.",
+          "ARCn также может передавать redo в remote standby destinations."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "ARCn — архиватор: после log switch он копирует заполненный online redo log в archive log. Процесс нужен при ARCHIVELOG и automatic archiving, а не во всех конфигурациях."
+      },
+      "terms": [
+        "архиватор (ARCn)",
+        "оперативный журнал повторного выполнения (online redo log)",
+        "архивный журнал (archive log)",
+        "переключение журнала (log switch)"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled",
+        "recording": "s07-lecture01",
+        "time_range": "01:13:00-01:15:00",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "ARCn переносит содержимое заполненного online redo log в архив после переключения журнала; некоторые фоновые процессы запускаются только для конкретных задач.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_detected",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:24-25"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/process.htm"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-arch-buffer-states-access-modes",
+      "topic": "architecture",
+      "front": "Какие состояния и режимы доступа имеет buffer в database buffer cache?",
+      "answer_short": "Состояния содержимого: unused, clean и dirty. Отдельное измерение — режим доступа: pinned или free (unpinned). Поэтому buffer может одновременно быть, например, dirty и pinned.",
+      "answer_layers": {
+        "teacher_default": "Преподаватель перечисляет четыре термина: pinned, clean, free и dirty. Pinned — buffer занят; clean — чистый; free — свободный; dirty — изменённый и ещё не записанный в data file.",
+        "documentation_addition": [
+          "Unused означает, что buffer никогда не использовался или сейчас не используется.",
+          "Clean buffer содержит данные: это согласованная копия block, которую не требуется записывать при checkpoint.",
+          "Pinned/free описывают не содержимое, а режим доступа. Pinned buffer нельзя вытеснить, пока session обращается к нему."
+        ],
+        "documentation_correction": [
+          "Pinned, clean, free и dirty не являются четырьмя взаимоисключающими состояниями.",
+          "Free (unpinned) не означает «никогда не использовался» — это значение unused.",
+          "Pinned не обязательно означает, что данные изменяются: session может только читать buffer."
+        ],
+        "default_defense_answer": "У buffer есть три состояния содержимого — unused, clean и dirty — и отдельно режим доступа pinned или free (unpinned). Dirty означает изменённый, но ещё не записанный block; pinned означает, что buffer сейчас используется и не может быть вытеснен."
+      },
+      "terms": [
+        "кэш буферов данных (database buffer cache)",
+        "неиспользованный буфер (unused buffer)",
+        "чистый буфер (clean buffer)",
+        "грязный буфер (dirty buffer)",
+        "закреплённый буфер (pinned buffer)",
+        "свободный режим доступа (free/unpinned)"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled_with_documented_conflict",
+        "recording": "s07-lecture02",
+        "time_range": "00:07:30-00:09:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-02_storage-installation-dbca_date-unknown/reconciled.md",
+        "text": "Буферы database buffer cache могут находиться в четырёх состояниях: pinned, clean, free и dirty. Состояния надо знать и понимать, что происходит.",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "agreed_by_both_asr_not_manually_listened",
+          "text": "Состояния знать, да и понимать, что происходит."
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:25-26"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/memory.htm#CNCPT1223"
+      ],
+      "status": "verified_fact_with_teacher_conflict"
+    },
+    {
+      "id": "s07-b01-arch-connection-session-listener",
+      "topic": "architecture",
+      "front": "Чем отличаются client process, connection, session, listener и server process?",
+      "answer_short": "Client process запускает приложение пользователя. Listener принимает начальное сетевое обращение и передаёт его server process или dispatcher. Connection — физический канал связи, session — логическое состояние входа пользователя в памяти instance, а server process выполняет Oracle code от имени клиента.",
+      "answer_layers": {
+        "teacher_default": "По слайду: connection — communication between a user process and an instance; session — specific connection of a user to an instance through a user process. На схеме connection показана между user process и server process, а session охватывает логическое взаимодействие пользователя с instance.",
+        "documentation_addition": [
+          "После установления dedicated connection listener обычно не участвует в передаче каждого SQL-запроса: клиент общается с server process напрямую.",
+          "Одна connection может иметь ноль, одну или несколько независимых sessions; один database user может одновременно иметь несколько connections и sessions.",
+          "В типичном простом подключении SQL*Plus соответствие выглядит как один client process, одна connection, одна session и один dedicated server process."
+        ],
+        "documentation_correction": [
+          "Вложенные скобки на учебном слайде показывают физическую и логическую стороны взаимодействия, но сами по себе не задают кардинальность connection/session.",
+          "Не следует описывать connection и session как простые контейнеры друг для друга. Документация отдельно указывает, что одна connection может иметь ноль, одну или несколько sessions.",
+          "Listener маршрутизирует начальное подключение к service, но не является постоянным посредником между SQL*Plus и instance."
+        ],
+        "default_defense_answer": "Connection — физический канал между client process и instance, а session — логическое состояние аутентифицированного пользователя в памяти instance. Listener нужен для установления сетевого подключения; SQL выполняет server process от имени client process."
+      },
+      "terms": [
+        "клиентский/пользовательский процесс (client/user process)",
+        "соединение (connection)",
+        "сеанс (session)",
+        "слушатель Oracle Net (listener)",
+        "серверный процесс (server process)"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled_with_incomplete_phrase",
+        "recording": "s07-lecture01",
+        "time_range": "00:31:00-00:35:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "Пользовательский процесс создаётся на клиенте. Информация от него через listener передаётся серверу, где создаётся server process. Фраза о количестве объектов в рамках session на 00:34:30 обрывается и не используется как доказательство.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_detected",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:5-8"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/process.htm#CNCPT1247"
+      ],
+      "status": "verified_fact_with_incomplete_teacher_excerpt"
+    },
+    {
+      "id": "s07-b01-arch-instance-recovery",
+      "topic": "architecture",
+      "front": "Что такое восстановление экземпляра (instance recovery) и из каких фаз оно состоит?",
+      "answer_short": "После аварийной остановки SMON автоматически приводит data files в согласованное состояние: сначала повторно применяет изменения из online redo log (roll forward/cache recovery), затем с помощью undo отменяет незавершённые транзакции (roll back/transaction recovery).",
+      "answer_layers": {
+        "teacher_default": "Если экземпляр завершился до записи изменений в data files, его можно восстановить по информации из online redo logs; эту задачу выполняет SMON при следующем запуске.",
+        "documentation_addition": [
+          "Recovery начинается с checkpoint position и применяет redo до конца соответствующего redo thread.",
+          "После roll forward в data files могут находиться как committed, так и uncommitted changes; undo возвращает незавершённые транзакции назад.",
+          "DBWn может записывать uncommitted dirty blocks, а committed blocks могут ещё отсутствовать в data files, поэтому необходимы обе фазы."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "Instance recovery автоматически выполняется после аварийной остановки: SMON сначала применяет redo начиная с последней checkpoint position, затем через undo откатывает незавершённые транзакции."
+      },
+      "terms": [
+        "восстановление экземпляра (instance recovery)",
+        "применение вперёд (roll forward/cache recovery)",
+        "откат назад (roll back/transaction recovery)",
+        "позиция контрольной точки (checkpoint position)"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled",
+        "recording": "s07-lecture01",
+        "time_range": "00:28:00-00:29:00",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "Если что-то произошло с экземпляром и данные ещё не сохранились в data files, экземпляр можно восстановить по информации из online redo logs.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_detected",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:5",
+        "Less01_DBA1.pdf:21"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/startup.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/process.htm#CNCPT1253"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-storage-logical-hierarchy",
+      "topic": "storage",
+      "front": "Как устроена логическая иерархия хранения Oracle?",
+      "answer_short": "Database логически состоит из tablespaces; место объектам выделяется через segments, extents и Oracle data blocks: tablespace → segment → extent → block.",
+      "answer_layers": {
+        "teacher_default": "Табличное пространство состоит из сегментов, сегмент — из экстентов, экстент — из блоков данных Oracle.",
+        "documentation_addition": [
+          "Oracle data block — минимальная логическая единица ввода-вывода database.",
+          "Segment — всё пространство, выделенное определённой логической структуре или её части; extent — непрерывный набор data blocks, выделенный segment."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "Логическая иерархия хранения: tablespace → segment → extent → Oracle data block. Tablespace группирует хранение, segment принадлежит объекту или его части, extent является порцией выделенного места, block — минимальной единицей Oracle I/O."
+      },
+      "terms": [
+        "табличное пространство (tablespace)",
+        "сегмент (segment)",
+        "экстент (extent)",
+        "блок данных Oracle (Oracle data block)"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled",
+        "recording": "s07-lecture02",
+        "time_range": "00:12:00-00:19:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-02_storage-installation-dbca_date-unknown/reconciled.md",
+        "text": "Логическая структура хранения разбирается через tablespace, segment, extent и block.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_detected",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:28-31"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/logical.htm#CNCPT3000"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-storage-tablespace-datafile-extent",
+      "topic": "storage",
+      "front": "Как связаны tablespace, datafile, segment и extent?",
+      "answer_short": "Tablespace имеет один или несколько datafiles; datafile принадлежит одному tablespace. Segment принадлежит одному tablespace, его extents могут находиться в разных datafiles этого tablespace, но один extent не пересекает границу datafile.",
+      "answer_layers": {
+        "teacher_default": "Tablespace связывает логические структуры с физическими datafiles; segment растёт за счёт новых extents.",
+        "documentation_addition": [
+          "Datafile физически принадлежит только одному tablespace.",
+          "Extents одного segment могут располагаться в нескольких datafiles одного tablespace.",
+          "Один extent целиком находится в одном datafile."
+        ],
+        "documentation_correction": [
+          "Устное абсолютное утверждение, что пользователь не может явно выделить extent, неверно: Oracle 11.2 поддерживает ALTER ... ALLOCATE EXTENT. В обычной работе extents выделяются автоматически."
+        ],
+        "default_defense_answer": "Tablespace поддерживается одним или несколькими datafiles. Segment принадлежит одному tablespace и состоит из extents; его extents могут лежать в разных datafiles этого tablespace, но каждый отдельный extent ограничен одним файлом."
+      },
+      "terms": [
+        "файл данных (datafile)",
+        "выделение экстента (extent allocation)"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled_with_documented_conflict",
+        "recording": "s07-lecture02",
+        "time_range": "00:12:00-00:19:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-02_storage-installation-dbca_date-unknown/reconciled.md",
+        "text": "Преподаватель объясняет автоматический рост segment через extents и устно формулирует абсолютный запрет на ручное выделение extent; запрет уточнён документацией.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_detected",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:28-31"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/logical.htm#CNCPT3000",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41084/clauses001.htm#SQLRF30005"
+      ],
+      "status": "verified_fact_with_teacher_conflict"
+    },
+    {
+      "id": "s07-b01-storage-schema-object-segment",
+      "topic": "storage",
+      "front": "Является ли schema ступенью иерархии tablespace → segment → extent → block?",
+      "answer_short": "Нет. Schema — пространство имён и совокупность объектов одного владельца. Она не является уровнем хранения; таблица и индекс одной schema обычно используют отдельные segments.",
+      "answer_layers": {
+        "teacher_default": "Schema объединяет объекты пользователя, тогда как physical/logical storage рассматривается отдельно через tablespaces, segments, extents и blocks.",
+        "documentation_addition": [
+          "Не каждый schema object имеет segment.",
+          "Partitioned tables, indexes и LOB могут иметь несколько segments."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "Schema организует объекты по владельцу и не входит в storage hierarchy. Таблица и её индекс — разные объекты и обычно имеют разные segments."
+      },
+      "terms": [
+        "схема (schema)",
+        "объект схемы (schema object)"
+      ],
+      "teacher_evidence": {
+        "kind": "lecture_topic_normalized",
+        "recording": "s07-lecture02",
+        "time_range": "00:12:00-00:19:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-02_storage-installation-dbca_date-unknown/reconciled.md",
+        "text": "Связь schema objects с segments рассматривается внутри темы логического хранения; точная формулировка дополнена документацией.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_detected",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:28-31"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/logical.htm"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-storage-system-sysaux",
+      "topic": "storage",
+      "front": "Для чего нужны tablespaces SYSTEM и SYSAUX и можно ли хранить в SYSTEM пользовательские таблицы?",
+      "answer_short": "SYSTEM хранит data dictionary и критичен для database; SYSAUX хранит данные дополнительных системных компонентов. В учебных работах пользовательские таблицы в SYSTEM создавать нельзя.",
+      "answer_layers": {
+        "teacher_default": "SYSTEM и SYSAUX создаются как обязательные системные tablespaces и должны находиться online. Свои пользовательские таблицы в SYSTEM создавать не следует.",
+        "documentation_addition": [
+          "SYSTEM нельзя переводить offline при открытой database.",
+          "SYSAUX служит общим вспомогательным пространством для системных occupants; их можно увидеть через V$SYSAUX_OCCUPANTS."
+        ],
+        "documentation_correction": [
+          "Недоступность SYSAUX не обязательно останавливает core database functionality: отказывают или деградируют использующие его компоненты."
+        ],
+        "default_defense_answer": "SYSTEM содержит словарь данных и является критическим системным tablespace; SYSAUX хранит данные дополнительных компонентов Oracle. Пользовательские объекты в учебной базе размещают в назначенных пользовательских tablespaces, не в SYSTEM."
+      },
+      "terms": [
+        "словарь данных (data dictionary)",
+        "системное табличное пространство SYSTEM",
+        "вспомогательное системное пространство SYSAUX"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled_with_documented_conflict",
+        "recording": "s07-lecture02",
+        "time_range": "00:19:30-00:25:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-02_storage-installation-dbca_date-unknown/reconciled.md",
+        "text": "Преподаватель отдельно просит не создавать пользовательские таблицы в SYSTEM и представляет SYSTEM/SYSAUX как обязательные online tablespaces.",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "agreed_by_both_asr_not_manually_listened",
+          "text": "Свои пользовательские таблицы в SYSTEM не создавать."
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:30"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/tspaces.htm#sthref1512",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/tspaces.htm#sthref1614"
+      ],
+      "status": "verified_fact_with_teacher_conflict"
+    },
+    {
+      "id": "s07-b01-storage-physical-file-roles",
+      "topic": "storage",
+      "front": "Какие три основные группы файлов образуют Oracle database и какова роль каждой?",
+      "answer_short": "Data files хранят данные и структуры Oracle; control files описывают физическую структуру и текущее состояние database; online redo log files хранят redo records изменений.",
+      "answer_layers": {
+        "teacher_default": "Database — три группы файлов: data files, control files и online redo log files.",
+        "documentation_addition": [
+          "Temp files обслуживают temporary tablespaces и рассматриваются рядом с data files как физические файлы хранения.",
+          "Parameter/password files, backups, archived redo logs, alert log и trace files важны для эксплуатации, но не входят без оговорок в физическое ядро database."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "Физическое ядро database составляют data files, control files и online redo log files: первые хранят данные, вторые — описание структуры и состояние database, третьи — redo для восстановления."
+      },
+      "terms": [
+        "файлы данных (data files)",
+        "файлы управления (control files)",
+        "оперативные журналы повторного выполнения (online redo log files)"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled_explicit_importance",
+        "recording": "s07-lecture02",
+        "time_range": "00:03:00-00:04:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-02_storage-installation-dbca_date-unknown/reconciled.md",
+        "text": "База данных — это три группы файлов: файлы данных, файлы управления и файлы оперативных журналов повтора.",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "agreed_by_both_asr_not_manually_listened",
+          "text": "Эту общую картинку надо знать и понимать; она важна, чтобы говорить на одном языке."
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:27"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/physical.htm#CNCPT401"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-storage-control-files",
+      "topic": "storage",
+      "front": "Что хранится в control files и зачем их мультиплексировать?",
+      "answer_short": "Control files содержат сведения о физической структуре и текущем состоянии database: имена datafiles и online redo logs, checkpoint information и другую служебную metadata. Несколько идентичных копий на разных носителях защищают от потери одного файла.",
+      "answer_layers": {
+        "teacher_default": "Control files нужны при запуске database, хранят сведения о её файлах и контрольных точках; копии должны постоянно поддерживаться идентичными.",
+        "documentation_addition": [
+          "Пути к копиям задаёт initialization parameter CONTROL_FILES.",
+          "Oracle одновременно записывает изменения во все перечисленные control files; полезно размещать копии на разных физических устройствах."
+        ],
+        "documentation_correction": [
+          "Наличие нескольких копий не означает, что database автоматически продолжит работу при любой потере одного control file: повреждение доступной конфигурации требует восстановления/перезапуска согласно конкретной ошибке."
+        ],
+        "default_defense_answer": "Control files описывают физическую структуру database и содержат checkpoint metadata. Их мультиплексируют — создают несколько синхронных копий, желательно на разных носителях, чтобы отказ одного файла не уничтожил единственный источник критической metadata."
+      },
+      "terms": [
+        "мультиплексирование control files",
+        "параметр CONTROL_FILES",
+        "метаданные контрольной точки (checkpoint metadata)"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled",
+        "recording": "s07-lecture01",
+        "time_range": "01:18:20-01:20:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "Control files содержат информацию, необходимую при запуске, и checkpoint information; несколько файлов дублируют друг друга для надёжности.",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "single_asr_not_manually_listened",
+          "text": "Это тоже имейте в виду."
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:27"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40540/physical.htm"
+      ],
+      "status": "verified_fact_with_teacher_refinement"
+    },
+    {
+      "id": "s07-b01-storage-redo-groups-members",
+      "topic": "storage",
+      "front": "Чем отличаются online redo log group и member и зачем зеркалировать members?",
+      "answer_short": "Groups используются последовательно и циклически; каждая group содержит один или несколько members — одинаковых копий одного потока redo. LGWR одновременно пишет во все members текущей group.",
+      "answer_layers": {
+        "teacher_default": "Online redo logs работают группами по циклу; несколько members внутри group являются зеркальными копиями для надёжности.",
+        "documentation_addition": [
+          "Log switch переводит LGWR на следующую group.",
+          "Multiplexing защищает от потери отдельного member; members одной group желательно размещать на разных носителях.",
+          "Три groups в созданной STUD — настройка template/лабораторной, а не универсальное обязательное число для всех databases."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "Group — логический журнал, участвующий в цикле переключений; member — физический файл-копия этой group. Зеркалирование members позволяет продолжать запись при потере одного member и повышает надёжность redo."
+      },
+      "terms": [
+        "группа оперативного журнала (online redo log group)",
+        "элемент/копия группы (redo log member)",
+        "переключение журнала (log switch)",
+        "мультиплексирование redo"
+      ],
+      "teacher_evidence": {
+        "kind": "lecture_and_current_assignment",
+        "recording": "s07-lecture01",
+        "time_range": "01:13:30-01:14:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-01_oracle-architecture_date-unknown/reconciled.md",
+        "text": "Преподаватель описывает небольшое число online redo logs, работающих по циклу; текущая лабораторная отдельно показывает три groups.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_detected",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:24",
+        "Практическое занятие 3: параметры DBCA"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/onlineredo.htm"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-admin-tools-map",
+      "topic": "administration",
+      "front": "Какой инструмент Oracle используется для установки, создания database, upgrade, сети, SQL, backup, export/import и загрузки файлов?",
+      "answer_short": "OUI — software; DBCA — database/templates; DBUA — upgrade; NetCA/Net Manager — сеть; Enterprise Manager — GUI administration; SQL*Plus — SQL/scripts; RMAN — physical backup/recovery; Data Pump — logical export/import; SQL*Loader — загрузка внешних файлов.",
+      "answer_layers": {
+        "teacher_default": "Нужно различать назначение Oracle Universal Installer, DBCA, DBUA, сетевых assistants, Enterprise Manager, SQL*Plus, RMAN, Data Pump и SQL*Loader.",
+        "documentation_addition": [
+          "OUI поддерживает GUI и silent/response-file installation, а не является только командной программой.",
+          "Oracle Secure Backup — media management прежде всего для tape/SBT вместе с RMAN.",
+          "Data Pump выполняет logical export/import; RMAN работает с physical backup/recovery."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "OUI устанавливает software; DBCA создаёт/удаляет databases и templates; DBUA обновляет database; NetCA настраивает Oracle Net; EM администрирует графически; SQL*Plus выполняет SQL/scripts; RMAN делает physical backup/recovery; Data Pump — logical export/import; SQL*Loader загружает внешние данные."
+      },
+      "terms": [
+        "Oracle Universal Installer (OUI)",
+        "Database Configuration Assistant (DBCA)",
+        "Database Upgrade Assistant (DBUA)",
+        "Oracle Net Configuration Assistant (NetCA)",
+        "Recovery Manager (RMAN)",
+        "Data Pump",
+        "SQL*Loader"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled",
+        "recording": "s07-lecture02",
+        "time_range": "00:29:30-00:41:30, 01:10:30-01:12:30",
+        "locator_status": "two_thematic_ranges_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-02_storage-installation-dbca_date-unknown/reconciled.md",
+        "text": "Преподаватель последовательно перечисляет задачи DBA и инструменты для установки, создания database, администрирования, backup/recovery и переноса данных.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_detected",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less02_Installation.pdf:2-6,10-17"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/dba.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e22490/dp_overview.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e22490/ldr_concepts.htm"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-admin-software-database-instance-actions",
+      "topic": "administration",
+      "front": "Почему установка Oracle software, создание database и запуск instance — разные операции?",
+      "answer_short": "OUI размещает программное обеспечение; DBCA/CREATE DATABASE создаёт физические файлы database; STARTUP читает параметры, создаёт instance и монтирует/открывает уже созданную database.",
+      "answer_layers": {
+        "teacher_default": "Преподаватель рекомендует сначала установить software, а database затем создать отдельно через DBCA.",
+        "documentation_addition": [
+          "Один Oracle home может обслуживать несколько databases/instances соответствующей конфигурации.",
+          "Файлы database могут существовать при остановленном instance."
+        ],
+        "documentation_correction": [
+          "Раздельная установка software и создание database — рекомендация преподавателя, а не технический запрет создавать starter database во время OUI."
+        ],
+        "default_defense_answer": "Установка software создаёт Oracle home, создание database формирует её физические файлы и metadata, а запуск instance выделяет SGA и запускает background processes для работы с этой database."
+      },
+      "terms": [
+        "установка программного обеспечения",
+        "создание базы данных",
+        "запуск экземпляра"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled_scoped_recommendation",
+        "recording": "s07-lecture02",
+        "time_range": "00:43:30-00:44:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-02_storage-installation-dbca_date-unknown/reconciled.md",
+        "text": "Преподаватель обычно устанавливает software отдельно и затем отдельно создаёт database, потому что совместный путь не всегда проходит гладко.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "recommendation_not_requirement",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less02_Installation.pdf:10-17"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/install.112/e47798/install.htm"
+      ],
+      "status": "verified_fact_with_scoped_teacher_preference"
+    },
+    {
+      "id": "s07-b01-installation-ofa-environment",
+      "topic": "installation",
+      "front": "Что означают OFA, ORACLE_BASE, ORACLE_HOME, ORACLE_SID и NLS_LANG?",
+      "answer_short": "OFA — соглашение об организации каталогов; ORACLE_BASE — корень Oracle structure; ORACLE_HOME — конкретная установка software; ORACLE_SID — локальный instance identifier; NLS_LANG — client language, territory и character set.",
+      "answer_layers": {
+        "teacher_default": "Каталоги и переменные Oracle нужно различать: base задаёт общую основу, home — конкретное software, SID — экземпляр, NLS_LANG — языковые настройки клиента.",
+        "documentation_addition": [
+          "На Windows часть Oracle configuration хранится в registry, поэтому отсутствие shell environment variable не доказывает отсутствие Oracle home.",
+          "Изменение NLS_LANG не меняет database character set.",
+          "Смена ORACLE_BASE не переносит автоматически уже созданные файлы."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "OFA стандартизует каталоги Oracle. ORACLE_BASE — базовый каталог, ORACLE_HOME — каталог конкретной установки, ORACLE_SID — локальный SID instance, NLS_LANG — настройки locale и client character set."
+      },
+      "terms": [
+        "Optimal Flexible Architecture (OFA)",
+        "ORACLE_BASE",
+        "ORACLE_HOME",
+        "ORACLE_SID",
+        "NLS_LANG"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled",
+        "recording": "s07-lecture02",
+        "time_range": "00:48:00-00:57:00",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-02_storage-installation-dbca_date-unknown/reconciled.md",
+        "text": "Преподаватель разбирает OFA и назначение основных Oracle directories/environment names.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_detected",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less02_Installation.pdf:7-9"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/install.112/e47798/ofa.htm#NTDBI008",
+        "https://docs.oracle.com/cd/E11882_01/install.112/e47798/gblsupp.htm#sthref728"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-identity-sid-global-service-alias",
+      "topic": "installation",
+      "front": "Чем отличаются SID, Global Database Name, service name и Oracle Net alias?",
+      "answer_short": "SID локально идентифицирует instance; Global Database Name обычно имеет вид DB_NAME.DB_DOMAIN; service name обозначает сетевой сервис database; Net alias — клиентское имя connect descriptor, например из tnsnames.ora.",
+      "answer_layers": {
+        "teacher_default": "В DBCA Global Database Name и SID задаются отдельными полями; сетевое имя подключения также не следует смешивать с SID.",
+        "documentation_addition": [
+          "У database может быть несколько services.",
+          "Net alias может называться так же, как service или SID, но совпадение текста не делает понятия одинаковыми."
+        ],
+        "documentation_correction": [
+          "Нельзя считать Global Database Name и SID одной и той же полной строкой только потому, что DBCA автоматически предлагает связанное значение SID."
+        ],
+        "default_defense_answer": "SID идентифицирует локальный instance; Global Database Name идентифицирует database в домене; service name публикует сервис через listener; Net alias — клиентское сокращение параметров подключения."
+      },
+      "terms": [
+        "системный идентификатор Oracle (SID)",
+        "глобальное имя базы данных (Global Database Name)",
+        "имя сервиса (service name)",
+        "сетевой псевдоним (Oracle Net alias)"
+      ],
+      "teacher_evidence": {
+        "kind": "lecture_and_dbca_slide_with_refinement",
+        "recording": "s07-lecture02",
+        "time_range": "01:12:30-01:28:00",
+        "locator_status": "broad_dbca_range",
+        "source": "transcripts/reconciled/semester-07_lecture-02_storage-installation-dbca_date-unknown/reconciled.md",
+        "text": "DBCA и слайды показывают Global Database Name и SID как разные поля; точные границы service name и alias дополнены документацией.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_detected",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less03_DB_DBCA.pdf:3-4"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/create.htm"
+      ],
+      "status": "verified_fact_with_teacher_refinement"
+    },
+    {
+      "id": "s07-b01-creation-dbca-planning",
+      "topic": "creation",
+      "front": "Что должен спланировать DBA до создания database через DBCA?",
+      "answer_short": "Имя/SID, нагрузку, память, storage и file locations, tablespaces/datafiles и рост, administrative credentials, management, recovery/archive options, character set, listener и sample schemas.",
+      "answer_layers": {
+        "teacher_default": "До DBCA нужно определить оборудование, память и диски, назначение database, tablespaces/files, размещение, типы и объём данных, безопасность, backup/recovery и сетевую конфигурацию.",
+        "documentation_addition": [
+          "File management может следовать template, задаваться явно или использовать Oracle Managed Files.",
+          "OMF управляет именованием/lifecycle файлов, но не тождествен ASM."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "Перед DBCA DBA определяет идентичность database, workload, memory, storage, tablespaces/datafiles и рост, charset, administrative accounts, listener, management и recovery settings."
+      },
+      "terms": [
+        "планирование базы данных",
+        "Oracle Managed Files (OMF)",
+        "тип нагрузки (workload)"
+      ],
+      "teacher_evidence": {
+        "kind": "dual_asr_reconciled",
+        "recording": "s07-lecture02",
+        "time_range": "00:31:30-00:35:30, 01:12:30-01:28:00",
+        "locator_status": "two_thematic_ranges_approx_30s",
+        "source": "transcripts/reconciled/semester-07_lecture-02_storage-installation-dbca_date-unknown/reconciled.md",
+        "text": "Преподаватель перечисляет выбор hardware, memory, disks, tablespaces, files, размещения, типов данных, security и recovery strategy до создания database.",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "single_asr_not_manually_listened",
+          "text": "Планирование перед созданием database названо принципиальной задачей DBA."
+        }
+      },
+      "slides": [
+        "Less03_DB_DBCA.pdf:1-13"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/create.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/omf.htm"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-creation-current-lab-dbca-values",
+      "topic": "creation",
+      "front": "Какие значения DBCA важны именно для текущей учебной database STUD?",
+      "answer_short": "Template General Purpose or Transaction Processing; database/SID — по заданию STUD; два control files; три redo log groups; db_block_size 8 KB; Sample Schemas включены; charset фиксируется по фактическому экрану DBCA.",
+      "answer_layers": {
+        "teacher_default": "В учебном сценарии создать STUD через General Purpose or Transaction Processing, использовать Enterprise Manager и включить Sample Schemas; остальные значения зафиксировать из template/summary.",
+        "documentation_addition": [
+          "Sample Schemas технически optional, но обязательны для этой лабораторной.",
+          "Два control files и три redo groups — результат выбранного template/настройки, а не универсальные константы Oracle.",
+          "Character set нельзя угадывать: записывается фактическое default value конкретной DBCA/configuration."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "Для STUD выбран template General Purpose or Transaction Processing, включены Sample Schemas; template создаёт два control files и три redo groups, db_block_size равен 8 KB, а charset берётся из фактических параметров DBCA."
+      },
+      "terms": [
+        "General Purpose or Transaction Processing",
+        "Sample Schemas",
+        "DB_BLOCK_SIZE",
+        "Database Character Set"
+      ],
+      "teacher_evidence": {
+        "kind": "explicit_current_assignment_plus_lecture",
+        "recording": "s07-lecture02",
+        "time_range": "01:23:00-01:24:30, 01:27:30-01:28:00",
+        "locator_status": "two_thematic_ranges_approx_30s",
+        "source": "current assignment Practical Topic 3 and reconciled lecture02",
+        "text": "Лекция явно просит использовать Enterprise Manager и включить Sample Schemas; числа control files/redo groups и block size подтверждены экраном выбранного DBCA template.",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "assignment_requirement",
+          "text": "Использовать заданный template и ответить по его фактическим параметрам."
+        }
+      },
+      "slides": [
+        "Практическое занятие 3: пункт 2",
+        "Less03_DB_DBCA.pdf:3-13"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/create.htm#sthref333"
+      ],
+      "status": "assignment_scoped_verified"
+    },
+    {
+      "id": "s07-b01-instance-startup-stages",
+      "topic": "instance",
+      "front": "Что происходит на стадиях STARTUP NOMOUNT, MOUNT и OPEN?",
+      "answer_short": "NOMOUNT читает PFILE/SPFILE, создаёт SGA и background processes; MOUNT открывает control files и связывает instance с database; OPEN открывает datafiles и online redo logs и при необходимости выполняет recovery.",
+      "answer_layers": {
+        "teacher_default": "При NOMOUNT существует instance; при MOUNT прочитаны control files; при OPEN database доступна для обычной работы с данными.",
+        "documentation_addition": [
+          "На NOMOUNT параметр CONTROL_FILES сообщает пути к control files.",
+          "На MOUNT из control files известны datafiles, online redo logs и checkpoint metadata.",
+          "OPEN включает проверку согласованности файлов и автоматическое instance recovery после некорректного shutdown."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "NOMOUNT создаёт instance из parameter file; MOUNT открывает control files и ассоциирует instance с database; OPEN открывает datafiles/online redo logs и делает database доступной."
+      },
+      "terms": [
+        "NOMOUNT",
+        "MOUNT",
+        "OPEN"
+      ],
+      "teacher_evidence": {
+        "kind": "current_assignment_and_documentation",
+        "recording": null,
+        "time_range": null,
+        "locator_status": "no_verified_spoken_locator_in_current_two-lecture_scope",
+        "source": "Practical Topic 4 plus Oracle 11.2 documentation",
+        "text": "Три стадии используются в текущем задании и alert log; подробное техническое содержание дополнено документацией.",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "assignment_question",
+          "text": "Задание отдельно спрашивает, какие фазы проходит database при запуске."
+        }
+      },
+      "slides": [
+        "Практическое занятие 4: пункты 4-5"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/start.htm"
+      ],
+      "status": "verified_fact_without_spoken_locator"
+    },
+    {
+      "id": "s07-b01-instance-shutdown-modes",
+      "topic": "instance",
+      "front": "Чем отличаются SHUTDOWN NORMAL, TRANSACTIONAL, IMMEDIATE и ABORT?",
+      "answer_short": "NORMAL ждёт отключения users; TRANSACTIONAL ждёт завершения transactions; IMMEDIATE завершает sessions и откатывает незавершённое; ABORT прекращает instance немедленно и требует instance recovery при следующем startup.",
+      "answer_layers": {
+        "teacher_default": "Для штатной быстрой остановки в лабораторной используется SHUTDOWN IMMEDIATE; аварийный ABORT не выполняет согласованное закрытие.",
+        "documentation_addition": [
+          "После NORMAL, TRANSACTIONAL и IMMEDIATE следующему startup не требуется instance recovery из-за самого shutdown.",
+          "ABORT не откатывает transactions и не закрывает files согласованно до завершения instance."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "NORMAL ждёт users; TRANSACTIONAL — transactions, затем sessions; IMMEDIATE завершает sessions и делает rollback; ABORT останавливает немедленно, поэтому затем требуется automatic instance recovery."
+      },
+      "terms": [
+        "SHUTDOWN NORMAL",
+        "SHUTDOWN TRANSACTIONAL",
+        "SHUTDOWN IMMEDIATE",
+        "SHUTDOWN ABORT"
+      ],
+      "teacher_evidence": {
+        "kind": "assignment_operation_plus_documentation",
+        "recording": null,
+        "time_range": null,
+        "locator_status": "no_verified_spoken_locator_in_current_two-lecture_scope",
+        "source": "Practical Topic 4 and Oracle 11.2 documentation",
+        "text": "Практика требует остановить и снова запустить instance; сравнение всех shutdown modes является документальным дополнением.",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "assignment_operation",
+          "text": "Нужно знать SQL-команду остановки instance."
+        }
+      },
+      "slides": [
+        "Практическое занятие 4: пункты 3-4"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/start.htm"
+      ],
+      "status": "verified_fact_without_spoken_locator"
+    },
+    {
+      "id": "s07-b01-security-sqlplus-admin-connect",
+      "topic": "security",
+      "front": "Как связаны SQL*Plus /NOLOG, CONNECT, SYSDBA, OS authentication и password file?",
+      "answer_short": "sqlplus /nolog запускает клиент без connection; CONNECT создаёт подключение. CONNECT / AS SYSDBA использует OS authentication, а сетевой CONNECT SYS@alias AS SYSDBA — password-file authentication при соответствующей настройке.",
+      "answer_layers": {
+        "teacher_default": "Сначала можно открыть SQL*Plus без подключения, затем явно подключиться как SYS с administrative privilege SYSDBA.",
+        "documentation_addition": [
+          "Документированное сокращение команды — CONN[ECT].",
+          "Password file хранит административную authentication information, а не пароли всех обычных accounts.",
+          "Без @alias цель локального подключения определяется environment/configuration."
+        ],
+        "documentation_correction": [
+          "SID, database name и connect identifier нельзя использовать как взаимозаменяемые термины.",
+          "Пароль OS account и пароль Oracle database user — разные credentials."
+        ],
+        "default_defense_answer": "NOLOG запускает SQL*Plus без соединения; CONNECT устанавливает его. Local / AS SYSDBA использует OS authentication, а remote SYS@alias AS SYSDBA обычно требует password file и пароль SYS."
+      },
+      "terms": [
+        "SQL*Plus /NOLOG",
+        "CONNECT/CONN",
+        "SYSDBA",
+        "аутентификация ОС (OS authentication)",
+        "файл паролей (password file)"
+      ],
+      "teacher_evidence": {
+        "kind": "practice_reconciled_with_documented_command_correction",
+        "recording": "s07-extra-vm-setup",
+        "time_range": "00:18:00-00:29:30, 00:33:00-00:46:00",
+        "locator_status": "practice_source_not_main_lecture",
+        "source": "transcripts/reconciled/semester-07_extra_vm-setup_2026-09-07/reconciled.md",
+        "text": "Практика показывает запуск SQL*Plus без connection и последующий administrative login; устное CON уточнено до документированного CONN[ECT].",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "practice_action",
+          "text": "Административное подключение требуется для управления instance."
+        }
+      },
+      "slides": [
+        "Less01_DBA1.pdf:27"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e16604/ch_three.htm#sthref141",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e16604/ch_twelve015.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/dba.htm#ADMIN11046"
+      ],
+      "status": "verified_fact_with_teacher_refinement"
+    },
+    {
+      "id": "s07-b01-windows-services-components",
+      "topic": "administration",
+      "front": "Чем отличаются OracleService<SID>, Oracle Net Listener и Enterprise Manager Database Control на Windows?",
+      "answer_short": "OracleService<SID> связана с instance; listener принимает сетевые подключения; Database Control — отдельный web-management component. Их состояния и порты независимы.",
+      "answer_layers": {
+        "teacher_default": "В Windows отдельно существуют служба instance, listener и Enterprise Manager; их нужно уметь находить и проверять.",
+        "documentation_addition": [
+          "Running OracleService<SID> само по себе не доказывает, что database находится в OPEN.",
+          "Остановка listener мешает новым сетевым подключениям, но не равнозначна shutdown database и обычно не рвёт уже установленные dedicated connections.",
+          "Недоступность Database Control не означает недоступность database."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "Это три разных компонента: Windows service управляет instance, listener маршрутизирует новые network connections, Database Control предоставляет web-интерфейс администрирования. Проверять их надо отдельно."
+      },
+      "terms": [
+        "OracleService<SID>",
+        "Oracle Net Listener",
+        "Enterprise Manager Database Control"
+      ],
+      "teacher_evidence": {
+        "kind": "lecture_and_practice_reconciled",
+        "recording": "s07-lecture02 and s07-extra-vm-setup",
+        "time_range": "lecture 01:07:30-01:09:30; practice 00:46:00-00:52:30",
+        "locator_status": "two_sources",
+        "source": "lecture02 and VM practice reconciled transcripts",
+        "text": "Преподаватель показывает Database Control для одной database и отдельно Windows services instance/listener/EM.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_detected",
+          "text": ""
+        }
+      },
+      "slides": [
+        "Less03_DB_DBCA.pdf:7,10",
+        "Less02_Installation.pdf:14"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/win.112/e10845/admin.htm#NTQRF199"
+      ],
+      "status": "verified_fact"
+    },
+    {
+      "id": "s07-b01-em-url-discovery",
+      "topic": "administration",
+      "front": "Как надёжно определить URL и порт Enterprise Manager Database Control?",
+      "answer_short": "В Oracle home выполнить emctl status dbconsole и взять отображённый URL. Порт Database Control не следует угадывать и нельзя путать с listener port 1521.",
+      "answer_layers": {
+        "teacher_default": "Подключиться к Enterprise Manager по URL, записанному при создании database; listener и EM используют разные endpoints.",
+        "documentation_addition": [
+          "Команда emctl status dbconsole показывает status и настроенный URL конкретного Database Control.",
+          "Если URL отсутствует в DBCA summary, источником истины остаётся установленная configuration, а не типовой порт из примера."
+        ],
+        "documentation_correction": [],
+        "default_defense_answer": "URL Database Control определяется из фактической configuration командой emctl status dbconsole. Listener port и EM HTTPS port — разные значения."
+      },
+      "terms": [
+        "emctl status dbconsole",
+        "Database Control URL",
+        "listener port"
+      ],
+      "teacher_evidence": {
+        "kind": "explicit_assignment_plus_documentation",
+        "recording": "s07-lecture02",
+        "time_range": "01:07:30-01:09:30",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "Practical Topic 4 and lecture02 reconciled transcript",
+        "text": "Задание требует использовать URL, записанный при создании database; команда emctl status dbconsole — документальный способ восстановить фактическое значение.",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "assignment_prerequisite",
+          "text": "Подключиться к Enterprise Manager по фактическому URL."
+        }
+      },
+      "slides": [
+        "Практическое занятие 4: пункт 1"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/dbcontrol.htm#ADMIN13419"
+      ],
+      "status": "verified_fact"
+    }
+  ]
+}

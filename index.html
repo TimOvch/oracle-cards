@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#091624">
+  <title>Oracle 11g — карточки первого блока</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="cards.css?v=20260920-1">
+  <script defer src="cards.js?v=20260920-1"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Карточки Oracle — начало">
+      <span class="brand-mark" aria-hidden="true">OR</span>
+      <span><b>Oracle 11g</b><small>первый блок · семестр 7</small></span>
+    </a>
+    <nav class="mode-nav" aria-label="Режим обучения">
+      <span aria-current="page">Карточки</span>
+    </nav>
+  </header>
+
+  <main class="app-shell">
+    <section class="study-heading" aria-labelledby="page-title">
+      <div>
+        <p class="kicker">ТЕОРИЯ · С ДОКАЗАТЕЛЬНЫМИ СЛОЯМИ</p>
+        <h1 id="page-title">Карточки первого блока</h1>
+        <p class="intro">Сначала сформулируй ответ сам. После раскрытия сравни его с коротким ответом для защиты и отдельно проверь, что именно добавлено документацией.</p>
+      </div>
+      <div class="progress-panel" aria-label="Общий прогресс">
+        <div class="progress-copy"><span id="progress-label">0 из 0 изучено</span><b id="progress-percent">0%</b></div>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+        <div class="progress-stats">
+          <span><i class="dot known"></i><b id="known-count">0</b> знаю</span>
+          <span><i class="dot review"></i><b id="review-count">0</b> повторить</span>
+          <button id="reset-progress" class="text-button" type="button">Сбросить</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="toolbar" aria-label="Фильтры карточек">
+      <label>Тема
+        <select id="topic-filter"><option value="all">Все темы</option></select>
+      </label>
+      <label>Источник и акцент
+        <select id="source-filter">
+          <option value="all">Все карточки</option>
+          <option value="important">Отмечено преподавателем</option>
+          <option value="conflict">Есть исправление по документации</option>
+          <option value="documentation">Есть дополнение из документации</option>
+          <option value="review">Помечено «повторить»</option>
+          <option value="unseen">Ещё без оценки</option>
+        </select>
+      </label>
+      <button id="shuffle" class="control-button" type="button" aria-pressed="false">
+        <span aria-hidden="true">↝</span> Перемешать
+      </button>
+    </section>
+
+    <div id="startup-error" class="notice error" role="alert" hidden>
+      <b>Карточки не загрузились.</b>
+      <span>Запусти локальный учебник или проверь, что рядом находится <code>cards-data.json</code>.</span>
+      <button id="retry" class="control-button" type="button">Повторить</button>
+    </div>
+
+    <section id="study-area" class="study-area" aria-live="polite" aria-busy="true">
+      <div id="deck-meta" class="deck-meta">
+        <div id="card-badges" class="badges" aria-label="Метки карточки"></div>
+        <span id="card-counter" class="counter">— / —</span>
+      </div>
+
+      <article id="flashcard" class="flashcard" aria-labelledby="question" tabindex="0">
+        <div class="card-face question-face">
+          <p class="face-label">ВОПРОС</p>
+          <h2 id="question">Загрузка карточек…</h2>
+          <p id="thinking-prompt" class="thinking-prompt">Сформулируй определение, состав и механизм своими словами.</p>
+          <button id="reveal" class="reveal-button" type="button">Показать ответ <kbd>Space</kbd></button>
+        </div>
+
+        <div id="answer" class="answer-face" hidden>
+          <section class="defense-answer" aria-labelledby="defense-title">
+            <p class="face-label">ОТВЕТ ПО УМОЛЧАНИЮ НА ЗАЩИТЕ</p>
+            <h3 id="defense-title" class="visually-hidden">Ответ по умолчанию на защите</h3>
+            <p id="defense-text"></p>
+          </section>
+
+          <section id="deep-section" class="answer-section" hidden>
+            <h3>Связь и механизм</h3>
+            <p id="deep-text"></p>
+          </section>
+
+          <section id="teacher-section" class="answer-section teacher-layer" hidden>
+            <div class="section-heading">
+              <h3>Как это давал преподаватель</h3>
+              <span id="teacher-locator" class="locator"></span>
+            </div>
+            <p id="teacher-default" class="teacher-default"></p>
+            <p id="importance-note" class="importance-note" hidden></p>
+            <details id="transcript-details">
+              <summary>Обработанный фрагмент транскрипции</summary>
+              <blockquote id="teacher-excerpt"></blockquote>
+              <p id="locator-note" class="source-note"></p>
+              <p id="transcript-source" class="source-note source-path"></p>
+            </details>
+          </section>
+
+          <section id="correction-section" class="answer-section correction-layer" hidden>
+            <h3><span aria-hidden="true">!</span> Обязательное техническое исправление</h3>
+            <ul id="correction-list"></ul>
+          </section>
+
+          <section id="addition-section" class="answer-section documentation-layer" hidden>
+            <h3>Дополнение из документации</h3>
+            <p class="source-note">Не добавляй это в ответ по умолчанию, если преподаватель не просит раскрыть тему глубже.</p>
+            <ul id="addition-list"></ul>
+          </section>
+
+          <details id="terms-details" class="support-details" hidden>
+            <summary>Термины и русские названия</summary>
+            <div id="terms" class="term-list"></div>
+          </details>
+
+          <details id="sources-details" class="support-details">
+            <summary>Источники и доказательства</summary>
+            <div class="sources-grid">
+              <div><b>Слайды</b><ul id="slides-list"></ul></div>
+              <div><b>Oracle 11.2</b><ul id="docs-list"></ul></div>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <div id="empty-state" class="empty-state" hidden>
+        <span aria-hidden="true">∅</span>
+        <h2>В этом фильтре карточек нет</h2>
+        <p>Выбери другую тему или источник.</p>
+        <button id="clear-filters" class="control-button" type="button">Показать все</button>
+      </div>
+
+      <div id="navigation-row" class="navigation-row">
+        <button id="previous" class="nav-button" type="button">← Назад</button>
+        <p class="keyboard-hint"><kbd>←</kbd><kbd>→</kbd> навигация · <kbd>1</kbd> повторить · <kbd>2</kbd> знаю</p>
+        <button id="next" class="nav-button" type="button">Далее →</button>
+      </div>
+
+      <div id="rating-row" class="rating-row" hidden>
+        <button id="mark-review" class="rating-button review" type="button"><span aria-hidden="true">↺</span><span><b>Повторить</b><small>клавиша 1</small></span></button>
+        <button id="mark-known" class="rating-button known" type="button"><span aria-hidden="true">✓</span><span><b>Знаю</b><small>клавиша 2</small></span></button>
+      </div>
+    </section>
+
+    <p id="storage-note" class="storage-note" role="status">Оценки хранятся только в этом браузере. Текст карточек не изменяется.</p>
+  </main>
+
+  <dialog id="reset-dialog" aria-labelledby="reset-title">
+    <h2 id="reset-title">Сбросить весь прогресс?</h2>
+    <p>Метки «знаю» и «повторить» будут удалены из этого браузера. Сами карточки останутся.</p>
+    <div class="dialog-actions">
+      <button id="cancel-reset" class="control-button" type="button">Отмена</button>
+      <button id="confirm-reset" class="control-button danger" type="button">Сбросить</button>
+    </div>
+  </dialog>
+
+  <noscript><p class="notice error">Для режима карточек нужен JavaScript.</p></noscript>
+</body>
+</html>
