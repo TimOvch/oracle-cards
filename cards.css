@@ -59,7 +59,7 @@ h1 { max-width: 13ch; margin-bottom: .7rem; font: 600 clamp(2.1rem, 4vw, 4rem)/.
 .dot.review { background: var(--amber); }
 .text-button { margin-left: auto; padding: 0; border: 0; background: transparent; color: var(--muted); font-size: .8rem; text-decoration: underline; text-underline-offset: .2rem; }
 
-.toolbar { display: grid; grid-template-columns: minmax(13rem, 1fr) minmax(16rem, 1.2fr) auto; gap: .8rem; align-items: end; margin-bottom: 1.25rem; }
+.toolbar { display: grid; grid-template-columns: minmax(12rem, 1fr) minmax(10rem, .8fr) minmax(14rem, 1.1fr) auto; gap: .8rem; align-items: end; margin-bottom: 1.25rem; }
 .toolbar label { display: grid; gap: .35rem; color: var(--muted); font: 650 .72rem ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .06em; text-transform: uppercase; }
 select, .control-button, .nav-button { min-height: 2.85rem; border: 1px solid var(--line); border-radius: 0; background: var(--panel); color: var(--ink); }
 select { width: 100%; padding: .55rem 2.2rem .55rem .8rem; }
@@ -106,6 +106,8 @@ select { width: 100%; padding: .55rem 2.2rem .55rem .8rem; }
 .answer-section li { margin: .45rem 0; }
 .source-note { color: #64707d; font-size: .84rem; }
 .source-path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
+.oral-scope-note { margin: 0; padding: 1rem clamp(1.6rem, 5vw, 4.6rem); border-top: 1px solid #d9d0c0; background: #e9edf0; color: #485968; font-size: .88rem; }
+#deep-text, #teacher-excerpt { white-space: pre-line; }
 details { color: inherit; }
 details summary { list-style-position: outside; }
 blockquote { margin: 1rem 0 .4rem; padding-left: 1rem; border-left: 2px solid #74899d; color: #3d4b59; }

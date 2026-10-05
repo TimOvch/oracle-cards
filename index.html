@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#091624">
-  <title>Oracle 11g — карточки первого блока</title>
+  <title>Oracle 11g — учебные карточки</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="cards.css?v=20260920-1">
-  <script defer src="cards.js?v=20260920-1"></script>
+  <link rel="stylesheet" href="cards.css?v=20261005-1">
+  <script defer src="cards.js?v=20261005-1"></script>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="index.html" aria-label="Карточки Oracle — начало">
       <span class="brand-mark" aria-hidden="true">OR</span>
-      <span><b>Oracle 11g</b><small>первый блок · семестр 7</small></span>
+      <span><b>Oracle 11g</b><small>блоки 1 и 2 · семестр 7</small></span>
     </a>
     <nav class="mode-nav" aria-label="Режим обучения">
       <span aria-current="page">Карточки</span>
@@ -25,7 +25,7 @@
     <section class="study-heading" aria-labelledby="page-title">
       <div>
         <p class="kicker">ТЕОРИЯ · С ДОКАЗАТЕЛЬНЫМИ СЛОЯМИ</p>
-        <h1 id="page-title">Карточки первого блока</h1>
+        <h1 id="page-title">Карточки второго блока</h1>
         <p class="intro">Сначала сформулируй ответ сам. После раскрытия сравни его с коротким ответом для защиты и отдельно проверь, что именно добавлено документацией.</p>
       </div>
       <div class="progress-panel" aria-label="Общий прогресс">
@@ -40,6 +40,9 @@
     </section>
 
     <section class="toolbar" aria-label="Фильтры карточек">
+      <label>Блок
+        <select id="block-filter"><option value="2">Блок 2 · лекции 5–7</option></select>
+      </label>
       <label>Тема
         <select id="topic-filter"><option value="all">Все темы</option></select>
       </label>
@@ -89,6 +92,8 @@
             <h3>Связь и механизм</h3>
             <p id="deep-text"></p>
           </section>
+
+          <p id="oral-scope-note" class="oral-scope-note" hidden>Этот пункт объяснён по слайдам и документации. Устный разбор в доступной записи не установлен.</p>
 
           <section id="teacher-section" class="answer-section teacher-layer" hidden>
             <div class="section-heading">
