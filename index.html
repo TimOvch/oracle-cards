@@ -7,14 +7,14 @@
   <meta name="theme-color" content="#091624">
   <title>Oracle 11g — учебные карточки</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="cards.css?v=20261005-1">
-  <script defer src="cards.js?v=20261005-1"></script>
+  <link rel="stylesheet" href="cards.css?v=20261018-1">
+  <script defer src="cards.js?v=20261018-1"></script>
 </head>
 <body>
   <header class="topbar">
     <a class="brand" href="index.html" aria-label="Карточки Oracle — начало">
       <span class="brand-mark" aria-hidden="true">OR</span>
-      <span><b>Oracle 11g</b><small>блоки 1 и 2 · семестр 7</small></span>
+      <span><b>Oracle 11g</b><small>блоки 1–3 · семестр 7</small></span>
     </a>
     <nav class="mode-nav" aria-label="Режим обучения">
       <span aria-current="page">Карточки</span>
@@ -24,9 +24,9 @@
   <main class="app-shell">
     <section class="study-heading" aria-labelledby="page-title">
       <div>
-        <p class="kicker">ТЕОРИЯ · С ДОКАЗАТЕЛЬНЫМИ СЛОЯМИ</p>
-        <h1 id="page-title">Карточки второго блока</h1>
-        <p class="intro">Сначала сформулируй ответ сам. После раскрытия сравни его с коротким ответом для защиты и отдельно проверь, что именно добавлено документацией.</p>
+        <p class="kicker">ОСНОВА КУРСА · ORACLE 11.2</p>
+        <h1 id="page-title">Фундамент Oracle</h1>
+        <p class="intro">Повтори основные понятия и связи. Для подробностей выбери «Углубление»; в ответах отдельно доступны пояснения, слова преподавателя и источники.</p>
       </div>
       <div class="progress-panel" aria-label="Общий прогресс">
         <div class="progress-copy"><span id="progress-label">0 из 0 изучено</span><b id="progress-percent">0%</b></div>
@@ -40,8 +40,15 @@
     </section>
 
     <section class="toolbar" aria-label="Фильтры карточек">
+      <label>Уровень
+        <select id="level-filter">
+          <option value="foundation">Фундамент</option>
+          <option value="advanced">Углубление</option>
+          <option value="all">Все</option>
+        </select>
+      </label>
       <label>Блок
-        <select id="block-filter"><option value="2">Блок 2 · лекции 5–7</option></select>
+        <select id="block-filter"><option value="all">Все блоки</option></select>
       </label>
       <label>Тема
         <select id="topic-filter"><option value="all">Все темы</option></select>
@@ -139,7 +146,7 @@
       <div id="empty-state" class="empty-state" hidden>
         <span aria-hidden="true">∅</span>
         <h2>В этом фильтре карточек нет</h2>
-        <p>Выбери другую тему или источник.</p>
+        <p>Выбери другой уровень, блок, тему или источник.</p>
         <button id="clear-filters" class="control-button" type="button">Показать все</button>
       </div>
 

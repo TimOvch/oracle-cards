@@ -13,6 +13,9 @@ const TOPICS = {
   security: 'Безопасность',
   network: 'Сеть Oracle',
   users: 'Пользователи и безопасность',
+  'schema-objects': 'Объекты схемы и индексы',
+  'data-concurrency': 'Транзакции и блокировки',
+  undo: 'Undo и Flashback',
 };
 const LOCATORS = {
   thematic_range_approx_30s: 'тематический диапазон · ±30 с',
@@ -24,9 +27,13 @@ const IMPORTANCE_STATUS = {
   agreed_by_both_asr_not_manually_listened: 'обнаружено обеими ASR-моделями; вручную не прослушано',
   manually_verified: 'проверено по записи вручную',
   not_detected: 'явный маркер не обнаружен',
+  reconciled_not_manually_audio_verified: 'по обработанной записи; дословность по аудио не проверена',
+  assignment_requirement: 'требование конкретного задания',
+  not_established: 'не установлено',
 };
 
 let cards = [];
+let decks = [];
 let visible = [];
 let cursor = 0;
 let revealed = false;
@@ -67,7 +74,7 @@ function layers(card) {
   const source = card.answer_layers || {};
   return {
     defense: source.default_defense_answer || card.answer_short || '',
-    teacher: source.teacher_default || card.answer_short || '',
+    teacher: source.teacher_default || '',
     additions: list(source.documentation_addition || card.teacher_evidence?.documentation_clarification),
     corrections: list(source.documentation_correction),
   };
@@ -112,12 +119,36 @@ function matchesSource(card, filter) {
   return true;
 }
 
+function matchesDeck(card) {
+  const block = $('block-filter').value;
+  const level = $('level-filter').value;
+  return (block === 'all' || String(card.block) === block)
+    && (level === 'all' || card.level === level);
+}
+
+function updateHeading() {
+  const level = { foundation: 'Фундамент', advanced: 'Углубление', all: 'Все карточки' }[$('level-filter').value];
+  const block = $('block-filter').value;
+  setText('page-title', block === 'all' ? `${level} Oracle` : `Блок ${block} · ${level.toLowerCase()}`);
+}
+
+function populateBlocks() {
+  const selected = $('block-filter').value || 'all';
+  const level = $('level-filter').value;
+  const subset = cards.filter(card => level === 'all' || card.level === level);
+  $('block-filter').replaceChildren(new Option(`Все блоки · ${subset.length}`, 'all'));
+  for (const deck of decks) {
+    const count = subset.filter(card => card.block === deck.block).length;
+    $('block-filter').append(new Option(`${deck.label} · ${count}`, String(deck.block)));
+  }
+  $('block-filter').value = selected;
+}
+
 function rebuildVisible({ preserveId = true } = {}) {
   const previousId = preserveId ? currentCard()?.id : null;
   const topic = $('topic-filter').value;
   const source = $('source-filter').value;
-  const block = $('block-filter').value;
-  visible = cards.filter(card => (block === 'all' || String(card.block) === block)
+  visible = cards.filter(card => matchesDeck(card)
     && (topic === 'all' || card.topic === topic) && matchesSource(card, source));
   if (shuffled) visible = shuffle(visible);
   const previousIndex = previousId ? visible.findIndex(card => card.id === previousId) : -1;
@@ -158,6 +189,7 @@ function locatorText(evidence) {
 function renderBadges(card) {
   const root = $('card-badges');
   root.replaceChildren(badge(topicLabel(card.topic)));
+  root.append(badge(card.level === 'advanced' ? 'углубление' : 'фундамент'));
   if (importance(card)) root.append(badge('важно по лекции', 'important'));
   if (hasConflict(card)) root.append(badge('есть исправление', 'correction'));
   const state = progress.cards[card.id]?.status;
@@ -172,10 +204,12 @@ function renderAnswer(card) {
   $('deep-section').hidden = !card.answer_deep || card.answer_deep === answer.defense;
 
   const evidence = card.teacher_evidence;
-  const slideOnly = evidence?.kind === 'slide_and_documentation_only';
-  const showTeacher = !slideOnly && Boolean(answer.teacher || evidence?.text);
+  const showTeacher = Boolean(evidence?.text);
   $('teacher-section').hidden = !showTeacher;
-  $('oral-scope-note').hidden = !slideOnly;
+  $('oral-scope-note').hidden = showTeacher;
+  setText('oral-scope-note', evidence?.kind === 'slide_and_documentation_only'
+    ? 'Объяснение по слайдам и документации; устный фрагмент не привязан.'
+    : 'Объяснение по документации; отдельная формулировка преподавателя не установлена.');
   setText('teacher-default', answer.teacher);
   setText('teacher-excerpt', evidence?.text || 'Для этой карточки обработанный фрагмент пока не привязан.');
   setText('teacher-locator', locatorText(evidence));
@@ -227,8 +261,7 @@ function renderAnswer(card) {
 }
 
 function renderProgress() {
-  const block = $('block-filter').value;
-  const deck = cards.filter(card => block === 'all' || String(card.block) === block);
+  const deck = visible;
   const values = deck.map(card => progress.cards[card.id]?.status);
   const known = values.filter(value => value === 'known').length;
   const review = values.filter(value => value === 'review').length;
@@ -284,7 +317,7 @@ function mark(status) {
   if (!card || !revealed) return;
   progress.cards[card.id] = { status, updatedAt: new Date().toISOString() };
   saveProgress();
-  if (visible.length === 1 && ['review', 'unseen'].includes($('source-filter').value)) {
+  if (['review', 'unseen'].includes($('source-filter').value)) {
     rebuildVisible({ preserveId: false });
   } else {
     move(1);
@@ -293,9 +326,8 @@ function mark(status) {
 
 function populateTopics() {
   const counts = new Map();
-  const block = $('block-filter').value;
   $('topic-filter').replaceChildren(new Option('Все темы', 'all'));
-  for (const card of cards.filter(card => block === 'all' || String(card.block) === block)) {
+  for (const card of cards.filter(matchesDeck)) {
     counts.set(card.topic, (counts.get(card.topic) || 0) + 1);
   }
   for (const topic of Object.keys(TOPICS).filter(key => counts.has(key))) {
@@ -308,9 +340,14 @@ function populateTopics() {
 
 function bindEvents() {
   $('block-filter').addEventListener('change', () => {
-    const block = $('block-filter').value;
-    setText('page-title', block === 'all' ? 'Учебные карточки' : block === '2' ? 'Карточки второго блока' : 'Карточки первого блока');
+    updateHeading();
     populateTopics();
+    rebuildVisible({ preserveId: false });
+  });
+  $('level-filter').addEventListener('change', () => {
+    populateBlocks();
+    populateTopics();
+    updateHeading();
     rebuildVisible({ preserveId: false });
   });
   $('topic-filter').addEventListener('change', () => rebuildVisible({ preserveId: false }));
@@ -330,6 +367,11 @@ function bindEvents() {
   $('mark-review').addEventListener('click', () => mark('review'));
   $('mark-known').addEventListener('click', () => mark('known'));
   $('clear-filters').addEventListener('click', () => {
+    $('block-filter').value = 'all';
+    $('level-filter').value = 'all';
+    populateBlocks();
+    populateTopics();
+    updateHeading();
     $('topic-filter').value = 'all';
     $('source-filter').value = 'all';
     rebuildVisible({ preserveId: false });
@@ -366,15 +408,16 @@ async function load() {
     const identifiers = new Set(data.cards.map(card => card.id));
     if (identifiers.size !== data.cards.length) throw new Error('Повторяющиеся идентификаторы карточек');
     cards = data.cards;
-    $('block-filter').replaceChildren(new Option('Все блоки', 'all'));
-    for (const deck of data.decks || []) {
-      $('block-filter').append(new Option(`${deck.label} · ${deck.count}`, String(deck.block)));
-    }
-    const requested = new URLSearchParams(location.search).get('block');
+    decks = data.decks || [];
+    const params = new URLSearchParams(location.search);
+    const level = params.get('level') || data.scope?.default_level;
+    $('level-filter').value = ['foundation', 'advanced', 'all'].includes(level) ? level : 'foundation';
+    populateBlocks();
+    const requested = params.get('block');
     const selected = requested && [...$('block-filter').options].some(option => option.value === requested)
-      ? requested : String(data.scope?.default_block || 2);
+      ? requested : String(data.scope?.default_block || 'all');
     $('block-filter').value = selected;
-    setText('page-title', selected === 'all' ? 'Учебные карточки' : selected === '2' ? 'Карточки второго блока' : 'Карточки первого блока');
+    updateHeading();
     populateTopics();
     rebuildVisible({ preserveId: false });
   } catch (error) {
