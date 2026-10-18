@@ -39,8 +39,11 @@ let cursor = 0;
 let revealed = false;
 let shuffled = false;
 let progress = loadProgress();
+let chapterFilter = '';
+let sectionFilter = '';
 
 function loadProgress() {
+  if (typeof OracleStudy !== 'undefined') return OracleStudy.loadProgress();
   try {
     const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
     return value && typeof value === 'object' && value.cards && typeof value.cards === 'object'
@@ -123,7 +126,12 @@ function matchesDeck(card) {
   const block = $('block-filter').value;
   const level = $('level-filter').value;
   return (block === 'all' || String(card.block) === block)
-    && (level === 'all' || card.level === level);
+    && (level === 'all' || card.level === level) && matchesReading(card);
+}
+
+function matchesReading(card) {
+  return (!chapterFilter || card.reading?.chapter === chapterFilter)
+    && (!sectionFilter || card.reading?.section === sectionFilter);
 }
 
 function updateHeading() {
@@ -135,7 +143,7 @@ function updateHeading() {
 function populateBlocks() {
   const selected = $('block-filter').value || 'all';
   const level = $('level-filter').value;
-  const subset = cards.filter(card => level === 'all' || card.level === level);
+  const subset = cards.filter(card => (level === 'all' || card.level === level) && matchesReading(card));
   $('block-filter').replaceChildren(new Option(`Все блоки · ${subset.length}`, 'all'));
   for (const deck of decks) {
     const count = subset.filter(card => card.block === deck.block).length;
@@ -288,6 +296,8 @@ function render() {
   renderBadges(card);
   setText('card-counter', `${cursor + 1} / ${visible.length}`);
   setText('question', card.front);
+  $('reading-link').hidden = !card.reading;
+  if (card.reading) $('reading-link').href = `index.html#/read/${card.reading.chapter}/${card.reading.section}`;
   $('answer').hidden = !revealed;
   $('reveal').hidden = revealed;
   $('thinking-prompt').hidden = revealed;
@@ -315,7 +325,13 @@ function move(offset) {
 function mark(status) {
   const card = currentCard();
   if (!card || !revealed) return;
-  progress.cards[card.id] = { status, updatedAt: new Date().toISOString() };
+  try {
+    if (typeof OracleStudy !== 'undefined') progress = OracleStudy.mark(card.id, status);
+    else progress.cards[card.id] = { status, updatedAt: new Date().toISOString() };
+  } catch {
+    $('storage-note').textContent = 'Браузер запретил сохранение оценки.';
+    return;
+  }
   saveProgress();
   if (['review', 'unseen'].includes($('source-filter').value)) {
     rebuildVisible({ preserveId: false });
@@ -367,6 +383,9 @@ function bindEvents() {
   $('mark-review').addEventListener('click', () => mark('review'));
   $('mark-known').addEventListener('click', () => mark('known'));
   $('clear-filters').addEventListener('click', () => {
+    chapterFilter = ''; sectionFilter = '';
+    history.replaceState(null, '', location.pathname);
+    $('chapter-context').hidden = true;
     $('block-filter').value = 'all';
     $('level-filter').value = 'all';
     populateBlocks();
@@ -385,6 +404,12 @@ function bindEvents() {
     rebuildVisible();
   });
   $('retry').addEventListener('click', load);
+  window.addEventListener('storage', event => {
+    if (event.key === STORAGE_KEY) { progress = loadProgress(); rebuildVisible(); }
+  });
+  window.addEventListener('pageshow', () => {
+    if (cards.length) { progress = loadProgress(); rebuildVisible(); }
+  });
   document.addEventListener('keydown', event => {
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return;
     if (['SELECT', 'BUTTON', 'A', 'SUMMARY'].includes(document.activeElement?.tagName)) return;
@@ -410,6 +435,10 @@ async function load() {
     cards = data.cards;
     decks = data.decks || [];
     const params = new URLSearchParams(location.search);
+    chapterFilter = params.get('chapter') || '';
+    sectionFilter = chapterFilter ? params.get('section') || '' : '';
+    $('chapter-context').hidden = !chapterFilter;
+    setText('chapter-context', sectionFilter ? 'Повторение раздела учебника' : 'Повторение главы учебника');
     const level = params.get('level') || data.scope?.default_level;
     $('level-filter').value = ['foundation', 'advanced', 'all'].includes(level) ? level : 'foundation';
     populateBlocks();
@@ -420,6 +449,14 @@ async function load() {
     updateHeading();
     populateTopics();
     rebuildVisible({ preserveId: false });
+    const target = cards.find(card => card.id === params.get('card'));
+    if (target) {
+      $('level-filter').value = target.level;
+      $('block-filter').value = 'all';
+      populateBlocks(); populateTopics(); rebuildVisible({ preserveId: false });
+      const index = visible.findIndex(card => card.id === target.id);
+      if (index >= 0) { cursor = index; render(); }
+    }
   } catch (error) {
     console.error(error);
     $('study-area').hidden = true;

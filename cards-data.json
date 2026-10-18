@@ -68,7 +68,11 @@
         "documentation_correction": [],
         "teacher_default": ""
       },
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "overview"
+      }
     },
     {
       "id": "s07-b01-arch-connection-session-listener",
@@ -117,7 +121,11 @@
       ],
       "status": "verified_fact_with_incomplete_teacher_excerpt",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "sessions"
+      }
     },
     {
       "id": "s07-b01-memory-sga-pga",
@@ -149,7 +157,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "memory"
+      }
     },
     {
       "id": "s07-b01-arch-buffer-cache-vs-shared-pool",
@@ -190,7 +202,11 @@
         "documentation_correction": [],
         "teacher_default": ""
       },
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "memory"
+      }
     },
     {
       "id": "s07-b01-arch-shared-server-uga-pga",
@@ -237,7 +253,11 @@
         ],
         "teacher_default": ""
       },
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "memory"
+      }
     },
     {
       "id": "s07-b01-sql-execution-path",
@@ -270,7 +290,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "sessions"
+      }
     },
     {
       "id": "s07-b01-arch-dbwn-lgwr-ckpt",
@@ -313,7 +337,11 @@
         "documentation_correction": [],
         "teacher_default": ""
       },
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "writes"
+      }
     },
     {
       "id": "s07-b01-commit-vs-checkpoint",
@@ -345,7 +373,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "writes"
+      }
     },
     {
       "id": "s07-b01-instance-sga-dynamic-components",
@@ -392,7 +424,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "instance",
+        "section": "diagnostics"
+      }
     },
     {
       "id": "s07-b01-instance-pfile-spfile-scope",
@@ -434,7 +470,11 @@
         "teacher_default": ""
       },
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "instance",
+        "section": "parameters"
+      }
     },
     {
       "id": "s07-b01-instance-parameter-classifications",
@@ -475,7 +515,11 @@
         "documentation_correction": [],
         "teacher_default": ""
       },
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "instance",
+        "section": "parameters"
+      }
     },
     {
       "id": "s07-b01-arch-soft-hard-parse-shared-cursor",
@@ -518,7 +562,11 @@
         "documentation_correction": [],
         "teacher_default": ""
       },
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "memory"
+      }
     },
     {
       "id": "s07-b01-arch-lgwr-write-conditions",
@@ -556,7 +604,11 @@
         "documentation_correction": [],
         "teacher_default": ""
       },
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "writes"
+      }
     },
     {
       "id": "s07-b01-arch-smon",
@@ -601,7 +653,11 @@
       ],
       "status": "verified_fact_with_teacher_conflict",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "recovery"
+      }
     },
     {
       "id": "s07-b01-arch-pmon",
@@ -646,7 +702,11 @@
       ],
       "status": "verified_fact_with_teacher_conflict",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "recovery"
+      }
     },
     {
       "id": "s07-b01-arch-background-process-lifecycle",
@@ -689,7 +749,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "recovery"
+      }
     },
     {
       "id": "s07-b01-arch-reco",
@@ -733,7 +797,11 @@
       ],
       "status": "verified_fact_with_teacher_refinement",
       "level": "advanced",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "recovery"
+      }
     },
     {
       "id": "s07-b01-arch-arcn",
@@ -776,7 +844,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "writes"
+      }
     },
     {
       "id": "s07-b01-arch-buffer-states-access-modes",
@@ -826,7 +898,11 @@
       ],
       "status": "verified_fact_with_teacher_conflict",
       "level": "advanced",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "memory"
+      }
     },
     {
       "id": "s07-b01-arch-instance-recovery",
@@ -872,7 +948,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "recovery"
+      }
     },
     {
       "id": "s07-b01-storage-logical-hierarchy",
@@ -917,7 +997,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b01-storage-tablespace-datafile-extent",
@@ -964,7 +1048,11 @@
       ],
       "status": "verified_fact_with_teacher_conflict",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b01-storage-schema-object-segment",
@@ -1005,7 +1093,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b01-storage-system-sysaux",
@@ -1052,7 +1144,11 @@
       ],
       "status": "verified_fact_with_teacher_conflict",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b01-storage-physical-file-roles",
@@ -1094,7 +1190,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b01-storage-control-files",
@@ -1138,7 +1238,11 @@
       ],
       "status": "verified_fact_with_teacher_refinement",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b01-storage-redo-groups-members",
@@ -1183,7 +1287,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b01-admin-tools-map",
@@ -1232,7 +1340,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "installation",
+        "section": "tools"
+      }
     },
     {
       "id": "s07-b01-admin-software-database-instance-actions",
@@ -1276,7 +1388,11 @@
       ],
       "status": "verified_fact_with_scoped_teacher_preference",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "installation",
+        "section": "tools"
+      }
     },
     {
       "id": "s07-b01-installation-ofa-environment",
@@ -1322,7 +1438,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "installation",
+        "section": "environment"
+      }
     },
     {
       "id": "s07-b01-identity-sid-global-service-alias",
@@ -1367,7 +1487,11 @@
       ],
       "status": "verified_fact_with_teacher_refinement",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "dbca",
+        "section": "identity"
+      }
     },
     {
       "id": "s07-b01-creation-dbca-planning",
@@ -1410,7 +1534,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "dbca",
+        "section": "configuration"
+      }
     },
     {
       "id": "s07-b01-storage-oracle-block-vs-os-block",
@@ -1458,7 +1586,11 @@
       ],
       "status": "verified_fact_with_teacher_correction",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "overview"
+      }
     },
     {
       "id": "s07-b01-instance-startup-stages",
@@ -1501,7 +1633,11 @@
       ],
       "status": "verified_fact_without_spoken_locator",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "instance",
+        "section": "startup"
+      }
     },
     {
       "id": "s07-b01-instance-shutdown-modes",
@@ -1548,7 +1684,11 @@
       ],
       "status": "verified_fact_with_teacher_correction",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "instance",
+        "section": "startup"
+      }
     },
     {
       "id": "s07-b01-security-sqlplus-admin-connect",
@@ -1601,7 +1741,11 @@
       ],
       "status": "verified_fact_with_teacher_refinement",
       "level": "foundation",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "installation",
+        "section": "checks"
+      }
     },
     {
       "id": "s07-b01-windows-services-components",
@@ -1645,7 +1789,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "installation",
+        "section": "checks"
+      }
     },
     {
       "id": "s07-b01-em-url-discovery",
@@ -1687,7 +1835,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "installation",
+        "section": "checks"
+      }
     },
     {
       "id": "s07-b01-rac-database-instances",
@@ -1719,7 +1871,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "architecture",
+        "section": "overview"
+      }
     },
     {
       "id": "s07-b01-storage-asm-purpose",
@@ -1751,7 +1907,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "storage",
+        "section": "management"
+      }
     },
     {
       "id": "s07-b01-storage-fra",
@@ -1783,7 +1943,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "dbca",
+        "section": "configuration"
+      }
     },
     {
       "id": "s07-b01-memory-amm-asmm",
@@ -1815,7 +1979,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "instance",
+        "section": "parameters"
+      }
     },
     {
       "id": "s07-b01-parameter-vs-allocation",
@@ -1847,7 +2015,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "instance",
+        "section": "parameters"
+      }
     },
     {
       "id": "s07-b01-session-vs-system",
@@ -1880,7 +2052,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "instance",
+        "section": "parameters"
+      }
     },
     {
       "id": "s07-b01-dictionary-view-families",
@@ -1912,7 +2088,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "instance",
+        "section": "diagnostics"
+      }
     },
     {
       "id": "s07-b01-verify-connection-result",
@@ -1944,7 +2124,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 1
+      "block": 1,
+      "reading": {
+        "chapter": "instance",
+        "section": "diagnostics"
+      }
     },
     {
       "id": "s07-b02-network-connection-path",
@@ -1993,7 +2177,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "overview"
+      }
     },
     {
       "id": "s07-b02-network-configuration-files",
@@ -2042,7 +2230,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "configuration"
+      }
     },
     {
       "id": "s07-b02-network-oracle-net-role",
@@ -2083,7 +2275,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "overview"
+      }
     },
     {
       "id": "s07-b02-network-service-definition",
@@ -2121,7 +2317,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "configuration"
+      }
     },
     {
       "id": "s07-b02-network-management-tools",
@@ -2163,7 +2363,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "configuration"
+      }
     },
     {
       "id": "s07-b02-network-service-registration",
@@ -2215,7 +2419,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "configuration"
+      }
     },
     {
       "id": "s07-b02-network-easy-connect-local-naming",
@@ -2260,7 +2468,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "configuration"
+      }
     },
     {
       "id": "s07-b02-network-tns-admin",
@@ -2302,7 +2514,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "configuration"
+      }
     },
     {
       "id": "s07-b02-network-directory-external-naming",
@@ -2354,7 +2570,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "configuration"
+      }
     },
     {
       "id": "s07-b02-network-advanced-address-options",
@@ -2409,7 +2629,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "configuration"
+      }
     },
     {
       "id": "s07-b02-network-tnsping-boundaries",
@@ -2458,7 +2682,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "checks"
+      }
     },
     {
       "id": "s07-b02-network-dedicated-shared-server",
@@ -2503,7 +2731,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "servers"
+      }
     },
     {
       "id": "s07-b02-network-shared-server-queues",
@@ -2548,7 +2780,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "servers"
+      }
     },
     {
       "id": "s07-b02-network-shared-connection-pooling",
@@ -2595,7 +2831,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "servers"
+      }
     },
     {
       "id": "s07-b02-network-choosing-dedicated-connection",
@@ -2641,7 +2881,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "servers"
+      }
     },
     {
       "id": "s07-b02-network-database-link-role",
@@ -2685,7 +2929,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "servers"
+      }
     },
     {
       "id": "s07-b02-network-database-link-definition-fields",
@@ -2732,7 +2980,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "network",
+        "section": "servers"
+      }
     },
     {
       "id": "s07-b02-storage-oracle-block-contents",
@@ -2776,7 +3028,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-lmt-dmt-extent-management",
@@ -2820,7 +3076,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "storage",
+        "section": "management"
+      }
     },
     {
       "id": "s07-b02-storage-local-system-dmt-restriction",
@@ -2862,7 +3122,11 @@
       ],
       "status": "verified_fact",
       "level": "advanced",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "storage",
+        "section": "management"
+      }
     },
     {
       "id": "s07-b02-storage-tablespace-creation-types",
@@ -2907,7 +3171,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-tablespace-status",
@@ -2950,7 +3218,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-bigfile-smallfile",
@@ -2995,7 +3267,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-autoallocate-uniform",
@@ -3038,7 +3314,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "storage",
+        "section": "management"
+      }
     },
     {
       "id": "s07-b02-storage-assm-mssm-levels",
@@ -3084,7 +3364,11 @@
       ],
       "status": "verified_fact",
       "level": "foundation",
-      "block": 2
+      "block": 2,
+      "reading": {
+        "chapter": "storage",
+        "section": "management"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s02-1",
@@ -3120,7 +3404,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e40540/logical.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s03-1",
@@ -3159,7 +3447,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e40540/logical.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s03-2",
@@ -3198,7 +3490,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e40540/logical.htm"
       ],
       "status": "verified_fact",
-      "level": "advanced"
+      "level": "advanced",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s07-1",
@@ -3235,7 +3531,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e40402/initparams050.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s07-2",
@@ -3272,7 +3572,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e40402/initparams050.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s09-1",
@@ -3310,7 +3614,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e25494/tspaces.htm"
       ],
       "status": "verified_fact",
-      "level": "advanced"
+      "level": "advanced",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s10-1",
@@ -3349,7 +3657,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e25494/omf.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s11-1",
@@ -3386,7 +3698,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e25494/dfiles.htm"
       ],
       "status": "verified_fact",
-      "level": "advanced"
+      "level": "advanced",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s11-2",
@@ -3423,7 +3739,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e25494/dfiles.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s12-1",
@@ -3462,7 +3782,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e40402/initparams054.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s12-2",
@@ -3501,7 +3825,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e40402/initparams054.htm"
       ],
       "status": "verified_fact",
-      "level": "advanced"
+      "level": "advanced",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s13-1",
@@ -3540,7 +3868,11 @@
         "https://docs.oracle.com/cd/E11882_01/backup.112/e10642/rcmflash.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s13-2",
@@ -3576,7 +3908,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e25494/dfiles.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s13-3",
@@ -3612,7 +3948,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e25494/dfiles.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "storage",
+        "section": "growth"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s14-1",
@@ -3648,7 +3988,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e18951/asmcon.htm"
       ],
       "status": "verified_fact",
-      "level": "advanced"
+      "level": "advanced",
+      "reading": {
+        "chapter": "storage",
+        "section": "management"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s14-2",
@@ -3684,7 +4028,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e18951/asmcon.htm"
       ],
       "status": "verified_fact",
-      "level": "advanced"
+      "level": "advanced",
+      "reading": {
+        "chapter": "storage",
+        "section": "management"
+      }
     },
     {
       "id": "s07-b02-storage-guide-s14-3",
@@ -3720,7 +4068,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e18951/asmcon.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "storage",
+        "section": "management"
+      }
     },
     {
       "id": "s07-b02-users-guide-u01-1",
@@ -3756,7 +4108,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_8003.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "authentication"
+      }
     },
     {
       "id": "s07-b02-users-guide-u01-2",
@@ -3792,7 +4148,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_8003.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "authentication"
+      }
     },
     {
       "id": "s07-b02-users-guide-u02-1",
@@ -3829,7 +4189,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authentication.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "authentication"
+      }
     },
     {
       "id": "s07-b02-users-guide-u02-2",
@@ -3866,7 +4230,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authentication.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "authentication"
+      }
     },
     {
       "id": "s07-b02-users-guide-u03-1",
@@ -3905,7 +4273,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authorization.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "authentication"
+      }
     },
     {
       "id": "s07-b02-users-guide-u03-2",
@@ -3942,7 +4314,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authentication.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "authentication"
+      }
     },
     {
       "id": "s07-b02-users-guide-u04-1",
@@ -3980,7 +4356,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authentication.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "authentication"
+      }
     },
     {
       "id": "s07-b02-users-guide-u04-2",
@@ -4018,7 +4398,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authentication.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "authentication"
+      }
     },
     {
       "id": "s07-b02-users-guide-u05-1",
@@ -4055,7 +4439,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authorization.htm"
       ],
       "status": "verified_fact",
-      "level": "advanced"
+      "level": "advanced",
+      "reading": {
+        "chapter": "users",
+        "section": "authentication"
+      }
     },
     {
       "id": "s07-b02-users-guide-u06-1",
@@ -4091,7 +4479,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authorization.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "privileges"
+      }
     },
     {
       "id": "s07-b02-users-guide-u07-1",
@@ -4127,7 +4519,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authorization.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "privileges"
+      }
     },
     {
       "id": "s07-b02-users-guide-u07-2",
@@ -4163,7 +4559,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authorization.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "privileges"
+      }
     },
     {
       "id": "s07-b02-users-guide-u07-3",
@@ -4199,7 +4599,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authorization.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "privileges"
+      }
     },
     {
       "id": "s07-b02-users-guide-u08-1",
@@ -4237,7 +4641,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_6012.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "privileges"
+      }
     },
     {
       "id": "s07-b02-users-guide-u09-1",
@@ -4273,7 +4681,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authorization.htm"
       ],
       "status": "verified_fact",
-      "level": "advanced"
+      "level": "advanced",
+      "reading": {
+        "chapter": "users",
+        "section": "privileges"
+      }
     },
     {
       "id": "s07-b02-users-guide-u11-1",
@@ -4310,7 +4722,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authorization.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "privileges"
+      }
     },
     {
       "id": "s07-b02-users-guide-u11-2",
@@ -4347,7 +4763,11 @@
         "https://docs.oracle.com/cd/E11882_01/network.112/e36292/authorization.htm"
       ],
       "status": "verified_fact",
-      "level": "advanced"
+      "level": "advanced",
+      "reading": {
+        "chapter": "users",
+        "section": "privileges"
+      }
     },
     {
       "id": "s07-b02-users-guide-u12-2",
@@ -4385,7 +4805,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_6010.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "profiles"
+      }
     },
     {
       "id": "s07-b02-users-guide-u13-1",
@@ -4422,7 +4846,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_6010.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "profiles"
+      }
     },
     {
       "id": "s07-b02-users-guide-u13-2",
@@ -4459,7 +4887,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_6010.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "profiles"
+      }
     },
     {
       "id": "s07-b02-users-guide-u13-3",
@@ -4496,7 +4928,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_6010.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "profiles"
+      }
     },
     {
       "id": "s07-b02-users-guide-u14-1",
@@ -4533,7 +4969,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_6010.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "profiles"
+      }
     },
     {
       "id": "s07-b02-users-guide-u14-2",
@@ -4570,7 +5010,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_6010.htm"
       ],
       "status": "verified_fact",
-      "level": "advanced"
+      "level": "advanced",
+      "reading": {
+        "chapter": "users",
+        "section": "profiles"
+      }
     },
     {
       "id": "s07-b02-users-guide-u14-3",
@@ -4607,7 +5051,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_6010.htm"
       ],
       "status": "verified_fact",
-      "level": "advanced"
+      "level": "advanced",
+      "reading": {
+        "chapter": "users",
+        "section": "profiles"
+      }
     },
     {
       "id": "s07-b02-users-guide-u15-1",
@@ -4645,7 +5093,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_6010.htm"
       ],
       "status": "verified_fact",
-      "level": "advanced"
+      "level": "advanced",
+      "reading": {
+        "chapter": "users",
+        "section": "profiles"
+      }
     },
     {
       "id": "s07-b02-users-guide-u16-1",
@@ -4682,7 +5134,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_8003.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "quota"
+      }
     },
     {
       "id": "s07-b02-users-guide-u16-2",
@@ -4719,7 +5175,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_8003.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "quota"
+      }
     },
     {
       "id": "s07-b02-users-guide-u17-1",
@@ -4757,7 +5217,11 @@
         "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_8003.htm"
       ],
       "status": "verified_fact",
-      "level": "foundation"
+      "level": "foundation",
+      "reading": {
+        "chapter": "users",
+        "section": "privileges"
+      }
     },
     {
       "id": "s07-b03-number-precision-scale",
@@ -4789,7 +5253,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "overview"
+      }
     },
     {
       "id": "s07-b03-char-varchar-date",
@@ -4821,7 +5289,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "overview"
+      }
     },
     {
       "id": "s07-b03-constraint-kinds",
@@ -4853,7 +5325,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "constraints"
+      }
     },
     {
       "id": "s07-b03-constraints-null",
@@ -4885,7 +5361,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "constraints"
+      }
     },
     {
       "id": "s07-b03-constraint-four-states",
@@ -4917,7 +5397,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "constraints"
+      }
     },
     {
       "id": "s07-b03-deferrability-three-levels",
@@ -4954,7 +5438,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "constraints"
+      }
     },
     {
       "id": "s07-b03-constraint-vs-index",
@@ -4987,7 +5475,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "constraints"
+      }
     },
     {
       "id": "s07-b03-delete-truncate-drop",
@@ -5021,7 +5513,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "lifecycle"
+      }
     },
     {
       "id": "s07-b03-purge-and-flashback-drop",
@@ -5054,7 +5550,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "lifecycle"
+      }
     },
     {
       "id": "s07-b03-btree-search",
@@ -5086,7 +5586,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "indexes"
+      }
     },
     {
       "id": "s07-b03-index-cost-maintenance",
@@ -5118,7 +5622,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "indexes"
+      }
     },
     {
       "id": "s07-b03-bitmap-workload",
@@ -5150,7 +5658,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "indexes"
+      }
     },
     {
       "id": "s07-b03-composite-index",
@@ -5185,7 +5697,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "composite"
+      }
     },
     {
       "id": "s07-b03-function-based-index",
@@ -5220,7 +5736,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "composite"
+      }
     },
     {
       "id": "s07-b03-rowid-purpose",
@@ -5253,7 +5773,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "indexes"
+      }
     },
     {
       "id": "s07-b03-global-temporary-tables",
@@ -5292,7 +5816,11 @@
         }
       },
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "lifecycle"
+      }
     },
     {
       "id": "s07-b03-transaction-boundaries",
@@ -5324,7 +5852,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "transactions",
+        "section": "overview"
+      }
     },
     {
       "id": "s07-b03-read-consistency",
@@ -5356,7 +5888,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "transactions",
+        "section": "consistency"
+      }
     },
     {
       "id": "s07-b03-tx-vs-tm",
@@ -5389,7 +5925,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "transactions",
+        "section": "locks"
+      }
     },
     {
       "id": "s07-b03-row-lock-wait",
@@ -5430,7 +5970,11 @@
         }
       },
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "transactions",
+        "section": "locks"
+      }
     },
     {
       "id": "s07-b03-select-for-update",
@@ -5464,7 +6008,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "transactions",
+        "section": "locks"
+      }
     },
     {
       "id": "s07-b03-blocker-identification",
@@ -5497,7 +6045,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "transactions",
+        "section": "deadlock"
+      }
     },
     {
       "id": "s07-b03-deadlock-statement-rollback",
@@ -5531,7 +6083,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "transactions",
+        "section": "deadlock"
+      }
     },
     {
       "id": "s07-b03-table-lock-intuition",
@@ -5565,7 +6121,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "transactions",
+        "section": "locks"
+      }
     },
     {
       "id": "s07-b03-undo-vs-redo",
@@ -5598,7 +6158,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "undo",
+        "section": "overview"
+      }
     },
     {
       "id": "s07-b03-undo-storage",
@@ -5632,7 +6196,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "undo",
+        "section": "storage"
+      }
     },
     {
       "id": "s07-b03-undo-extent-states",
@@ -5666,7 +6234,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "undo",
+        "section": "retention"
+      }
     },
     {
       "id": "s07-b03-undo-retention-settings",
@@ -5698,7 +6270,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "undo",
+        "section": "retention"
+      }
     },
     {
       "id": "s07-b03-undo-retention-guarantee-tradeoff",
@@ -5732,7 +6308,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "undo",
+        "section": "retention"
+      }
     },
     {
       "id": "s07-b03-undo-sizing-two-days",
@@ -5767,7 +6347,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "undo",
+        "section": "capacity"
+      }
     },
     {
       "id": "s07-b03-undo-advisor-history-vs-retention",
@@ -5802,7 +6386,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "undo",
+        "section": "capacity"
+      }
     },
     {
       "id": "s07-b03-undo-errors-history-vs-capacity",
@@ -5838,7 +6426,11 @@
         }
       },
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "undo",
+        "section": "capacity"
+      }
     },
     {
       "id": "s07-b03-undo-flashback-dependencies",
@@ -5872,7 +6464,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "undo",
+        "section": "flashback"
+      }
     },
     {
       "id": "s07-b03-flashback-query-vs-table",
@@ -5905,7 +6501,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "undo",
+        "section": "flashback"
+      }
     },
     {
       "id": "s07-b03-undo-integrated-picture",
@@ -5941,7 +6541,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "undo",
+        "section": "summary"
+      }
     },
     {
       "id": "s07-b03-disable-validate",
@@ -5979,7 +6583,11 @@
       "level": "advanced",
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "constraints"
+      }
     },
     {
       "id": "s07-b03-btree-bitmap-leaf-structure",
@@ -6021,7 +6629,11 @@
       "level": "advanced",
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "indexes"
+      }
     },
     {
       "id": "s07-b03-table-lock-modes",
@@ -6062,7 +6674,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "transactions",
+        "section": "locks"
+      }
     },
     {
       "id": "s07-b03-rs-vs-rx",
@@ -6096,7 +6712,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "transactions",
+        "section": "locks"
+      }
     },
     {
       "id": "s07-b03-s-vs-srx",
@@ -6130,7 +6750,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "transactions",
+        "section": "locks"
+      }
     },
     {
       "id": "s07-b03-srx-vs-x",
@@ -6164,7 +6788,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "transactions",
+        "section": "locks"
+      }
     },
     {
       "id": "s07-b03-undo-system-activity-graphs",
@@ -6200,7 +6828,11 @@
         }
       },
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "undo",
+        "section": "capacity"
+      }
     },
     {
       "id": "s07-b03-undo-survives-instance-restart",
@@ -6234,7 +6866,11 @@
       },
       "slides": [],
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "undo",
+        "section": "storage"
+      }
     },
     {
       "id": "s07-b03-rowid-fields",
@@ -6266,7 +6902,11 @@
       "slides": [],
       "status": "verified_fact_without_spoken_locator",
       "terms": [],
-      "block": 3
+      "block": 3,
+      "reading": {
+        "chapter": "schema",
+        "section": "indexes"
+      }
     }
   ]
 }
