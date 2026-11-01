@@ -16,6 +16,16 @@ const TOPICS = {
   'schema-objects': 'Объекты схемы и индексы',
   'data-concurrency': 'Транзакции и блокировки',
   undo: 'Undo и Flashback',
+  audit: 'Стандартный и административный аудит',
+  fga: 'FGA и аудит значений',
+  'optimizer-statistics': 'Оптимизатор и статистики объектов',
+  'statistics-management': 'Управление статистиками',
+  'awr-addm': 'AWR, метрики и ADDM',
+  'advisors-maintenance': 'Помощники и автоматическое обслуживание',
+  alerts: 'Предупреждения',
+  performance: 'Диагностика производительности',
+  'memory-objects': 'Память и состояние объектов',
+  'work-evidence': 'Объяснение опытов блока 4',
 };
 const LOCATORS = {
   thematic_range_approx_30s: 'тематический диапазон · ±30 с',
@@ -115,6 +125,7 @@ function currentCard() {
 function matchesSource(card, filter) {
   const state = progress.cards[card.id]?.status;
   if (filter === 'important') return importance(card);
+  if (filter === 'teacher-detail') return Boolean(card.teacher_detail?.present);
   if (filter === 'conflict') return hasConflict(card);
   if (filter === 'documentation') return hasDocumentation(card);
   if (filter === 'review') return state === 'review';
@@ -199,6 +210,7 @@ function renderBadges(card) {
   root.replaceChildren(badge(topicLabel(card.topic)));
   root.append(badge(card.level === 'advanced' ? 'углубление' : 'фундамент'));
   if (importance(card)) root.append(badge('важно по лекции', 'important'));
+  if (card.teacher_detail?.present) root.append(badge('дополнительный устный разбор'));
   if (hasConflict(card)) root.append(badge('есть исправление', 'correction'));
   const state = progress.cards[card.id]?.status;
   if (state === 'known') root.append(badge('знаю', 'status-known'));
@@ -219,6 +231,8 @@ function renderAnswer(card) {
     ? 'Объяснение по слайдам и документации; устный фрагмент не привязан.'
     : 'Объяснение по документации; отдельная формулировка преподавателя не установлена.');
   setText('teacher-default', answer.teacher);
+  $('teacher-detail-note').hidden = !card.teacher_detail?.present;
+  setText('teacher-detail-note', card.teacher_detail?.reason || '');
   setText('teacher-excerpt', evidence?.text || 'Для этой карточки обработанный фрагмент пока не привязан.');
   setText('teacher-locator', locatorText(evidence));
   setText('locator-note', evidence

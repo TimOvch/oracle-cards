@@ -6,7 +6,8 @@
     "blocks": [
       1,
       2,
-      3
+      3,
+      4
     ],
     "default_block": "all",
     "default_level": "foundation"
@@ -26,6 +27,11 @@
       "block": 3,
       "count": 44,
       "label": "Блок 3 · темы 8–10"
+    },
+    {
+      "block": 4,
+      "count": 50,
+      "label": "Блок 4 · темы 11–13"
     }
   ],
   "cards": [
@@ -6907,6 +6913,2080 @@
         "chapter": "schema",
         "section": "indexes"
       }
+    },
+    {
+      "id": "s07-b04-core-security",
+      "topic": "security",
+      "level": "foundation",
+      "front": "Как ограничивают полномочия пользователей, PUBLIC и администраторов?",
+      "answer_short": "Выдают только необходимые права, разделяют обязанности и используют личные учётные записи. Лишние права PUBLIC доступны всем пользователям, а SYSDBA/SYSOPER требуют особенно строгого контроля.",
+      "answer_deep": "Аудит позволяет расследовать действия, но не исправляет избыточный GRANT. Учебная выдача DBA ради опыта не является образцом прав приложения.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Выдают только необходимые права, разделяют обязанности и используют личные учётные записи. Лишние права PUBLIC доступны всем пользователям, а SYSDBA/SYSOPER требуют особенно строгого контроля.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Наименьшие привилегии\n\n**00:09:00–00:11:30. Преподаватель, редакция.** Права следует выдавать только в необходимом объёме. Параметр `O7_DICTIONARY_ACCESSIBILITY=FALSE` нужен для защиты словаря данных от широких привилегий вида `ANY TABLE`. Сравнение с прежними версиями Oracle служит объяснением исторического назначения параметра.\n\nНа слайде также указан `REMOTE_OS_AUTHENT=FALSE`. Преподаватель объясняет риск доверия удалённой операционной системе через пример администратора клиентского компьютера, который получает доступ к серверу Oracle. В устной фразе и ASR есть противоречие `TRUE/FALSE`; безопасное значение на слайде однозначно `FALSE`.\n\n**Документальное уточнение Oracle 11.2.** `REMOTE_OS_AUTHENT` относится к доверию имени пользователя ОС удалённого клиента при внешней аутентификации, а не к универсальному автоматическому предоставлению `SYSDBA`. Параметр устаревший, значение по умолчанию `FALSE`: [Database Reference](https://docs.oracle.com/cd/E11882_01/server.112/e40402/initparams213.htm).",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "00:09:00–00:11:30"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less11_Security ред.pdf, физические страницы 3, 4, 5, 6, 7, 22"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/network.112/e36292/auditing.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-security-parameters",
+      "topic": "security",
+      "level": "foundation",
+      "front": "Зачем задают O7_DICTIONARY_ACCESSIBILITY=FALSE и REMOTE_OS_AUTHENT=FALSE?",
+      "answer_short": "Первый параметр защищает объекты SYS от распространения некоторых широких ANY-привилегий; второй отключает доверие имени пользователя удалённой клиентской ОС при внешней аутентификации.",
+      "answer_deep": "Преподаватель поясняет риск через администратора клиентской машины. Доступ к словарю по специально выданным правам остаётся возможным.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Первый параметр защищает объекты SYS от распространения некоторых широких ANY-привилегий; второй отключает доверие имени пользователя удалённой клиентской ОС при внешней аутентификации.",
+        "documentation_correction": [
+          "В устной фразе есть разночтение TRUE/FALSE; слайд задаёт FALSE. REMOTE_OS_AUTHENT не означает автоматическую выдачу SYSDBA администратору клиента."
+        ],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Наименьшие привилегии\n\n**00:09:00–00:11:30. Преподаватель, редакция.** Права следует выдавать только в необходимом объёме. Параметр `O7_DICTIONARY_ACCESSIBILITY=FALSE` нужен для защиты словаря данных от широких привилегий вида `ANY TABLE`. Сравнение с прежними версиями Oracle служит объяснением исторического назначения параметра.\n\nНа слайде также указан `REMOTE_OS_AUTHENT=FALSE`. Преподаватель объясняет риск доверия удалённой операционной системе через пример администратора клиентского компьютера, который получает доступ к серверу Oracle. В устной фразе и ASR есть противоречие `TRUE/FALSE`; безопасное значение на слайде однозначно `FALSE`.\n\n**Документальное уточнение Oracle 11.2.** `REMOTE_OS_AUTHENT` относится к доверию имени пользователя ОС удалённого клиента при внешней аутентификации, а не к универсальному автоматическому предоставлению `SYSDBA`. Параметр устаревший, значение по умолчанию `FALSE`: [Database Reference](https://docs.oracle.com/cd/E11882_01/server.112/e40402/initparams213.htm).",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "00:09:00–00:11:30"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель поясняет параметр через риск контроля клиентской ОС; на слайде только настройка и краткая рекомендация.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less11_Security ред.pdf, физические страницы 5, 6, 7"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/network.112/e36292/auditing.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-audit-methods",
+      "topic": "audit",
+      "level": "foundation",
+      "front": "Чем отличаются стандартный аудит, FGA и аудит значений триггером?",
+      "answer_short": "Стандартный аудит фиксирует выбранные операции; FGA уточняет доступ по данным и столбцам, включая SELECT; триггер сохраняет старые и новые значения строк при DML.",
+      "answer_deep": "Преподаватель отдельно выделяет обязательный аудит и дополнительный аудит административных действий. SQL-текст сам по себе не заменяет историю значений каждой строки.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Стандартный аудит фиксирует выбранные операции; FGA уточняет доступ по данным и столбцам, включая SELECT; триггер сохраняет старые и новые значения строк при DML.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Пять видов аудита\n\n**00:11:30–00:16:00. Преподаватель, редакция.** Аудит — контроль и регистрация выбранных действий пользователей. Перечисляются пять подходов:\n\n- обязательный аудит — mandatory auditing;\n- стандартный аудит командами `AUDIT`;\n- аудит значений с помощью триггеров — value-based auditing;\n- детализированный аудит — fine-grained auditing, FGA;\n- дополнительный аудит административных действий — DBA auditing.\n\nТриггер позволяет сохранить, кто, когда и как изменил зарплату, однако обычный триггер таблицы не перехватывает `SELECT`. FGA позволяет контролировать и чтение данных, задавать условия и запускать процедуру-обработчик. Обязательная регистрация подключений `SYSDBA`/`SYSOPER` отделяется от дополнительного контроля их команд.\n\nПреподаватель называет местом регистрации административных подключений alert log. **Уточнение Oracle 11.2:** обязательный аудит запуска, остановки и подключений `SYSDBA`/`SYSOPER` относится к журналу аудита ОС; в Windows используется также Event Viewer. Alert log не следует считать его заменой: [Security Guide, Activities That Are Always Audited for All Platforms](https://docs.oracle.com/cd/E11882_01/network.112/e36292/auditing.htm).",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "00:11:30–00:16:00"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less11_Security ред.pdf, физические страницы 8, 15, 16, 20"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/network.112/e36292/auditing.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-audit-enable",
+      "topic": "audit",
+      "level": "foundation",
+      "front": "Как включают стандартный аудит и выбирают место хранения?",
+      "answer_short": "AUDIT_TRAIL задаёт NONE, OS, DB или XML; варианты EXTENDED добавляют доступные SQL-текст и bind-значения. Параметр статический: изменение в SPFILE начинает действовать после перезапуска.",
+      "answer_deep": "Затем задают правила AUDIT, проверяют записи и обслуживают журнал. AUDIT_TRAIL=NONE не отменяет обязательный аудит и не является выключателем всех механизмов.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "AUDIT_TRAIL задаёт NONE, OS, DB или XML; варианты EXTENDED добавляют доступные SQL-текст и bind-значения. Параметр статический: изменение в SPFILE начинает действовать после перезапуска.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Стандартный аудит: включение и место хранения\n\n**00:16:00–00:27:30. Преподаватель, редакция.** Настройка состоит из четырёх задач: включить механизм, определить контролируемые действия, просматривать результаты и обслуживать журнал. Серверный процесс выполняет команду пользователя и, согласно настройкам, формирует запись аудита.\n\nВ Enterprise Manager используется вкладка SPFile параметров инициализации. Параметр `AUDIT_TRAIL` статический, поэтому изменение требует перезапуска. На слайде показан вариант XML. Преподаватель отдельно исправляет типографские кавычки: для SQL нужны обычные одинарные кавычки.\n\n```sql\nALTER SYSTEM SET audit_trail='XML' SCOPE=SPFILE;\n```\n\nЭто пример со слайда с исправленными кавычками, а не команда, выполненная при подготовке транскрипта.\n\nРазбираются варианты хранения: `OS`, `DB`, `DB, EXTENDED`, `XML`, `XML, EXTENDED`. Для Windows при `OS` обсуждается Event Log, для файловых журналов — каталог `AUDIT_FILE_DEST`. XML-файлы также размещаются по этому параметру. В лекции перечислены пять включённых режимов; отключение стандартного аудита обозначается `NONE`.\n\nРезультаты стандартного аудита в БД просматриваются через `DBA_AUDIT_TRAIL`; для XML обсуждается `V$XML_AUDIT_TRAIL`. Для FGA используется `DBA_FGA_AUDIT_TRAIL`, объединённое представление — `DBA_COMMON_AUDIT_TRAIL`. Среди полей называются время, экземпляр, процесс ОС, транзакция, SCN, SQL-текст и bind-переменные. Написание имён восстановлено по слайдам, а не по фонетике ASR.\n\n**Уточнение Oracle 11.2:** `EXTENDED` добавляет SQL-текст и bind-значения, когда они доступны; он не означает обратного. `DB` не переносит в БД те записи, которые обязательны для журнала ОС: [AUDIT_TRAIL](https://docs.oracle.com/cd/E11882_01/server.112/e40402/initparams017.htm).",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "00:16:00–00:27:30"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less11_Security ред.pdf, физические страницы 9, 10, 11"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/network.112/e36292/auditing.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-audit-rules",
+      "topic": "audit",
+      "level": "foundation",
+      "front": "Что можно выбрать правилом AUDIT?",
+      "answer_short": "Команды SQL, использование системной привилегии или действия над конкретным объектом. Для применимых правил задают пользователя, успешность и способ регистрации.",
+      "answer_deep": "AUDIT TABLE выбирает CREATE/DROP/TRUNCATE TABLE. AUDIT SELECT ANY TABLE относится к использованию привилегии, а AUDIT UPDATE ON hr.employees — к объекту. Без ограничения успешности учитываются оба результата.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Команды SQL, использование системной привилегии или действия над конкретным объектом. Для применимых правил задают пользователя, успешность и способ регистрации.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Что именно контролирует AUDIT\n\n**00:27:30–00:36:00. Преподаватель, редакция.** Показаны три уровня настройки: SQL-команды, использование системных привилегий и действия над конкретным объектом.\n\n`AUDIT TABLE` — сокращение для группы DDL-действий над таблицами. Уточнение по справочнику Oracle 11.2: это `CREATE TABLE`, `DROP TABLE`, `TRUNCATE TABLE`, а не любые действия с данными таблиц.\n\nПользователь и результат выполнения позволяют сузить аудит. `BY hr` выбирает пользователя HR; `WHENEVER NOT SUCCESSFUL` — неуспешные действия. Без ограничения по результату учитываются и успешные, и неуспешные операции.\n\nПримеры со слайда:\n\n```sql\nAUDIT SELECT ANY TABLE, CREATE ANY TRIGGER;\nAUDIT SELECT ANY TABLE BY hr BY SESSION;\nAUDIT ALL ON hr.employees;\nAUDIT UPDATE, DELETE ON hr.employees BY ACCESS;\n```\n\n`SELECT ANY TABLE` — системная привилегия; `ON hr.employees` указывает конкретный объект. Аудит использования привилегии и аудит операции над объектом не тождественны.\n\nПреподаватель противопоставляет `BY SESSION` как одну запись за сеанс и `BY ACCESS` как запись на каждое действие. **Это объяснение нельзя переносить в Oracle 11.2 без оговорки.** В [SQL Language Reference, BY SESSION](https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_4007.htm) для этого выпуска описана запись на каждую аудируемую операцию в обоих режимах, с различиями заполнения полей. Кроме того, SQL Reference и Security Guide расходятся в описании режима по умолчанию; последний указывает смену default на `BY ACCESS` с 11.2.0.2. Точный patch level и поведение учебной VM здесь не проверялись.\n\nВ Enterprise Manager рассматривается `Security → Audit Settings`: конфигурация, привилегии, объекты, команды, отдельные режимы для успешных/неуспешных действий и параметры по умолчанию для будущих объектов.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "00:27:30–00:36:00"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less11_Security ред.pdf, физические страницы 12, 13"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_4007.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-audit-session",
+      "topic": "audit",
+      "level": "foundation",
+      "front": "Как объяснить различие BY SESSION и BY ACCESS с учётом Oracle 11.2?",
+      "answer_short": "В лекции это сводка за сеанс и запись на действие. Технически число и состав записей зависят от выпуска, patch level и типа аудита; обещать одну запись на весь сеанс для 11.2 нельзя.",
+      "answer_deep": "В нашем опыте каждый пользователь выполнил один UPDATE, поэтому он не проверяет несколько действий одного сеанса.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "В лекции это сводка за сеанс и запись на действие. Технически число и состав записей зависят от выпуска, patch level и типа аудита; обещать одну запись на весь сеанс для 11.2 нельзя.",
+        "documentation_correction": [
+          "SQL Reference 11.2 описывает запись каждой аудируемой операции в обоих режимах; в документах различаются описания default и patch level."
+        ],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Что именно контролирует AUDIT\n\n**00:27:30–00:36:00. Преподаватель, редакция.** Показаны три уровня настройки: SQL-команды, использование системных привилегий и действия над конкретным объектом.\n\n`AUDIT TABLE` — сокращение для группы DDL-действий над таблицами. Уточнение по справочнику Oracle 11.2: это `CREATE TABLE`, `DROP TABLE`, `TRUNCATE TABLE`, а не любые действия с данными таблиц.\n\nПользователь и результат выполнения позволяют сузить аудит. `BY hr` выбирает пользователя HR; `WHENEVER NOT SUCCESSFUL` — неуспешные действия. Без ограничения по результату учитываются и успешные, и неуспешные операции.\n\nПримеры со слайда:\n\n```sql\nAUDIT SELECT ANY TABLE, CREATE ANY TRIGGER;\nAUDIT SELECT ANY TABLE BY hr BY SESSION;\nAUDIT ALL ON hr.employees;\nAUDIT UPDATE, DELETE ON hr.employees BY ACCESS;\n```\n\n`SELECT ANY TABLE` — системная привилегия; `ON hr.employees` указывает конкретный объект. Аудит использования привилегии и аудит операции над объектом не тождественны.\n\nПреподаватель противопоставляет `BY SESSION` как одну запись за сеанс и `BY ACCESS` как запись на каждое действие. **Это объяснение нельзя переносить в Oracle 11.2 без оговорки.** В [SQL Language Reference, BY SESSION](https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_4007.htm) для этого выпуска описана запись на каждую аудируемую операцию в обоих режимах, с различиями заполнения полей. Кроме того, SQL Reference и Security Guide расходятся в описании режима по умолчанию; последний указывает смену default на `BY ACCESS` с 11.2.0.2. Точный patch level и поведение учебной VM здесь не проверялись.\n\nВ Enterprise Manager рассматривается `Security → Audit Settings`: конфигурация, привилегии, объекты, команды, отдельные режимы для успешных/неуспешных действий и параметры по умолчанию для будущих объектов.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "00:27:30–00:36:00"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Устный разбор противопоставляет режимы; карточка сохраняет объяснение и обязательную версионную оговорку.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less11_Security ред.pdf, физические страницы 12, 13"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41084/statements_4007.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-audit-read-maintain",
+      "topic": "audit",
+      "level": "foundation",
+      "front": "Где читают аудит и чем NOAUDIT отличается от очистки журнала?",
+      "answer_short": "DB: DBA_AUDIT_TRAIL; XML: V$XML_AUDIT_TRAIL и файлы AUDIT_FILE_DEST; FGA: DBA_FGA_AUDIT_TRAIL. В записи сопоставляют пользователя, время, объект, действие и результат. NOAUDIT отменяет правило, но не удаляет историю.",
+      "answer_deep": "На Windows OS-аудит читают через Event Viewer. Журнал нужно защищать, архивировать и контролировать его объём.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "DB: DBA_AUDIT_TRAIL; XML: V$XML_AUDIT_TRAIL и файлы AUDIT_FILE_DEST; FGA: DBA_FGA_AUDIT_TRAIL. В записи сопоставляют пользователя, время, объект, действие и результат. NOAUDIT отменяет правило, но не удаляет историю.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture07 · обработанная редакция записи",
+        "text": "[Лекция 8 · 00:16:00–00:27:30]\n## Стандартный аудит: включение и место хранения\n\n**00:16:00–00:27:30. Преподаватель, редакция.** Настройка состоит из четырёх задач: включить механизм, определить контролируемые действия, просматривать результаты и обслуживать журнал. Серверный процесс выполняет команду пользователя и, согласно настройкам, формирует запись аудита.\n\nВ Enterprise Manager используется вкладка SPFile параметров инициализации. Параметр `AUDIT_TRAIL` статический, поэтому изменение требует перезапуска. На слайде показан вариант XML. Преподаватель отдельно исправляет типографские кавычки: для SQL нужны обычные одинарные кавычки.\n\n```sql\nALTER SYSTEM SET audit_trail='XML' SCOPE=SPFILE;\n```\n\nЭто пример со слайда с исправленными кавычками, а не команда, выполненная при подготовке транскрипта.\n\nРазбираются варианты хранения: `OS`, `DB`, `DB, EXTENDED`, `XML`, `XML, EXTENDED`. Для Windows при `OS` обсуждается Event Log, для файловых журналов — каталог `AUDIT_FILE_DEST`. XML-файлы также размещаются по этому параметру. В лекции перечислены пять включённых режимов; отключение стандартного аудита обозначается `NONE`.\n\nРезультаты стандартного аудита в БД просматриваются через `DBA_AUDIT_TRAIL`; для XML обсуждается `V$XML_AUDIT_TRAIL`. Для FGA используется `DBA_FGA_AUDIT_TRAIL`, объединённое представление — `DBA_COMMON_AUDIT_TRAIL`. Среди полей называются время, экземпляр, процесс ОС, транзакция, SCN, SQL-текст и bind-переменные. Написание имён восстановлено по слайдам, а не по фонетике ASR.\n\n**Уточнение Oracle 11.2:** `EXTENDED` добавляет SQL-текст и bind-значения, когда они доступны; он не означает обратного. `DB` не переносит в БД те записи, которые обязательны для журнала ОС: [AUDIT_TRAIL](https://docs.oracle.com/cd/E11882_01/server.112/e40402/initparams017.htm).\n\n[Лекция 8 · 00:36:00–00:38:00]\n## Просмотр и отключение стандартного аудита\n\n**00:36:00–00:38:00. Преподаватель, редакция.** На экране показываются схема HR, объект EMPLOYEES, пользователь SYSTEM, действие и время. Источник показанного запроса — `DBA_AUDIT_OBJECT`.\n\nДля отмены настройки используется `NOAUDIT`. В примере снимается аудит `COMMENT`, `INDEX`, `LOCK`, `RENAME` над `HR.EMPLOYEES`. Отключение правила и удаление старых записей журнала — разные действия. После этого кратко повторяется схема триггерного аудита значений.\n\n[Лекция 8 · 00:53:30–00:58:00]\n## Административный аудит и обслуживание журнала\n\n**00:53:30–00:58:00. Преподаватель, редакция.** Пользователи с `SYSDBA`/`SYSOPER` могут подключаться к закрытой БД, аутентифицируясь через ОС или файл паролей. Поэтому журнал таких действий должен существовать вне доступности таблиц БД. Обязательная запись подключения не равна дополнительной регистрации административных команд.\n\nДля дополнительного контроля рассматривается `AUDIT_SYS_OPERATIONS`, для расположения файлов — `AUDIT_FILE_DEST`. В Enterprise Manager соответствующая настройка подписана Audit SYS User Operations. Упоминание `SYSMAN` в речи не делает эту учётную запись отдельной привилегией, равной `SYSDBA`/`SYSOPER`.\n\nАдминистратор должен просматривать журнал, сохранять старые записи, следить за свободным местом и предотвращать потерю информации. Накопление журнала без обслуживания может стать отдельной проблемой.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less11_Security ред.pdf, физические страницы 9, 10, 11, 14, 20, 21"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/network.112/e36292/auditing.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-audit-admin",
+      "topic": "audit",
+      "level": "foundation",
+      "front": "Зачем отделять обязательный аудит от AUDIT_SYS_OPERATIONS?",
+      "answer_short": "Подключения SYSDBA/SYSOPER, запуск и остановка обязательно фиксируются независимо от доступности таблиц БД. AUDIT_SYS_OPERATIONS добавляет регистрацию административных SQL-действий.",
+      "answer_deep": "Администратор может входить при закрытой БД, поэтому обязательный журнал должен существовать вне обычных таблиц.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Подключения SYSDBA/SYSOPER, запуск и остановка обязательно фиксируются независимо от доступности таблиц БД. AUDIT_SYS_OPERATIONS добавляет регистрацию административных SQL-действий.",
+        "documentation_correction": [
+          "Alert log, упомянутый в лекции, не заменяет обязательный аудит ОС. SYSMAN — учётная запись EM, а не привилегия наподобие SYSDBA."
+        ],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Административный аудит и обслуживание журнала\n\n**00:53:30–00:58:00. Преподаватель, редакция.** Пользователи с `SYSDBA`/`SYSOPER` могут подключаться к закрытой БД, аутентифицируясь через ОС или файл паролей. Поэтому журнал таких действий должен существовать вне доступности таблиц БД. Обязательная запись подключения не равна дополнительной регистрации административных команд.\n\nДля дополнительного контроля рассматривается `AUDIT_SYS_OPERATIONS`, для расположения файлов — `AUDIT_FILE_DEST`. В Enterprise Manager соответствующая настройка подписана Audit SYS User Operations. Упоминание `SYSMAN` в речи не делает эту учётную запись отдельной привилегией, равной `SYSDBA`/`SYSOPER`.\n\nАдминистратор должен просматривать журнал, сохранять старые записи, следить за свободным местом и предотвращать потерю информации. Накопление журнала без обслуживания может стать отдельной проблемой.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "00:53:30–00:58:00"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель объясняет размещение журнала возможностью входа при закрытой БД.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less11_Security ред.pdf, физические страницы 20, 21"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/network.112/e36292/auditing.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-fga-policy",
+      "topic": "fga",
+      "level": "foundation",
+      "front": "Из каких частей состоит политика DBMS_FGA?",
+      "answer_short": "Схема и объект, имя политики, условие по данным, аудируемые столбцы, типы операций, включённость и необязательный обработчик. ADD_POLICY создаёт эту конфигурацию.",
+      "answer_deep": "Политика регистрирует интересующий доступ; права на чтение и изменение задаются отдельно. FGA сама по себе не устанавливает организационную правомерность запроса.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Схема и объект, имя политики, условие по данным, аудируемые столбцы, типы операций, включённость и необязательный обработчик. ADD_POLICY создаёт эту конфигурацию.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## FGA: условие, столбец и обработчик\n\n**00:38:00–00:49:00. Преподаватель, редакция.** FGA контролирует доступ в зависимости от содержания данных и позволяет связать политику с одним или несколькими столбцами таблицы/представления. Для управления используется пакет `DBMS_FGA`, для создания — `ADD_POLICY`.\n\nНа слайде задан пример политики `audit_emps_salary`: объект `HR.EMPLOYEES`, условие `department_id=10`, столбец `SALARY`, обработчик `SECURE.LOG_EMPS_SALARY`, включённое состояние, типы команд `SELECT,UPDATE`.\n\nЕсли запрос выбирает имя и должность, но не обращается к зарплате, в этом примере политика не срабатывает. Если он обращается к зарплате строки подразделения 10, создаётся запись и вызывается обработчик. Преподаватель замечает ошибку слайда: в `HR.EMPLOYEES` нет столбца `NAME`, имеется в виду `LAST_NAME`.\n\nУсловие политики проверяется по данным, а не по буквальному совпадению текста `WHERE`. Поэтому `UPDATE ... WHERE employee_id=200` в примере вызывает аудит: этот сотрудник относится к подразделению 10. Вариант с `commission_pct=.2` не вызывает его, поскольку среди соответствующих строк нет сотрудников подразделения 10. Преподаватель подчёркивает: если бы такой сотрудник был, аудит сработал бы.\n\nДля `DELETE` выбор аудируемых столбцов не ограничивает действие так же, как для обычного чтения столбца: удаляется строка. `MERGE` обсуждается через его составляющие `INSERT`/`UPDATE`. В [DBMS_FGA для 11.2](https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_fga.htm) список допустимых `statement_types` — `SELECT`, `INSERT`, `UPDATE`, `DELETE`; добавлять туда буквальное `MERGE` по общей фразе слайда нельзя.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "00:38:00–00:49:00"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less11_Security ред.pdf, физические страницы 16, 17, 18"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_fga.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-fga-condition",
+      "topic": "fga",
+      "level": "foundation",
+      "front": "Как совместно работают условие по строкам и выбор столбцов FGA?",
+      "answer_short": "Проверяются данные затронутых строк и обращение к аудируемому столбцу. Для DEPARTMENT_ID=10 и SALARY запрос по EMPLOYEE_ID=200 может попасть в аудит без слова DEPARTMENT_ID в WHERE.",
+      "answer_deep": "Сотрудник 200 в примере относится к отделу 10. Чтение только имени и должности не обращается к SALARY; результат запроса по комиссии зависит от данных. Преподаватель исправляет NAME на LAST_NAME.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Проверяются данные затронутых строк и обращение к аудируемому столбцу. Для DEPARTMENT_ID=10 и SALARY запрос по EMPLOYEE_ID=200 может попасть в аудит без слова DEPARTMENT_ID в WHERE.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## FGA: условие, столбец и обработчик\n\n**00:38:00–00:49:00. Преподаватель, редакция.** FGA контролирует доступ в зависимости от содержания данных и позволяет связать политику с одним или несколькими столбцами таблицы/представления. Для управления используется пакет `DBMS_FGA`, для создания — `ADD_POLICY`.\n\nНа слайде задан пример политики `audit_emps_salary`: объект `HR.EMPLOYEES`, условие `department_id=10`, столбец `SALARY`, обработчик `SECURE.LOG_EMPS_SALARY`, включённое состояние, типы команд `SELECT,UPDATE`.\n\nЕсли запрос выбирает имя и должность, но не обращается к зарплате, в этом примере политика не срабатывает. Если он обращается к зарплате строки подразделения 10, создаётся запись и вызывается обработчик. Преподаватель замечает ошибку слайда: в `HR.EMPLOYEES` нет столбца `NAME`, имеется в виду `LAST_NAME`.\n\nУсловие политики проверяется по данным, а не по буквальному совпадению текста `WHERE`. Поэтому `UPDATE ... WHERE employee_id=200` в примере вызывает аудит: этот сотрудник относится к подразделению 10. Вариант с `commission_pct=.2` не вызывает его, поскольку среди соответствующих строк нет сотрудников подразделения 10. Преподаватель подчёркивает: если бы такой сотрудник был, аудит сработал бы.\n\nДля `DELETE` выбор аудируемых столбцов не ограничивает действие так же, как для обычного чтения столбца: удаляется строка. `MERGE` обсуждается через его составляющие `INSERT`/`UPDATE`. В [DBMS_FGA для 11.2](https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_fga.htm) список допустимых `statement_types` — `SELECT`, `INSERT`, `UPDATE`, `DELETE`; добавлять туда буквальное `MERGE` по общей фразе слайда нельзя.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "00:38:00–00:49:00"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель отдельно проводит UPDATE по первичному ключу через условие политики и показывает независимость от текста WHERE. Преподаватель явно рассматривает контрпример: появление сотрудника нужного отдела меняет результат. В устном разборе обнаружена и исправлена ошибка имени столбца на слайде.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less11_Security ред.pdf, физические страницы 16, 17, 18"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_fga.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-fga-null",
+      "topic": "fga",
+      "level": "foundation",
+      "front": "Что означают NULL у audit_condition и audit_column?",
+      "answer_short": "audit_condition=NULL снимает фильтр по строкам; запись возможна даже без обработанных строк. audit_column=NULL снимает ограничение на столбцы. Типы операций по-прежнему задаёт statement_types.",
+      "answer_deep": "Допустимы SELECT, INSERT, UPDATE, DELETE; MERGE учитывается через составляющие действия.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "audit_condition=NULL снимает фильтр по строкам; запись возможна даже без обработанных строк. audit_column=NULL снимает ограничение на столбцы. Типы операций по-прежнему задаёт statement_types.",
+        "documentation_correction": [
+          "«Все команды» в устном объяснении audit_column=NULL нужно уточнить: речь о любых столбцах, а не автоматическом выборе всех типов SQL."
+        ],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture07 · обработанная редакция записи",
+        "text": "[Лекция 8 · 00:49:00–00:53:30]\n## Ограничения и ошибки политики FGA\n\n**00:49:00–00:53:30. Преподаватель, редакция.** `audit_condition=NULL` используется для всех строк. `audit_column=NULL` на слайде назван способом контролировать «все команды». Точное значение по справочнику — обращение к любому столбцу; набор типов операций задаётся отдельно через `statement_types`.\n\nИмя политики должно быть уникальным в применимой области; объект уже должен существовать при создании политики. Преподаватель повторяет со слайда, что ошибка синтаксиса условия может проявиться при обращении к объекту, а не при создании политики. Указанный на слайде код — `ORA-28112`.\n\nТакже повторяются утверждения слайда, что несуществующий аудируемый столбец не даст записей, а отсутствующий обработчик не вызовет ошибку и не помешает записи аудита. Эти утверждения сохранены как содержание лекции, **не как проверенная инструкция Oracle 11.2**. Документация `DBMS_FGA` явно говорит, что исключение обработчика приводит к ошибке пользовательского SQL. Разница между отсутствующим, недоступным и падающим обработчиком требует отдельного воспроизводимого теста; тест на учебной БД здесь не выполнялся.\n\n[Лекция 8 · 00:38:00–00:49:00]\n## FGA: условие, столбец и обработчик\n\n**00:38:00–00:49:00. Преподаватель, редакция.** FGA контролирует доступ в зависимости от содержания данных и позволяет связать политику с одним или несколькими столбцами таблицы/представления. Для управления используется пакет `DBMS_FGA`, для создания — `ADD_POLICY`.\n\nНа слайде задан пример политики `audit_emps_salary`: объект `HR.EMPLOYEES`, условие `department_id=10`, столбец `SALARY`, обработчик `SECURE.LOG_EMPS_SALARY`, включённое состояние, типы команд `SELECT,UPDATE`.\n\nЕсли запрос выбирает имя и должность, но не обращается к зарплате, в этом примере политика не срабатывает. Если он обращается к зарплате строки подразделения 10, создаётся запись и вызывается обработчик. Преподаватель замечает ошибку слайда: в `HR.EMPLOYEES` нет столбца `NAME`, имеется в виду `LAST_NAME`.\n\nУсловие политики проверяется по данным, а не по буквальному совпадению текста `WHERE`. Поэтому `UPDATE ... WHERE employee_id=200` в примере вызывает аудит: этот сотрудник относится к подразделению 10. Вариант с `commission_pct=.2` не вызывает его, поскольку среди соответствующих строк нет сотрудников подразделения 10. Преподаватель подчёркивает: если бы такой сотрудник был, аудит сработал бы.\n\nДля `DELETE` выбор аудируемых столбцов не ограничивает действие так же, как для обычного чтения столбца: удаляется строка. `MERGE` обсуждается через его составляющие `INSERT`/`UPDATE`. В [DBMS_FGA для 11.2](https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_fga.htm) список допустимых `statement_types` — `SELECT`, `INSERT`, `UPDATE`, `DELETE`; добавлять туда буквальное `MERGE` по общей фразе слайда нельзя.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less11_Security ред.pdf, физические страницы 16, 17, 18, 19"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_fga.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-fga-errors",
+      "topic": "fga",
+      "level": "foundation",
+      "front": "Почему созданную политику FGA нужно проверить обращением к объекту?",
+      "answer_short": "Некоторые ошибки условия проявляются при выполнении SQL, а исключение обработчика способно сорвать пользовательскую команду. Успешный ADD_POLICY ещё не доказывает работоспособность политики.",
+      "answer_deep": "Проверяют ожидаемое срабатывание и отсутствие записи там, где условия не выполнены.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Некоторые ошибки условия проявляются при выполнении SQL, а исключение обработчика способно сорвать пользовательскую команду. Успешный ADD_POLICY ещё не доказывает работоспособность политики.",
+        "documentation_correction": [
+          "Нельзя обещать, что отсутствующий или ошибочный обработчик всегда безвреден: универсальное утверждение слайда не подтверждено."
+        ],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Ограничения и ошибки политики FGA\n\n**00:49:00–00:53:30. Преподаватель, редакция.** `audit_condition=NULL` используется для всех строк. `audit_column=NULL` на слайде назван способом контролировать «все команды». Точное значение по справочнику — обращение к любому столбцу; набор типов операций задаётся отдельно через `statement_types`.\n\nИмя политики должно быть уникальным в применимой области; объект уже должен существовать при создании политики. Преподаватель повторяет со слайда, что ошибка синтаксиса условия может проявиться при обращении к объекту, а не при создании политики. Указанный на слайде код — `ORA-28112`.\n\nТакже повторяются утверждения слайда, что несуществующий аудируемый столбец не даст записей, а отсутствующий обработчик не вызовет ошибку и не помешает записи аудита. Эти утверждения сохранены как содержание лекции, **не как проверенная инструкция Oracle 11.2**. Документация `DBMS_FGA` явно говорит, что исключение обработчика приводит к ошибке пользовательского SQL. Разница между отсутствующим, недоступным и падающим обработчиком требует отдельного воспроизводимого теста; тест на учебной БД здесь не выполнялся.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "00:49:00–00:53:30"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Отдельно сохраняется устное обсуждение ошибок политики и граница его подтверждения.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less11_Security ред.pdf, физические страницы 19"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_fga.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-value-audit",
+      "topic": "fga",
+      "level": "foundation",
+      "front": "Как триггер сохраняет историю значений и как она связана с транзакцией?",
+      "answer_short": "Построчный триггер использует :OLD и :NEW и сохраняет старое/новое значение вместе с ключом строки и контекстом действия. Его запись в обычной транзакции откатывается при ROLLBACK вместе с изменением.",
+      "answer_deep": "Пользователь БД, пользователь ОС и IP — разные атрибуты. Триггер таблицы не перехватывает SELECT.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Построчный триггер использует :OLD и :NEW и сохраняет старое/новое значение вместе с ключом строки и контекстом действия. Его запись в обычной транзакции откатывается при ROLLBACK вместе с изменением.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Пять видов аудита\n\n**00:11:30–00:16:00. Преподаватель, редакция.** Аудит — контроль и регистрация выбранных действий пользователей. Перечисляются пять подходов:\n\n- обязательный аудит — mandatory auditing;\n- стандартный аудит командами `AUDIT`;\n- аудит значений с помощью триггеров — value-based auditing;\n- детализированный аудит — fine-grained auditing, FGA;\n- дополнительный аудит административных действий — DBA auditing.\n\nТриггер позволяет сохранить, кто, когда и как изменил зарплату, однако обычный триггер таблицы не перехватывает `SELECT`. FGA позволяет контролировать и чтение данных, задавать условия и запускать процедуру-обработчик. Обязательная регистрация подключений `SYSDBA`/`SYSOPER` отделяется от дополнительного контроля их команд.\n\nПреподаватель называет местом регистрации административных подключений alert log. **Уточнение Oracle 11.2:** обязательный аудит запуска, остановки и подключений `SYSDBA`/`SYSOPER` относится к журналу аудита ОС; в Windows используется также Event Viewer. Alert log не следует считать его заменой: [Security Guide, Activities That Are Always Audited for All Platforms](https://docs.oracle.com/cd/E11882_01/network.112/e36292/auditing.htm).",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "00:11:30–00:16:00"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less11_Security ред.pdf, физические страницы 15"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/network.112/e36292/auditing.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-plan",
+      "topic": "optimizer-statistics",
+      "level": "foundation",
+      "front": "Что выбирает оптимизатор при построении плана выполнения?",
+      "answer_short": "Пути доступа к данным, порядок и методы соединений, сортировки и другие операции. Стоимостной оптимизатор оценивает доступные варианты по статистикам и существующим структурам.",
+      "answer_deep": "Один логический SQL допускает разные физические планы. Оптимизатор не превращает обычную таблицу в IOT в процессе выбора плана.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Пути доступа к данным, порядок и методы соединений, сортировки и другие операции. Стоимостной оптимизатор оценивает доступные варианты по статистикам и существующим структурам.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Как оптимизатор выбирает план\n\n**01:14:30–01:19:00. Преподаватель, редакция.** Оптимизатор оценивает выражения и условия SQL, использует статистики объектов и системы, выбирает доступ к данным, порядок и способы соединения таблиц.\n\nПриводятся примеры: последовательный просмотр таблицы либо доступ через индекс; работа с B-tree/bitmap; разные направления перебора главной и подчинённой таблицы; соединение с предварительной сортировкой. Смысл примеров — один логический запрос может иметь разные физические способы выполнения.\n\nВ речи среди вариантов упоминается переход к индексно-организованной таблице. Это не подтверждает, что оптимизатор сам меняет физическую организацию обычной таблицы: наличие структуры и выбор пути выполнения следует различать.\n\nУпомянуты исторический оптимизатор на правилах и оптимизатор на стоимости. В текущем объяснении внимание сосредоточено на втором и на качестве его статистик.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "01:14:30–01:19:00"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 5"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-saved-statistics",
+      "topic": "optimizer-statistics",
+      "level": "foundation",
+      "front": "Почему COUNT(*) и NUM_ROWS могут различаться?",
+      "answer_short": "COUNT(*) считает строки, видимые запросу сейчас, а NUM_ROWS хранит оценку на момент прошлого сбора статистик. DML не пересчитывает её после каждого изменения; сохранённые статистики переживают перезапуск.",
+      "answer_deep": "Пример преподавателя: 214 фактических строк против NUM_ROWS=107. Это учебные значения, а не текущий замер базы.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "COUNT(*) считает строки, видимые запросу сейчас, а NUM_ROWS хранит оценку на момент прошлого сбора статистик. DML не пересчитывает её после каждого изменения; сохранённые статистики переживают перезапуск.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Статистики оптимизатора: снимок, а не текущее COUNT\n\n**01:19:00–01:22:30. Преподаватель, редакция.** Статистики описывают состояние на момент сбора, сохраняются после перезапуска и обычно собираются автоматически. Пример показывает разницу между текущим количеством строк и сохранённой оценкой:\n\n```sql\nSELECT COUNT(*) FROM hr.employees; -- на слайде: 214\nSELECT num_rows FROM dba_tables\nWHERE owner='HR' AND table_name='EMPLOYEES'; -- на слайде: 107\n```\n\nЧисла **214** и **107** — значения учебного примера, а не результат обращения к нынешней базе. Расхождение объясняется изменением данных после сбора статистик. DBA должен следить за их актуальностью. Это не означает, что `NUM_ROWS` автоматически меняется при каждом `INSERT` или обязано совпадать с текущим `COUNT(*)`.\n\nВ Enterprise Manager управление находится в `Server → Query Optimizer → Manage Optimizer Statistics`. Преподаватель перечисляет сбор, восстановление, блокировку, разблокировку и удаление статистик; подробное выполнение этих операций здесь не показывается.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "01:19:00–01:22:30"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель объясняет причинную связь между изменением данных и сохранённой оценкой; не только читает два числа.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 6, 7"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-object-statistics",
+      "topic": "optimizer-statistics",
+      "level": "foundation",
+      "front": "Какие сведения об объектах нужны оптимизатору?",
+      "answer_short": "О таблице — строки, блоки, средняя длина строки; о столбцах — NDV, NULL и распределение; об индексах — их размер и структура; о системе — CPU/I/O. Cardinality плана — оценённое число строк на выходе операции.",
+      "answer_deep": "Гистограмма учитывает неравномерность значений. Статистики смотрят в DBA_TABLES, DBA_TAB_COL_STATISTICS и DBA_INDEXES, а не пересчитывают самим чтением этих представлений.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "О таблице — строки, блоки, средняя длина строки; о столбцах — NDV, NULL и распределение; об индексах — их размер и структура; о системе — CPU/I/O. Cardinality плана — оценённое число строк на выходе операции.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Какие статистики просматривают\n\n**01:26:30–01:32:07.30. Преподаватель, редакция.** Перечисляются группы:\n\n| Объект | Примеры статистик |\n|---|---|\n| Таблица | число строк, блоков, средняя длина строки |\n| Столбец | число различных значений — NDV, число NULL |\n| Индекс | число листовых блоков, глубина дерева, clustering factor |\n| Система | характеристики ввода-вывода и CPU |\n\nПреподаватель отдельно читает замечание слайда: это статистики CBO, их нельзя смешивать со статистиками производительности экземпляра в `V$`. `Clustering factor` только назван, подробное объяснение отложено.\n\nДля просмотра называются `DBA_TABLES`, `DBA_TAB_COL_STATISTICS`, `DBA_INDEXES`, `DBA_CLUSTERS`, представления секций, а также соответствующие варианты `USER_` и `ALL_`. Финальный пример со страницы 12 презентации:\n\n```sql\nSELECT index_name \"NAME\", num_rows, distinct_keys \"DISTINCT\",\n       leaf_blocks, blevel \"LEVEL\", avg_leaf_blocks_per_key \"ALFBPKEY\"\nFROM dba_indexes\nWHERE owner='SH'\nORDER BY index_name;\n```\n\nНа слайде у `CUSTOMERS_PK` показаны `NUM_ROWS=50000`, `DISTINCT_KEYS=50000`, `LEAF_BLOCKS=454`, `BLEVEL=2`; у `PRODUCTS_PK` — 10000 строк и 10000 различных ключей. У `PRODUCTS_PROD_CAT_IX` — 10000 строк, четыре различных ключа и среднее число листовых блоков на ключ 24. Имена индексов и числа восстановлены по слайду и обеим ASR, не проверялись на учебной БД. Классификация «это внешний ключ» в речи не доказывает constraint только по имени индекса.\n\n**Уточнение Oracle 11.2:** `BLEVEL` — глубина от корневого блока до листьев; ноль означает совпадение корня и листа. Его нельзя без уточнения назвать общим числом ярусов дерева. `AVG_LEAF_BLOCKS_PER_KEY` — округлённое среднее числа листовых блоков для отдельного значения ключа: [ALL_INDEXES](https://docs.oracle.com/cd/E11882_01/server.112/e40402/statviews_1109.htm).\n\nНа этом запись заканчивается. Слайды о предпочтениях `DBMS_STATS`, восстановлении статистик и более подробной настройке AWR после страницы 12 этой презентации не включены как прочитанная часть лекции.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "01:26:30–01:32:07.30"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 10, 11, 12, 15"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40402/statviews_1109.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-index-statistics",
+      "topic": "optimizer-statistics",
+      "level": "foundation",
+      "front": "Как читать основные статистики индекса?",
+      "answer_short": "DISTINCT_KEYS — различные ключи; LEAF_BLOCKS — листовые блоки; BLEVEL — глубина от корня до листьев. BLEVEL=0 означает один блок, одновременно корень и лист.",
+      "answer_deep": "AVG_LEAF_BLOCKS_PER_KEY — среднее число листовых блоков для ключа; CLUSTERING_FACTOR отражает согласованность порядка ключей с размещением строк таблицы.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "DISTINCT_KEYS — различные ключи; LEAF_BLOCKS — листовые блоки; BLEVEL — глубина от корня до листьев. BLEVEL=0 означает один блок, одновременно корень и лист.",
+        "documentation_correction": [
+          "BLEVEL нельзя без уточнения называть общим числом ярусов: BLEVEL=2 соответствует двум переходам от корня к листу."
+        ],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Какие статистики просматривают\n\n**01:26:30–01:32:07.30. Преподаватель, редакция.** Перечисляются группы:\n\n| Объект | Примеры статистик |\n|---|---|\n| Таблица | число строк, блоков, средняя длина строки |\n| Столбец | число различных значений — NDV, число NULL |\n| Индекс | число листовых блоков, глубина дерева, clustering factor |\n| Система | характеристики ввода-вывода и CPU |\n\nПреподаватель отдельно читает замечание слайда: это статистики CBO, их нельзя смешивать со статистиками производительности экземпляра в `V$`. `Clustering factor` только назван, подробное объяснение отложено.\n\nДля просмотра называются `DBA_TABLES`, `DBA_TAB_COL_STATISTICS`, `DBA_INDEXES`, `DBA_CLUSTERS`, представления секций, а также соответствующие варианты `USER_` и `ALL_`. Финальный пример со страницы 12 презентации:\n\n```sql\nSELECT index_name \"NAME\", num_rows, distinct_keys \"DISTINCT\",\n       leaf_blocks, blevel \"LEVEL\", avg_leaf_blocks_per_key \"ALFBPKEY\"\nFROM dba_indexes\nWHERE owner='SH'\nORDER BY index_name;\n```\n\nНа слайде у `CUSTOMERS_PK` показаны `NUM_ROWS=50000`, `DISTINCT_KEYS=50000`, `LEAF_BLOCKS=454`, `BLEVEL=2`; у `PRODUCTS_PK` — 10000 строк и 10000 различных ключей. У `PRODUCTS_PROD_CAT_IX` — 10000 строк, четыре различных ключа и среднее число листовых блоков на ключ 24. Имена индексов и числа восстановлены по слайду и обеим ASR, не проверялись на учебной БД. Классификация «это внешний ключ» в речи не доказывает constraint только по имени индекса.\n\n**Уточнение Oracle 11.2:** `BLEVEL` — глубина от корневого блока до листьев; ноль означает совпадение корня и листа. Его нельзя без уточнения назвать общим числом ярусов дерева. `AVG_LEAF_BLOCKS_PER_KEY` — округлённое среднее числа листовых блоков для отдельного значения ключа: [ALL_INDEXES](https://docs.oracle.com/cd/E11882_01/server.112/e40402/statviews_1109.htm).\n\nНа этом запись заканчивается. Слайды о предпочтениях `DBMS_STATS`, восстановлении статистик и более подробной настройке AWR после страницы 12 этой презентации не включены как прочитанная часть лекции.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "01:26:30–01:32:07.30"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 10, 11, 12"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e40402/statviews_1109.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-dbms-stats",
+      "topic": "statistics-management",
+      "level": "foundation",
+      "front": "Какие операции и уровни сбора поддерживает DBMS_STATS?",
+      "answer_short": "Сбор, удаление, блокировка, восстановление и перенос статистик, а также управление preferences. Области сбора: база, схема, таблица, индекс, fixed objects и dictionary objects.",
+      "answer_deep": "Fixed objects и объекты словаря — разные области: преподаватель сам уточняет это по интерфейсу. GATHER_*_STATS обозначает семейство процедур, а не имя для буквального вызова.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Сбор, удаление, блокировка, восстановление и перенос статистик, а также управление preferences. Области сбора: база, схема, таблица, индекс, fixed objects и dictionary objects.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "Обработанные фрагменты учебных записей; записи и таймкоды указаны в тексте",
+        "text": "[Лекция 9 · 00:00:00–00:04:30]\n## 00:00:00 — Преподаватель\n\nDBMS_STATS — основной пакет для работы со статистиками. Позволяет собирать и удалять статистики, задавать и получать текущие значения параметров сбора статистики. Именно параметров, не самих статистик.\n\n## 00:00:30 — Преподаватель\n\nПакет позволяет делать импорт и экспорт статистик между словарём данных и пользовательскими таблицами статистики, хранить историю, откатываться к старым значениям. Это не все задачи DBMS_STATS.\n\n## 00:01:00 — Преподаватель\n\nСейчас несколько процедур пакета DBMS_STATS. GATHER_*_STATS — это набор процедур, связанных со сбором статистик. Вместо звёздочки могут стоять различные объекты, уровни сбора.\n\n## 00:01:30 — Преподаватель\n\nВ GATHER_*_STATS вместо звёздочки записывается уровень сбора: TABLE, DATABASE или SCHEMA. Со звёздочкой напрямую процедура не работает.\n\n## 00:02:00 — Преподаватель\n\nУровень процедуры выбирается вместо звёздочки; несколько уровней позволяют собрать статистики для разных объектов.\n\n## 00:02:30 — Преподаватель\n\nМожно собирать статистики отдельной таблицы, схемы, всей базы и других объектов. У процедуры несколько параметров со значениями по умолчанию.\n\n## 00:03:00 — Преподаватель\n\nЗначения по умолчанию хороши для большинства объектов, но для отдельных объектов или схем их приходится менять. Можно задать свои значения параметров.\n\n## 00:03:30 — Преподаватель\n\nЗадаваемые величины называются предпочтениями — preferences. Они определяют параметры процедур сбора статистик.\n\n## 00:04:00 — Преподаватель\n\nPreferences определяют параметры сбора. Глобальной командой можно изменить значения для новых таблиц; можно менять их и для существующих таблиц.\n\n[Лекция 8 · 01:22:30–01:26:30]\n## Ручной сбор и STATISTICS_LEVEL\n\n**01:22:30–01:26:30. Преподаватель, редакция.** При необходимости статистики собираются вручную. В мастере последовательно выбираются scope, объекты, параметры, расписание и проверка. Варианты scope: Database, Schema, Tables, Indexes, Fixed Objects, Dictionary Objects.\n\nПреподаватель сначала связывает fixed objects со словарём, затем читает пояснение интерфейса и уточняет, что здесь имеются в виду структуры в памяти, а dictionary objects выделены отдельно. Это самоисправление сохранено; эти две категории не объединены.\n\nУ `STATISTICS_LEVEL` три значения: `BASIC`, `TYPICAL`, `ALL`. Рекомендуемым обычным режимом называется `TYPICAL`; `ALL` собирает дополнительные данные для диагностики и требует ресурсов. `BASIC` описывается как отключение возможностей самонастройки.\n\n**Уточнение:** слова «ничего в репозиторий не записывается» не означают полного запрета ручного AWR-снимка. Справочник Oracle 11.2 допускает ручное получение AWR-снимков при `BASIC`, но часть данных будет отсутствовать: [Automatic Performance Statistics, Overview of AWR](https://docs.oracle.com/cd/E11882_01/server.112/e41573/autostat.htm).\n\n[Лекция 8 · 01:19:00–01:22:30]\n## Статистики оптимизатора: снимок, а не текущее COUNT\n\n**01:19:00–01:22:30. Преподаватель, редакция.** Статистики описывают состояние на момент сбора, сохраняются после перезапуска и обычно собираются автоматически. Пример показывает разницу между текущим количеством строк и сохранённой оценкой:\n\n```sql\nSELECT COUNT(*) FROM hr.employees; -- на слайде: 214\nSELECT num_rows FROM dba_tables\nWHERE owner='HR' AND table_name='EMPLOYEES'; -- на слайде: 107\n```\n\nЧисла **214** и **107** — значения учебного примера, а не результат обращения к нынешней базе. Расхождение объясняется изменением данных после сбора статистик. DBA должен следить за их актуальностью. Это не означает, что `NUM_ROWS` автоматически меняется при каждом `INSERT` или обязано совпадать с текущим `COUNT(*)`.\n\nВ Enterprise Manager управление находится в `Server → Query Optimizer → Manage Optimizer Statistics`. Преподаватель перечисляет сбор, восстановление, блокировку, разблокировку и удаление статистик; подробное выполнение этих операций здесь не показывается.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель отдельно уточняет: параметры сбора и сами статистики — разные величины. Сохранено самоисправление преподавателя: структуры в памяти и объекты словаря разделены. В начале лекции преподаватель несколько раз объясняет смысл звёздочки в имени семейства процедур.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 6, 7, 8, 9, 13, 16"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_stats.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-statistics-level",
+      "topic": "optimizer-statistics",
+      "level": "foundation",
+      "front": "Чем отличаются BASIC, TYPICAL и ALL у STATISTICS_LEVEL?",
+      "answer_short": "TYPICAL — обычный режим диагностики и самонастройки; ALL добавляет диагностические данные; BASIC отключает многие эти возможности. Это не процент выборки DBMS_STATS.",
+      "answer_deep": "При BASIC ручной AWR-снимок возможен, но часть статистик в нём отсутствует.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "TYPICAL — обычный режим диагностики и самонастройки; ALL добавляет диагностические данные; BASIC отключает многие эти возможности. Это не процент выборки DBMS_STATS.",
+        "documentation_correction": [
+          "Лекционное «ничего не записывается» нельзя понимать как абсолютный запрет ручного снимка AWR."
+        ],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Ручной сбор и STATISTICS_LEVEL\n\n**01:22:30–01:26:30. Преподаватель, редакция.** При необходимости статистики собираются вручную. В мастере последовательно выбираются scope, объекты, параметры, расписание и проверка. Варианты scope: Database, Schema, Tables, Indexes, Fixed Objects, Dictionary Objects.\n\nПреподаватель сначала связывает fixed objects со словарём, затем читает пояснение интерфейса и уточняет, что здесь имеются в виду структуры в памяти, а dictionary objects выделены отдельно. Это самоисправление сохранено; эти две категории не объединены.\n\nУ `STATISTICS_LEVEL` три значения: `BASIC`, `TYPICAL`, `ALL`. Рекомендуемым обычным режимом называется `TYPICAL`; `ALL` собирает дополнительные данные для диагностики и требует ресурсов. `BASIC` описывается как отключение возможностей самонастройки.\n\n**Уточнение:** слова «ничего в репозиторий не записывается» не означают полного запрета ручного AWR-снимка. Справочник Oracle 11.2 допускает ручное получение AWR-снимков при `BASIC`, но часть данных будет отсутствовать: [Automatic Performance Statistics, Overview of AWR](https://docs.oracle.com/cd/E11882_01/server.112/e41573/autostat.htm).",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "01:22:30–01:26:30"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 8, 9"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/autostat.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-stats-sampling",
+      "topic": "statistics-management",
+      "level": "foundation",
+      "front": "Как ESTIMATE_PERCENT и DEGREE влияют на сбор статистик?",
+      "answer_short": "ESTIMATE_PERCENT задаёт выборку, AUTO_SAMPLE_SIZE поручает её выбор Oracle; DEGREE задаёт параллелизм сбора. Это параметры процедуры, а не сами статистические значения.",
+      "answer_deep": "Больше параллелизма требует ресурсов, а выборочный NUM_ROWS остаётся оценкой. Изменение preference не запускает пересчёт автоматически.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "ESTIMATE_PERCENT задаёт выборку, AUTO_SAMPLE_SIZE поручает её выбор Oracle; DEGREE задаёт параллелизм сбора. Это параметры процедуры, а не сами статистические значения.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "[Лекция 9 · 00:00:00–00:04:30]\n## 00:00:00 — Преподаватель\n\nDBMS_STATS — основной пакет для работы со статистиками. Позволяет собирать и удалять статистики, задавать и получать текущие значения параметров сбора статистики. Именно параметров, не самих статистик.\n\n## 00:00:30 — Преподаватель\n\nПакет позволяет делать импорт и экспорт статистик между словарём данных и пользовательскими таблицами статистики, хранить историю, откатываться к старым значениям. Это не все задачи DBMS_STATS.\n\n## 00:01:00 — Преподаватель\n\nСейчас несколько процедур пакета DBMS_STATS. GATHER_*_STATS — это набор процедур, связанных со сбором статистик. Вместо звёздочки могут стоять различные объекты, уровни сбора.\n\n## 00:01:30 — Преподаватель\n\nВ GATHER_*_STATS вместо звёздочки записывается уровень сбора: TABLE, DATABASE или SCHEMA. Со звёздочкой напрямую процедура не работает.\n\n## 00:02:00 — Преподаватель\n\nУровень процедуры выбирается вместо звёздочки; несколько уровней позволяют собрать статистики для разных объектов.\n\n## 00:02:30 — Преподаватель\n\nМожно собирать статистики отдельной таблицы, схемы, всей базы и других объектов. У процедуры несколько параметров со значениями по умолчанию.\n\n## 00:03:00 — Преподаватель\n\nЗначения по умолчанию хороши для большинства объектов, но для отдельных объектов или схем их приходится менять. Можно задать свои значения параметров.\n\n## 00:03:30 — Преподаватель\n\nЗадаваемые величины называются предпочтениями — preferences. Они определяют параметры процедур сбора статистик.\n\n## 00:04:00 — Преподаватель\n\nPreferences определяют параметры сбора. Глобальной командой можно изменить значения для новых таблиц; можно менять их и для существующих таблиц.\n\n[Лекция 9 · 00:04:30–00:10:30]\n## 00:04:30 — Преподаватель\n\nНекоторые предпочтения. CASCADE определяет, собирается ли статистика индексов в рамках сбора статистики таблицы.\n\n## 00:05:00 — Преподаватель\n\nНужно ли при сборе статистики таблицы автоматически собирать статистику индексов? При TRUE — да. DEGREE определяет степень параллелизма, используемого при сборе статистики.\n\n## 00:05:30 — Преподаватель\n\nPUBLISH определяет, будут ли статистики публиковаться в словаре данных, фиксироваться и сохраняться в нём.\n\n## 00:06:00 — Преподаватель\n\nЕсли PUBLISH не установлен, они будут сохраняться в Private Area — в объяснении преподавателя, в оперативной памяти. STALE_PERCENT определяет порог, при котором статистики считаются устаревшими. [Техническая оговорка вынесена в uncertainties.md.]\n\n## 00:06:30 — Преподаватель\n\nSTALE_PERCENT — процент строк, изменённых с последнего сбора статистики. В примере значение 10.\n\n## 00:07:00 — Преподаватель\n\nПреподаватель сначала говорит «10 строк», затем уточняет вопрос: какой процент строк должен измениться, чтобы статистика считалась устаревшей?\n\n## 00:07:30 — Преподаватель\n\nПо умолчанию порог — 10. INCREMENTAL используется для инкрементального сбора глобальных статистик секционированных таблиц. Вспомним partitioned table.\n\n## 00:08:00 — Преподаватель\n\nОбычно в рассматриваемом примере таблица — один сегмент. Большую таблицу можно разделить на секции, каждая со своим сегментом. Секции можно размещать в разных табличных пространствах.\n\n## 00:08:30 — Преподаватель\n\nНапример, большая таблица продаж: продажи за 2000 год хранятся в одной секции, за 2001 год — в другой. При выборке можно обращаться к конкретной секции, а не искать по всей таблице.\n\n## 00:09:00 — Преподаватель\n\nИзменения тоже могут затрагивать определённую секцию. При INCREMENTAL=TRUE сканируются изменённые секции вместо полного сканирования таблицы.\n\n## 00:09:30 — Преподаватель\n\nСбор идёт по изменённым секциям. METHOD_OPT определяет столбцы и параметры гистограмм для сбора статистик по столбцам.\n\n## 00:10:00 — Преподаватель\n\nО гистограммах поговорим отдельно. ESTIMATE_PERCENT задаёт размер выборки как процент общего количества строк таблицы.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 13, 14, 15, 16"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_stats.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-stats-cascade-method",
+      "topic": "statistics-management",
+      "level": "foundation",
+      "front": "Что задают CASCADE и METHOD_OPT?",
+      "answer_short": "CASCADE управляет сбором статистик индексов вместе с таблицей. METHOD_OPT определяет сбор по столбцам и параметры гистограмм.",
+      "answer_deep": "CASCADE здесь не имеет отношения к каскадному удалению, а METHOD_OPT не выбирает метод соединения в SQL-плане.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "CASCADE управляет сбором статистик индексов вместе с таблицей. METHOD_OPT определяет сбор по столбцам и параметры гистограмм.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture09 · обработанная редакция записи",
+        "text": "## 00:04:30 — Преподаватель\n\nНекоторые предпочтения. CASCADE определяет, собирается ли статистика индексов в рамках сбора статистики таблицы.\n\n## 00:05:00 — Преподаватель\n\nНужно ли при сборе статистики таблицы автоматически собирать статистику индексов? При TRUE — да. DEGREE определяет степень параллелизма, используемого при сборе статистики.\n\n## 00:05:30 — Преподаватель\n\nPUBLISH определяет, будут ли статистики публиковаться в словаре данных, фиксироваться и сохраняться в нём.\n\n## 00:06:00 — Преподаватель\n\nЕсли PUBLISH не установлен, они будут сохраняться в Private Area — в объяснении преподавателя, в оперативной памяти. STALE_PERCENT определяет порог, при котором статистики считаются устаревшими. [Техническая оговорка вынесена в uncertainties.md.]\n\n## 00:06:30 — Преподаватель\n\nSTALE_PERCENT — процент строк, изменённых с последнего сбора статистики. В примере значение 10.\n\n## 00:07:00 — Преподаватель\n\nПреподаватель сначала говорит «10 строк», затем уточняет вопрос: какой процент строк должен измениться, чтобы статистика считалась устаревшей?\n\n## 00:07:30 — Преподаватель\n\nПо умолчанию порог — 10. INCREMENTAL используется для инкрементального сбора глобальных статистик секционированных таблиц. Вспомним partitioned table.\n\n## 00:08:00 — Преподаватель\n\nОбычно в рассматриваемом примере таблица — один сегмент. Большую таблицу можно разделить на секции, каждая со своим сегментом. Секции можно размещать в разных табличных пространствах.\n\n## 00:08:30 — Преподаватель\n\nНапример, большая таблица продаж: продажи за 2000 год хранятся в одной секции, за 2001 год — в другой. При выборке можно обращаться к конкретной секции, а не искать по всей таблице.\n\n## 00:09:00 — Преподаватель\n\nИзменения тоже могут затрагивать определённую секцию. При INCREMENTAL=TRUE сканируются изменённые секции вместо полного сканирования таблицы.\n\n## 00:09:30 — Преподаватель\n\nСбор идёт по изменённым секциям. METHOD_OPT определяет столбцы и параметры гистограмм для сбора статистик по столбцам.\n\n## 00:10:00 — Преподаватель\n\nО гистограммах поговорим отдельно. ESTIMATE_PERCENT задаёт размер выборки как процент общего количества строк таблицы.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture09",
+        "time_range": "00:04:30–00:10:30"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 14, 15"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_stats.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-stats-stale",
+      "topic": "statistics-management",
+      "level": "foundation",
+      "front": "Как STALE_PERCENT определяет устаревание статистик?",
+      "answer_short": "Это порог доли изменений с последнего сбора: обычное значение — 10 процентов, в примере SH.SALES задаётся 13. Признание статистик stale не равняется немедленному сбору.",
+      "answer_deep": "Преподаватель исправляет собственные слова «10 строк» на процент строк. SET_TABLE_PREFS меняет порог, а не данные и не NUM_ROWS.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Это порог доли изменений с последнего сбора: обычное значение — 10 процентов, в примере SH.SALES задаётся 13. Признание статистик stale не равняется немедленному сбору.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "[Лекция 9 · 00:04:30–00:10:30]\n## 00:04:30 — Преподаватель\n\nНекоторые предпочтения. CASCADE определяет, собирается ли статистика индексов в рамках сбора статистики таблицы.\n\n## 00:05:00 — Преподаватель\n\nНужно ли при сборе статистики таблицы автоматически собирать статистику индексов? При TRUE — да. DEGREE определяет степень параллелизма, используемого при сборе статистики.\n\n## 00:05:30 — Преподаватель\n\nPUBLISH определяет, будут ли статистики публиковаться в словаре данных, фиксироваться и сохраняться в нём.\n\n## 00:06:00 — Преподаватель\n\nЕсли PUBLISH не установлен, они будут сохраняться в Private Area — в объяснении преподавателя, в оперативной памяти. STALE_PERCENT определяет порог, при котором статистики считаются устаревшими. [Техническая оговорка вынесена в uncertainties.md.]\n\n## 00:06:30 — Преподаватель\n\nSTALE_PERCENT — процент строк, изменённых с последнего сбора статистики. В примере значение 10.\n\n## 00:07:00 — Преподаватель\n\nПреподаватель сначала говорит «10 строк», затем уточняет вопрос: какой процент строк должен измениться, чтобы статистика считалась устаревшей?\n\n## 00:07:30 — Преподаватель\n\nПо умолчанию порог — 10. INCREMENTAL используется для инкрементального сбора глобальных статистик секционированных таблиц. Вспомним partitioned table.\n\n## 00:08:00 — Преподаватель\n\nОбычно в рассматриваемом примере таблица — один сегмент. Большую таблицу можно разделить на секции, каждая со своим сегментом. Секции можно размещать в разных табличных пространствах.\n\n## 00:08:30 — Преподаватель\n\nНапример, большая таблица продаж: продажи за 2000 год хранятся в одной секции, за 2001 год — в другой. При выборке можно обращаться к конкретной секции, а не искать по всей таблице.\n\n## 00:09:00 — Преподаватель\n\nИзменения тоже могут затрагивать определённую секцию. При INCREMENTAL=TRUE сканируются изменённые секции вместо полного сканирования таблицы.\n\n## 00:09:30 — Преподаватель\n\nСбор идёт по изменённым секциям. METHOD_OPT определяет столбцы и параметры гистограмм для сбора статистик по столбцам.\n\n## 00:10:00 — Преподаватель\n\nО гистограммах поговорим отдельно. ESTIMATE_PERCENT задаёт размер выборки как процент общего количества строк таблицы.\n\n[Лекция 9 · 00:12:00–00:15:30]\n## 00:12:00 — Преподаватель\n\nSET — установка параметров, GET — получение текущих параметров сбора статистики, DELETE — удаление; EXPORT и IMPORT — экспорт и импорт статистик. Вот процедура установки предпочтений.\n\n## 00:12:30 — Преподаватель\n\nSET_TABLE_PREFS устанавливает предпочтения на уровне таблицы. Здесь вместо TABLE может быть другой из показанных уровней.\n\n## 00:13:00 — Преподаватель\n\nПример для таблицы SALES схемы SH: STALE_PERCENT установлен в 13. По умолчанию 10, здесь выставляем 13: при изменении 13 процентов строк статистики считаются устаревшими.\n\n## 00:13:30 — Преподаватель\n\nТаким образом статистики считаются устаревшими. В имени процедуры вместо TABLE можно указывать другой поддерживаемый уровень; это разные процедуры.\n\n## 00:14:00 — Преподаватель\n\nПреподаватель: предпочтения задаются для объектов, не принадлежащих SYS или SYSTEM; для SYS/SYSTEM их устанавливать нельзя. SET_DATABASE_PREFS перебирает таблицы схем базы и задаёт предпочтения. [Область запрета требует уточнения; см. uncertainties.md.]\n\n## 00:14:30 — Преподаватель\n\nSET_SCHEMA_PREFS перебирает таблицы определённой схемы, SET_TABLE_PREFS задаёт величину для одной таблицы. Объектные предпочтения, установленные через уровень базы, схемы или таблицы, сохраняются для таблицы.\n\n## 00:15:00 — Преподаватель\n\nИзменение preferences для схемы перезаписывает ранее установленные табличные значения: если сначала установил для таблицы, затем для схемы, прежнее значение изменится.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель сам исправляет «10 строк» на процент строк.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 14, 15, 16, 17"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_stats.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-stats-pref-levels",
+      "topic": "statistics-management",
+      "level": "foundation",
+      "front": "Как связаны глобальные, схемные и табличные preferences?",
+      "answer_short": "Глобальные значения служат defaults; SET_TABLE_PREFS записывает настройку одной таблицы; SET_SCHEMA_PREFS распространяет настройку на таблицы схемы. Поэтому более поздний вызов для схемы может перезаписать табличное значение.",
+      "answer_deep": "Важен порядок вызовов, а не постоянное превосходство схемного уровня.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Глобальные значения служат defaults; SET_TABLE_PREFS записывает настройку одной таблицы; SET_SCHEMA_PREFS распространяет настройку на таблицы схемы. Поэтому более поздний вызов для схемы может перезаписать табличное значение.",
+        "documentation_correction": [
+          "Устное «схема перезаписывает таблицу» описывает действие процедуры, а не вечный приоритет схемы над таблицей."
+        ],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture09 · обработанная редакция записи",
+        "text": "## 00:12:00 — Преподаватель\n\nSET — установка параметров, GET — получение текущих параметров сбора статистики, DELETE — удаление; EXPORT и IMPORT — экспорт и импорт статистик. Вот процедура установки предпочтений.\n\n## 00:12:30 — Преподаватель\n\nSET_TABLE_PREFS устанавливает предпочтения на уровне таблицы. Здесь вместо TABLE может быть другой из показанных уровней.\n\n## 00:13:00 — Преподаватель\n\nПример для таблицы SALES схемы SH: STALE_PERCENT установлен в 13. По умолчанию 10, здесь выставляем 13: при изменении 13 процентов строк статистики считаются устаревшими.\n\n## 00:13:30 — Преподаватель\n\nТаким образом статистики считаются устаревшими. В имени процедуры вместо TABLE можно указывать другой поддерживаемый уровень; это разные процедуры.\n\n## 00:14:00 — Преподаватель\n\nПреподаватель: предпочтения задаются для объектов, не принадлежащих SYS или SYSTEM; для SYS/SYSTEM их устанавливать нельзя. SET_DATABASE_PREFS перебирает таблицы схем базы и задаёт предпочтения. [Область запрета требует уточнения; см. uncertainties.md.]\n\n## 00:14:30 — Преподаватель\n\nSET_SCHEMA_PREFS перебирает таблицы определённой схемы, SET_TABLE_PREFS задаёт величину для одной таблицы. Объектные предпочтения, установленные через уровень базы, схемы или таблицы, сохраняются для таблицы.\n\n## 00:15:00 — Преподаватель\n\nИзменение preferences для схемы перезаписывает ранее установленные табличные значения: если сначала установил для таблицы, затем для схемы, прежнее значение изменится.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture09",
+        "time_range": "00:12:00–00:15:30"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель отдельно разбирает порядок TABLE, затем SCHEMA и перезапись предыдущего значения.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 16, 17"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_stats.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-pending-statistics",
+      "topic": "statistics-management",
+      "level": "foundation",
+      "front": "Зачем нужны pending statistics при PUBLISH=FALSE?",
+      "answer_short": "Новый сбор сохраняет неопубликованные статистики, а обычные сеансы продолжают использовать опубликованные. Pending statistics можно испытать в тестовом сеансе с OPTIMIZER_USE_PENDING_STATISTICS, затем опубликовать или удалить.",
+      "answer_deep": "",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Новый сбор сохраняет неопубликованные статистики, а обычные сеансы продолжают использовать опубликованные. Pending statistics можно испытать в тестовом сеансе с OPTIMIZER_USE_PENDING_STATISTICS, затем опубликовать или удалить.",
+        "documentation_correction": [
+          "Они сохраняются в БД и доступны через *_PENDING_STATS; объяснение лекции «только Private Area в RAM» неточно."
+        ],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture09 · обработанная редакция записи",
+        "text": "## 00:04:30 — Преподаватель\n\nНекоторые предпочтения. CASCADE определяет, собирается ли статистика индексов в рамках сбора статистики таблицы.\n\n## 00:05:00 — Преподаватель\n\nНужно ли при сборе статистики таблицы автоматически собирать статистику индексов? При TRUE — да. DEGREE определяет степень параллелизма, используемого при сборе статистики.\n\n## 00:05:30 — Преподаватель\n\nPUBLISH определяет, будут ли статистики публиковаться в словаре данных, фиксироваться и сохраняться в нём.\n\n## 00:06:00 — Преподаватель\n\nЕсли PUBLISH не установлен, они будут сохраняться в Private Area — в объяснении преподавателя, в оперативной памяти. STALE_PERCENT определяет порог, при котором статистики считаются устаревшими. [Техническая оговорка вынесена в uncertainties.md.]\n\n## 00:06:30 — Преподаватель\n\nSTALE_PERCENT — процент строк, изменённых с последнего сбора статистики. В примере значение 10.\n\n## 00:07:00 — Преподаватель\n\nПреподаватель сначала говорит «10 строк», затем уточняет вопрос: какой процент строк должен измениться, чтобы статистика считалась устаревшей?\n\n## 00:07:30 — Преподаватель\n\nПо умолчанию порог — 10. INCREMENTAL используется для инкрементального сбора глобальных статистик секционированных таблиц. Вспомним partitioned table.\n\n## 00:08:00 — Преподаватель\n\nОбычно в рассматриваемом примере таблица — один сегмент. Большую таблицу можно разделить на секции, каждая со своим сегментом. Секции можно размещать в разных табличных пространствах.\n\n## 00:08:30 — Преподаватель\n\nНапример, большая таблица продаж: продажи за 2000 год хранятся в одной секции, за 2001 год — в другой. При выборке можно обращаться к конкретной секции, а не искать по всей таблице.\n\n## 00:09:00 — Преподаватель\n\nИзменения тоже могут затрагивать определённую секцию. При INCREMENTAL=TRUE сканируются изменённые секции вместо полного сканирования таблицы.\n\n## 00:09:30 — Преподаватель\n\nСбор идёт по изменённым секциям. METHOD_OPT определяет столбцы и параметры гистограмм для сбора статистик по столбцам.\n\n## 00:10:00 — Преподаватель\n\nО гистограммах поговорим отдельно. ESTIMATE_PERCENT задаёт размер выборки как процент общего количества строк таблицы.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture09",
+        "time_range": "00:04:30–00:10:30"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Сохранено устное различение публикации и private area вместе с обязательным исправлением.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 14, 15"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_stats.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-partition-statistics",
+      "topic": "statistics-management",
+      "level": "foundation",
+      "front": "Как секционирование связано с инкрементальным сбором статистик?",
+      "answer_short": "Секционированная таблица состоит из отдельных секций хранения. INCREMENTAL позволяет при подходящих настройках поддерживать глобальные статистики по статистикам и synopsis секций вместо повторного полного сканирования таблицы.",
+      "answer_deep": "Пример преподавателя — продажи по годам. GRANULARITY определяет уровни сбора: глобальный, секции и подсекции. INCREMENTAL=TRUE не является безусловной гарантией отсутствия полного scan.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Секционированная таблица состоит из отдельных секций хранения. INCREMENTAL позволяет при подходящих настройках поддерживать глобальные статистики по статистикам и synopsis секций вместо повторного полного сканирования таблицы.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture09 · обработанная редакция записи",
+        "text": "## 00:04:30 — Преподаватель\n\nНекоторые предпочтения. CASCADE определяет, собирается ли статистика индексов в рамках сбора статистики таблицы.\n\n## 00:05:00 — Преподаватель\n\nНужно ли при сборе статистики таблицы автоматически собирать статистику индексов? При TRUE — да. DEGREE определяет степень параллелизма, используемого при сборе статистики.\n\n## 00:05:30 — Преподаватель\n\nPUBLISH определяет, будут ли статистики публиковаться в словаре данных, фиксироваться и сохраняться в нём.\n\n## 00:06:00 — Преподаватель\n\nЕсли PUBLISH не установлен, они будут сохраняться в Private Area — в объяснении преподавателя, в оперативной памяти. STALE_PERCENT определяет порог, при котором статистики считаются устаревшими. [Техническая оговорка вынесена в uncertainties.md.]\n\n## 00:06:30 — Преподаватель\n\nSTALE_PERCENT — процент строк, изменённых с последнего сбора статистики. В примере значение 10.\n\n## 00:07:00 — Преподаватель\n\nПреподаватель сначала говорит «10 строк», затем уточняет вопрос: какой процент строк должен измениться, чтобы статистика считалась устаревшей?\n\n## 00:07:30 — Преподаватель\n\nПо умолчанию порог — 10. INCREMENTAL используется для инкрементального сбора глобальных статистик секционированных таблиц. Вспомним partitioned table.\n\n## 00:08:00 — Преподаватель\n\nОбычно в рассматриваемом примере таблица — один сегмент. Большую таблицу можно разделить на секции, каждая со своим сегментом. Секции можно размещать в разных табличных пространствах.\n\n## 00:08:30 — Преподаватель\n\nНапример, большая таблица продаж: продажи за 2000 год хранятся в одной секции, за 2001 год — в другой. При выборке можно обращаться к конкретной секции, а не искать по всей таблице.\n\n## 00:09:00 — Преподаватель\n\nИзменения тоже могут затрагивать определённую секцию. При INCREMENTAL=TRUE сканируются изменённые секции вместо полного сканирования таблицы.\n\n## 00:09:30 — Преподаватель\n\nСбор идёт по изменённым секциям. METHOD_OPT определяет столбцы и параметры гистограмм для сбора статистик по столбцам.\n\n## 00:10:00 — Преподаватель\n\nО гистограммах поговорим отдельно. ESTIMATE_PERCENT задаёт размер выборки как процент общего количества строк таблицы.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture09",
+        "time_range": "00:04:30–00:10:30"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Устный пример продаж за разные годы связывает отдельные сегменты, размещение и область обработки.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 14, 15, 16"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_stats.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-restore-statistics",
+      "topic": "statistics-management",
+      "level": "foundation",
+      "front": "Что дают история, восстановление и блокировка статистик?",
+      "answer_short": "RESTORE_*_STATS возвращает доступные исторические значения статистик на выбранный момент; блокировка защищает их от обычного нового сбора. Экспорт/импорт переносит статистики через таблицу статистик.",
+      "answer_deep": "Это не откат пользовательских строк. История должна существовать; блокировка статистик не запрещает DML и может оставить оценки неактуальными.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "RESTORE_*_STATS возвращает доступные исторические значения статистик на выбранный момент; блокировка защищает их от обычного нового сбора. Экспорт/импорт переносит статистики через таблицу статистик.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "[Лекция 9 · 00:15:30–00:17:00]\n## 00:15:30 — Преподаватель\n\nТеперь восстановление статистик: RESTORE_*_STATS. Можно восстановить статистики на заданный момент времени.\n\n## 00:16:00 — Преподаватель\n\nЗдесь RESTORE_FIXED_OBJECTS_STATS, RESTORE_SCHEMA_STATS, RESTORE_SYSTEM_STATS и RESTORE_TABLE_STATS. Звёздочка вновь обозначает уровень/объекты.\n\n## 00:16:30 — Преподаватель\n\nВ Enterprise Manager — Manage Optimizer Statistics, Restore. Там есть сбор, восстановление, блокировка, снятие блокировки, удаление и другие операции пакета.\n\n[Лекция 9 · 00:00:00–00:01:00]\n## 00:00:00 — Преподаватель\n\nDBMS_STATS — основной пакет для работы со статистиками. Позволяет собирать и удалять статистики, задавать и получать текущие значения параметров сбора статистики. Именно параметров, не самих статистик.\n\n## 00:00:30 — Преподаватель\n\nПакет позволяет делать импорт и экспорт статистик между словарём данных и пользовательскими таблицами статистики, хранить историю, откатываться к старым значениям. Это не все задачи DBMS_STATS.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 7, 13, 18"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_stats.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-two-statistic-kinds",
+      "topic": "optimizer-statistics",
+      "level": "foundation",
+      "front": "Чем статистики оптимизатора отличаются от статистик производительности?",
+      "answer_short": "Первые описывают объекты и систему для оценки планов; вторые — активность, затраты и ожидания при выполнении нагрузки. Снимок AWR не пересчитывает NUM_ROWS, а GATHER_TABLE_STATS не является снимком нагрузки.",
+      "answer_deep": "Преподаватель отдельно предупреждает не смешивать эти классы данных.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Первые описывают объекты и систему для оценки планов; вторые — активность, затраты и ожидания при выполнении нагрузки. Снимок AWR не пересчитывает NUM_ROWS, а GATHER_TABLE_STATS не является снимком нагрузки.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "Обработанные фрагменты учебных записей; записи и таймкоды указаны в тексте",
+        "text": "[Лекция 8 · 01:26:30–01:32:07.30]\n## Какие статистики просматривают\n\n**01:26:30–01:32:07.30. Преподаватель, редакция.** Перечисляются группы:\n\n| Объект | Примеры статистик |\n|---|---|\n| Таблица | число строк, блоков, средняя длина строки |\n| Столбец | число различных значений — NDV, число NULL |\n| Индекс | число листовых блоков, глубина дерева, clustering factor |\n| Система | характеристики ввода-вывода и CPU |\n\nПреподаватель отдельно читает замечание слайда: это статистики CBO, их нельзя смешивать со статистиками производительности экземпляра в `V$`. `Clustering factor` только назван, подробное объяснение отложено.\n\nДля просмотра называются `DBA_TABLES`, `DBA_TAB_COL_STATISTICS`, `DBA_INDEXES`, `DBA_CLUSTERS`, представления секций, а также соответствующие варианты `USER_` и `ALL_`. Финальный пример со страницы 12 презентации:\n\n```sql\nSELECT index_name \"NAME\", num_rows, distinct_keys \"DISTINCT\",\n       leaf_blocks, blevel \"LEVEL\", avg_leaf_blocks_per_key \"ALFBPKEY\"\nFROM dba_indexes\nWHERE owner='SH'\nORDER BY index_name;\n```\n\nНа слайде у `CUSTOMERS_PK` показаны `NUM_ROWS=50000`, `DISTINCT_KEYS=50000`, `LEAF_BLOCKS=454`, `BLEVEL=2`; у `PRODUCTS_PK` — 10000 строк и 10000 различных ключей. У `PRODUCTS_PROD_CAT_IX` — 10000 строк, четыре различных ключа и среднее число листовых блоков на ключ 24. Имена индексов и числа восстановлены по слайду и обеим ASR, не проверялись на учебной БД. Классификация «это внешний ключ» в речи не доказывает constraint только по имени индекса.\n\n**Уточнение Oracle 11.2:** `BLEVEL` — глубина от корневого блока до листьев; ноль означает совпадение корня и листа. Его нельзя без уточнения назвать общим числом ярусов дерева. `AVG_LEAF_BLOCKS_PER_KEY` — округлённое среднее числа листовых блоков для отдельного значения ключа: [ALL_INDEXES](https://docs.oracle.com/cd/E11882_01/server.112/e40402/statviews_1109.htm).\n\nНа этом запись заканчивается. Слайды о предпочтениях `DBMS_STATS`, восстановлении статистик и более подробной настройке AWR после страницы 12 этой презентации не включены как прочитанная часть лекции.\n\n[Лекция 9 · 00:17:00–00:21:30]\n## 00:17:00 — Преподаватель\n\nТеперь подробнее об Automatic Workload Repository, AWR. Это встроенное хранилище информации по производительности.\n\n## 00:17:30 — Преподаватель\n\nКаждые 60 минут MMON создаёт снимок метрик базы данных и сохраняет его в репозитории. По умолчанию они хранятся восемь дней, потом удаляются. Параметры можно изменить.\n\n## 00:18:00 — Преподаватель\n\nИнтервал снимков и длительность хранения можно изменить. Хранимые данные используются для самонастройки; далее показано размещение репозитория.\n\n## 00:18:30 — Преподаватель\n\nРепозиторий располагается в SYSAUX. На схеме показаны SGA и находящаяся там текущая коллекция статистик, значения метрик.\n\n## 00:19:00 — Преподаватель\n\nТекущие статистики из SGA можно просматривать через динамические представления V$, в Enterprise Manager или SQL*Plus.\n\n## 00:19:30 — Преподаватель\n\nMMON каждые 60 минут записывает данные из оперативной памяти в репозиторий. Для уже сохранённых там данных используются представления DBA_*.\n\n## 00:20:00 — Преподаватель\n\nПредставления DBA_* берут информацию из реальных таблиц, не из оперативной памяти. Через них данные репозитория доступны Enterprise Manager и SQL*Plus.\n\n## 00:20:30 — Преподаватель\n\nТекущую и историческую статистику используют внутренние клиенты: ADDM и компоненты самонастройки. На схеме показано, как это работает.\n\n## 00:21:00 — Преподаватель\n\nВременно статистики находятся в оперативной памяти, затем по расписанию сохраняются в таблицах репозитория. Есть внешние и внутренние клиенты. Теперь опорные линии, baselines.",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "reconciled_not_manually_audio_verified",
+          "text": "Преподаватель отдельно читает замечание слайда: статистики CBO нельзя смешивать со статистиками производительности экземпляра.",
+          "time_range": "01:26:30–01:32:07.30"
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 10, 11, 12, 19, 20, 22, 23"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/stats.htm",
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/autostat.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-counters-metrics",
+      "topic": "awr-addm",
+      "level": "foundation",
+      "front": "Чем накопительный счётчик отличается от метрики за интервал?",
+      "answer_short": "Счётчик накапливает значение, метрика выражает изменение, скорость или нормированную величину за период. Для проблемного интервала считают дельту двух сопоставимых значений.",
+      "answer_deep": "Нужно учитывать длительность интервала, перезапуск и жизнь сеанса. Не всякое поле V$ — накопительный счётчик.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Счётчик накапливает значение, метрика выражает изменение, скорость или нормированную величину за период. Для проблемного интервала считают дельту двух сопоставимых значений.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "## Baseline, статистика, метрика и порог\n\n**01:10:00–01:14:30. Преподаватель, редакция.** Baseline, или опорная линия, — набор снимков за выбранный период для сравнения производительности. Преподаватель предлагает выбирать интервал нормальной работы, а затем сравнивать с ним другой период.\n\nДалее различаются накопленная статистика и скорость её изменения. Кумулятивный показатель накапливает значения; метрика характеризует скорость изменения, например за промежуток времени. Порог — граничное значение для сравнения с метрикой и выдачи предупреждения.\n\nФормулировка «выше baseline — плохо, ниже — хорошо» является упрощением лекции: направление ухудшения зависит от смысла конкретного показателя. Накопленная статистика экземпляра и сохранённая статистика оптимизатора также имеют разный жизненный цикл; нельзя применять ко всем данным одно правило сброса или сохранения после перезапуска.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture08",
+        "time_range": "01:10:00–01:14:30"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 4, 21",
+        "Less13_Performance.pdf, физические страницы 15, 16"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/autostat.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-db-time",
+      "topic": "awr-addm",
+      "level": "foundation",
+      "front": "Что измеряют DB Time и AAS?",
+      "answer_short": "DB Time суммирует время пользовательских сеансов на CPU и в non-idle ожиданиях. AAS — приращение DB Time, делённое на длительность интервала.",
+      "answer_deep": "При 120 секундах DB Time за минуту AAS=2. Из-за одновременной работы сеансов DB Time может превышать настенное время.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "DB Time суммирует время пользовательских сеансов на CPU и в non-idle ожиданиях. AAS — приращение DB Time, делённое на длительность интервала.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "slide_and_documentation_only",
+        "locator_status": "slide_only_no_spoken_locator",
+        "source": "",
+        "text": "",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        }
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 4, 21"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/autostat.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-awr",
+      "topic": "awr-addm",
+      "level": "foundation",
+      "front": "Как AWR сохраняет историю производительности?",
+      "answer_short": "MMON периодически сохраняет снимки статистик в AWR в SYSAUX. Обычные defaults 11.2: интервал 60 минут, хранение 8 дней. Текущие данные читают через V$, исторические — через DBA_HIST_* и отчёты.",
+      "answer_deep": "Настройки можно менять. AWR не следует путать с ADR — хранилищем диагностики ошибок и инцидентов.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "MMON периодически сохраняет снимки статистик в AWR в SYSAUX. Обычные defaults 11.2: интервал 60 минут, хранение 8 дней. Текущие данные читают через V$, исторические — через DBA_HIST_* и отчёты.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "Обработанные фрагменты учебных записей; записи и таймкоды указаны в тексте",
+        "text": "[Лекция 9 · 00:17:00–00:21:30]\n## 00:17:00 — Преподаватель\n\nТеперь подробнее об Automatic Workload Repository, AWR. Это встроенное хранилище информации по производительности.\n\n## 00:17:30 — Преподаватель\n\nКаждые 60 минут MMON создаёт снимок метрик базы данных и сохраняет его в репозитории. По умолчанию они хранятся восемь дней, потом удаляются. Параметры можно изменить.\n\n## 00:18:00 — Преподаватель\n\nИнтервал снимков и длительность хранения можно изменить. Хранимые данные используются для самонастройки; далее показано размещение репозитория.\n\n## 00:18:30 — Преподаватель\n\nРепозиторий располагается в SYSAUX. На схеме показаны SGA и находящаяся там текущая коллекция статистик, значения метрик.\n\n## 00:19:00 — Преподаватель\n\nТекущие статистики из SGA можно просматривать через динамические представления V$, в Enterprise Manager или SQL*Plus.\n\n## 00:19:30 — Преподаватель\n\nMMON каждые 60 минут записывает данные из оперативной памяти в репозиторий. Для уже сохранённых там данных используются представления DBA_*.\n\n## 00:20:00 — Преподаватель\n\nПредставления DBA_* берут информацию из реальных таблиц, не из оперативной памяти. Через них данные репозитория доступны Enterprise Manager и SQL*Plus.\n\n## 00:20:30 — Преподаватель\n\nТекущую и историческую статистику используют внутренние клиенты: ADDM и компоненты самонастройки. На схеме показано, как это работает.\n\n## 00:21:00 — Преподаватель\n\nВременно статистики находятся в оперативной памяти, затем по расписанию сохраняются в таблицах репозитория. Есть внешние и внутренние клиенты. Теперь опорные линии, baselines.\n\n[Лекция 8 · 01:04:00–01:10:00]\n## Автоматическое, упреждающее и реактивное обслуживание\n\n**01:04:00–01:10:00. Преподаватель, редакция.** Автоматические задачи включают сбор статистик оптимизатора в окнах обслуживания, SQL tuning и анализ сегментов. Упреждающее обслуживание — действия до ошибки, исходя из наблюдений за системой. Реактивное — реакция на уже возникшую проблему. В качестве примера приводится нехватка места; название ресурса в реплике не восстановлено уверенно: [неразборчиво 01:06:30].\n\nДиагностическая информация о критических ошибках связывается с `Automatic Diagnostic Repository` — ADR. ADR и AWR — разные хранилища; структура ADR в этом занятии не разбирается подробно. На схеме показаны связи автоматических задач, advisory framework, server alerts и AWR.\n\nВ речи звучит, что автоматический анализ сегмента может предпринять попытку его сжать; это оставлено как объяснение преподавателя, **не как подтверждённая гарантия автоматического `SHRINK`**. Аналогично, устное «ADDM состоит из advisors» не используется как точное описание архитектуры всех консультантов.\n\nПодпись `Direct memory access` на схеме объясняется через ранее не использованные блоки памяти. Такое объяснение не подтверждено; подпись не даёт оснований связывать прямой доступ к памяти с «первым обращением» к блоку.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 3, 19, 20, 22, 23"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/autostat.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-baseline",
+      "topic": "awr-addm",
+      "level": "foundation",
+      "front": "Как используют AWR baseline для сравнения нагрузки?",
+      "answer_short": "Baseline — именованный набор снимков опорного периода. С ним сравнивают сопоставимую работу, учитывая объём нагрузки и смысл метрики.",
+      "answer_deep": "Для создания указывают начальный и конечный snapshot ID и имя. Выше baseline не всегда хуже: рост throughput может быть полезен, а рост времени отклика — признаком задержки.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Baseline — именованный набор снимков опорного периода. С ним сравнивают сопоставимую работу, учитывая объём нагрузки и смысл метрики.",
+        "documentation_correction": [
+          "Лекционное «выше плохо, ниже хорошо» нельзя переносить на любую метрику."
+        ],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "Обработанные фрагменты учебных записей; записи и таймкоды указаны в тексте",
+        "text": "[Лекция 9 · 00:21:30–00:26:00]\n## 00:21:30 — Преподаватель\n\nОтмечены моменты создания снимков, обычно через 60 минут. Администратор выбирает интервал, когда база работает нормально, как опорный.\n\n## 00:22:00 — Преподаватель\n\nВыбранные снимки сохраняются как опорная линия, baseline. Текущие значения можно сравнивать с опорным периодом, оценивая поведение системы.\n\n## 00:22:30 — Преподаватель\n\nТекущие метрики сравниваются с опорным интервалом. При ухудшении и превышении порога выдаётся сообщение. Baseline создают в Enterprise Manager или программно через DBMS_WORKLOAD_REPOSITORY.CREATE_BASELINE.\n\n## 00:23:00 — Преподаватель\n\nДля CREATE_BASELINE задаются начальный и конечный номера снимков и имя опорной линии. Это важный инструмент настройки производительности; доступен через Enterprise Manager.\n\n## 00:23:30 — Преподаватель\n\nВ Enterprise Manager показан AWR: retention восемь дней, snapshot interval 60 минут, уровень сбора TYPICAL.\n\n## 00:24:00 — Преподаватель\n\nЧерез Edit можно изменить параметры AWR и запустить отчёт по репозиторию. В примере показаны созданные опорные линии.\n\n## 00:24:30 — Преподаватель\n\nПоказаны две сохранённые опорные линии и количество снимков [неразборчиво 00:24:30: точное количество]. Retention period по умолчанию восемь дней.\n\n## 00:25:00 — Преподаватель\n\nНадо оценивать объём места для хранения снимков. Интервал сохранения — 60 минут, уровень сбора TYPICAL рекомендован. Параметры меняются через Edit Settings.\n\n## 00:25:30 — Преподаватель\n\nRetention period можно менять, выбрать Forever. Интервал один час можно изменить, сбор снимков — отключить; можно изменить collection level.\n\n[Лекция 8 · 01:10:00–01:14:30]\n## Baseline, статистика, метрика и порог\n\n**01:10:00–01:14:30. Преподаватель, редакция.** Baseline, или опорная линия, — набор снимков за выбранный период для сравнения производительности. Преподаватель предлагает выбирать интервал нормальной работы, а затем сравнивать с ним другой период.\n\nДалее различаются накопленная статистика и скорость её изменения. Кумулятивный показатель накапливает значения; метрика характеризует скорость изменения, например за промежуток времени. Порог — граничное значение для сравнения с метрикой и выдачи предупреждения.\n\nФормулировка «выше baseline — плохо, ниже — хорошо» является упрощением лекции: направление ухудшения зависит от смысла конкретного показателя. Накопленная статистика экземпляра и сохранённая статистика оптимизатора также имеют разный жизненный цикл; нельзя применять ко всем данным одно правило сброса или сохранения после перезапуска.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель объясняет выбор интервала нормальной работы и сравнение с ним текущего поведения.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 4, 21, 22, 23"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/autostat.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-addm",
+      "topic": "awr-addm",
+      "level": "foundation",
+      "front": "Что выдаёт ADDM и как читать его рекомендации?",
+      "answer_short": "ADDM анализирует интервал AWR: finding описывает обнаруженную ситуацию, impact — её оценённый вклад в затраты, recommendation — предлагаемое действие. После изменения проверяют результат на сопоставимой нагрузке.",
+      "answer_deep": "Преподаватель советует относиться к рекомендациям критически: они направляют поиск, но не доказывают причину автоматически.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "ADDM анализирует интервал AWR: finding описывает обнаруженную ситуацию, impact — её оценённый вклад в затраты, recommendation — предлагаемое действие. После изменения проверяют результат на сопоставимой нагрузке.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture09 · обработанная редакция записи",
+        "text": "## 00:26:00 — Преподаватель\n\nADDM — Automatic Database Diagnostic Monitor — автоматически запускается после создания каждого AWR-снимка.\n\n## 00:26:30 — Преподаватель\n\nОн контролирует экземпляр, обнаруживает узкие места, сохраняет результаты в репозитории и выдаёт рекомендации по их устранению.\n\n## 00:27:00 — Преподаватель\n\nПосле AWR-снимка информация поступает в ADDM. Результаты ADDM сохраняются в AWR и выводятся на страницу Enterprise Manager.\n\n## 00:27:30 — Преподаватель\n\nADDM запускается после каждого снимка и обнаруживает ситуации — findings. Их можно посмотреть в Enterprise Manager.\n\n## 00:28:00 — Преподаватель\n\nВ Enterprise Manager можно открыть finding и посмотреть обнаруженную ситуацию в таблице результатов.\n\n## 00:28:30 — Преподаватель\n\nВ примере обнаружена большая нагрузка при выполнении SQL-запросов; точные проценты и количество findings на иллюстрации [неразборчиво 00:28:30].\n\n## 00:29:00 — Преподаватель\n\nКроме findings выдаются рекомендации. Например, рассмотреть использование автоматического управления пространством сегментов.\n\n## 00:29:30 — Преподаватель\n\nРекомендация: использовать Automatic Segment Space Management в локально управляемом tablespace. Эти слова уже знакомы по лабораторной работе.\n\n## 00:30:00 — Преподаватель\n\nВспоминаем управление свободными блоками. Преподаватель связывает автоматический вариант с хранением информации непосредственно в табличном пространстве.\n\n## 00:30:30 — Преподаватель\n\nРазличаются AUTO и MANUAL для Segment Space Management. При MANUAL информация о свободных блоках хранится в списках свободных блоков. [Не смешивать с LOCAL extent management.]\n\n## 00:31:00 — Преподаватель\n\nПри MANUAL используются списки свободных блоков. В примере ADDM рекомендует перейти на автоматическое управление пространством сегментов.\n\n## 00:31:30 — Преподаватель\n\nЗдесь рекомендован переход на автоматическое управление пространством сегментов. К рекомендациям следует относиться критически: они не всегда правильны, но могут направить поиск причины.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture09",
+        "time_range": "00:26:00–00:32:00"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Устный разбор отдельно предупреждает, что рекомендации не всегда правильны и лишь направляют поиск.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 24, 25, 26"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/autostat.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-sql-advisors",
+      "topic": "advisors-maintenance",
+      "level": "foundation",
+      "front": "Чем SQL Tuning Advisor отличается от SQL Access Advisor?",
+      "answer_short": "SQL Tuning исследует выполнение SQL и способы его настройки. SQL Access рекомендует структуры доступа для нагрузки: индексы, материализованные представления и другие подходящие структуры.",
+      "answer_deep": "Рекомендация сама по себе не означает применения изменения.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "SQL Tuning исследует выполнение SQL и способы его настройки. SQL Access рекомендует структуры доступа для нагрузки: индексы, материализованные представления и другие подходящие структуры.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture09 · обработанная редакция записи",
+        "text": "## 00:32:00 — Преподаватель\n\nПреподаватель описывает ADDM как совокупность помощников. SQL Tuning Advisor помогает настраивать выполнение SQL, планы запросов.\n\n## 00:32:30 — Преподаватель\n\nSQL Access Advisor — это рекомендации об использовании индексов, материализованных представлений и других структур доступа, а не только настройка плана.\n\n## 00:33:00 — Преподаватель\n\nSQL Tuning Advisor настраивает выполнение SQL; SQL Access Advisor рекомендует структуры доступа — индексы и материализованные представления.\n\n## 00:33:30 — Преподаватель\n\nMemory Advisors: PGA Advisor помогает выбрать размер PGA; SGA Advisor включает помощников для компонентов SGA; Buffer Cache Advisor — для buffer cache.\n\n## 00:34:00 — Преподаватель\n\nShared Pool Advisor, Java Pool Advisor и другие помощники для компонентов SGA можно использовать самостоятельно. Далее — Space, Segment Advisor и Undo Advisor.\n\n## 00:34:30 — Преподаватель\n\nUndo Advisor помогает выбрать размер undo tablespace. MTTR означает Mean Time To Recover.\n\n## 00:35:00 — Преподаватель\n\nЕсли я задам желаемое время восстановления экземпляра и использую MTTR Advisor, то, в объяснении преподавателя, система подберёт внутренние параметры Oracle.\n\n## 00:35:30 — Преподаватель\n\nПреподаватель связывает подбор внутренних параметров с восстановлением экземпляра за желаемый интервал; MTTR — среднее время восстановления. [Это не безусловная гарантия времени; см. uncertainties.md.]\n\n## 00:36:00 — Преподаватель\n\nПреподаватель связывает выбранные параметры с восстановлением экземпляра за желаемое время. Помощников для обслуживания много; некоторые рассмотрим дальше.\n\n## 00:36:30 — Преподаватель\n\nВ Enterprise Manager есть ссылка Advisor Central, в том числе внизу страниц. Там собраны помощники.\n\n## 00:37:00 — Преподаватель\n\nВ Advisor Central показаны ADDM и отдельные advisors. Также есть вкладка Checkers.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture09",
+        "time_range": "00:32:00–00:37:30"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель повторно противопоставляет настройку SQL и выбор индексов/материализованных представлений.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 27, 28"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_advis.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-space-recovery-advisors",
+      "topic": "advisors-maintenance",
+      "level": "foundation",
+      "front": "Для чего нужны Segment, Undo и MTTR Advisors?",
+      "answer_short": "Segment Advisor ищет освобождаемое место и рекомендует реорганизацию; Undo Advisor оценивает потребность в undo; MTTR Advisor помогает оценить настройки для целевого времени восстановления экземпляра.",
+      "answer_deep": "",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Segment Advisor ищет освобождаемое место и рекомендует реорганизацию; Undo Advisor оценивает потребность в undo; MTTR Advisor помогает оценить настройки для целевого времени восстановления экземпляра.",
+        "documentation_correction": [
+          "Автоматический анализ сегментов не гарантирует выполнения SHRINK. Целевой MTTR не является безусловной гарантией времени при любом сбое."
+        ],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "[Лекция 9 · 00:32:00–00:37:30]\n## 00:32:00 — Преподаватель\n\nПреподаватель описывает ADDM как совокупность помощников. SQL Tuning Advisor помогает настраивать выполнение SQL, планы запросов.\n\n## 00:32:30 — Преподаватель\n\nSQL Access Advisor — это рекомендации об использовании индексов, материализованных представлений и других структур доступа, а не только настройка плана.\n\n## 00:33:00 — Преподаватель\n\nSQL Tuning Advisor настраивает выполнение SQL; SQL Access Advisor рекомендует структуры доступа — индексы и материализованные представления.\n\n## 00:33:30 — Преподаватель\n\nMemory Advisors: PGA Advisor помогает выбрать размер PGA; SGA Advisor включает помощников для компонентов SGA; Buffer Cache Advisor — для buffer cache.\n\n## 00:34:00 — Преподаватель\n\nShared Pool Advisor, Java Pool Advisor и другие помощники для компонентов SGA можно использовать самостоятельно. Далее — Space, Segment Advisor и Undo Advisor.\n\n## 00:34:30 — Преподаватель\n\nUndo Advisor помогает выбрать размер undo tablespace. MTTR означает Mean Time To Recover.\n\n## 00:35:00 — Преподаватель\n\nЕсли я задам желаемое время восстановления экземпляра и использую MTTR Advisor, то, в объяснении преподавателя, система подберёт внутренние параметры Oracle.\n\n## 00:35:30 — Преподаватель\n\nПреподаватель связывает подбор внутренних параметров с восстановлением экземпляра за желаемый интервал; MTTR — среднее время восстановления. [Это не безусловная гарантия времени; см. uncertainties.md.]\n\n## 00:36:00 — Преподаватель\n\nПреподаватель связывает выбранные параметры с восстановлением экземпляра за желаемое время. Помощников для обслуживания много; некоторые рассмотрим дальше.\n\n## 00:36:30 — Преподаватель\n\nВ Enterprise Manager есть ссылка Advisor Central, в том числе внизу страниц. Там собраны помощники.\n\n## 00:37:00 — Преподаватель\n\nВ Advisor Central показаны ADDM и отдельные advisors. Также есть вкладка Checkers.\n\n[Лекция 9 · 00:43:30–00:51:30]\n## 00:43:30 — Преподаватель\n\nТеперь автоматизированные задачи обслуживания. Возвращаемся к схеме автоматизации обслуживания.\n\n## 00:44:00 — Преподаватель\n\nАнализируется информация AWR. По умолчанию есть три задачи обслуживания.\n\n## 00:44:30 — Преподаватель\n\nПервая — сбор статистик оптимизатора; вторая — автоматическая настройка SQL-запросов.\n\n## 00:45:00 — Преподаватель\n\nТретья — Automatic Segment Advisor. Преподаватель говорит, что он отслеживает свободное место и автоматически уменьшает, сжимает сегменты. [Документально подтверждены анализ и рекомендации; автоматическое shrink этим не доказано.]\n\n## 00:45:30 — Преподаватель\n\nИнфраструктура использует Scheduler, чтобы запускать задачи по расписанию.\n\n## 00:46:00 — Преподаватель\n\nScheduler запускает задачи по расписанию в предопределённые окна обслуживания.\n\n## 00:46:30 — Преподаватель\n\nПо объяснению преподавателя, незаконченная задача сохраняет состояние и продолжается в следующем окне без прерывания. [Это обобщение не принято как подтверждённое универсальное поведение.]\n\n## 00:47:00 — Преподаватель\n\nКогда открывается окно обслуживания, фоновый процесс автоматизации включает работы в расписание; Scheduler запускает задачи.\n\n## 00:47:30 — Преподаватель\n\nResource Manager ограничивает потребление ресурсов задачами, чтобы они не потребовали слишком много ресурсов.\n\n## 00:48:00 — Преподаватель\n\nResource Manager ограничивает ресурсы задач; Scheduler их запускает. На схеме показаны три автоматические задачи: сбор статистик, настройка SQL и Segment Advisor.\n\n## 00:48:30 — Преподаватель\n\nAutomatic Segment Advisor отслеживает сегменты и свободное место. На схеме advisory framework он тоже есть.\n\n## 00:49:00 — Преподаватель\n\nSegment Advisor автоматически работает в окне обслуживания. В Enterprise Manager показаны несколько окон обслуживания и три задачи.\n\n## 00:49:30 — Преподаватель\n\nПоказаны Optimizer Statistics Gathering, Segment Advisor и Automatic SQL Tuning. Тёмно-синим обозначены уже прошедшие окна; детали даты и времени примера не устанавливаются как расписание VM.\n\n## 00:50:00 — Преподаватель\n\nНа схеме различаются уже прошедшие и будущие окна. Задачи выполнялись в прошедшем окне и будут выполняться в следующих по расписанию.\n\n## 00:50:30 — Преподаватель\n\nМожно конфигурировать автоматические задачи: включать и отключать глобально либо по отдельности.\n\n## 00:51:00 — Преподаватель\n\nНапример, отключить сбор статистик. Любая из трёх задач может быть отключена. Можно отключить определённую задачу в определённом окне, в выбранный день.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель подробнее связывает желаемое время восстановления с выбором внутренних настроек. Сохранено расширенное устное описание автоматического сжатия и его техническая граница.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 27, 28, 31, 32, 33, 34"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/tasks.htm",
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_advis.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-advisor-task",
+      "topic": "advisors-maintenance",
+      "level": "foundation",
+      "front": "Как организована работа с advisor через DBMS_ADVISOR?",
+      "answer_short": "Создать задачу, настроить параметры и объекты, выполнить анализ, прочитать результаты и отчёт; затем при необходимости удалить задачу. В EM доступ к помощникам собран в Advisor Central.",
+      "answer_deep": "Поддерживаемые операции зависят от типа задачи. Прерывание нельзя считать универсальной паузой с гарантированным продолжением.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Создать задачу, настроить параметры и объекты, выполнить анализ, прочитать результаты и отчёт; затем при необходимости удалить задачу. В EM доступ к помощникам собран в Advisor Central.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "[Лекция 9 · 00:41:30–00:43:30]\n## 00:41:30 — Преподаватель\n\nС advisors тоже можно работать программно. В индивидуальных заданиях встречается этот пакет. CREATE_TASK создаёт задачу.\n\n## 00:42:00 — Преподаватель\n\nМожно создать или удалить задачу в репозитории, выполнить её, прервать при подозрительной ситуации и получить отчёт.\n\n## 00:42:30 — Преподаватель\n\nДля задачи можно получить текстовый отчёт. Другие операции позволяют анализировать результаты и рекомендации [точный термин в конце фразы неразборчиво 00:42:30].\n\n## 00:43:00 — Преподаватель\n\nМожно менять атрибуты задачи, устанавливать параметры. Для управления advisors много процедур в DBMS_ADVISOR.\n\n[Лекция 9 · 00:32:00–00:37:30]\n## 00:32:00 — Преподаватель\n\nПреподаватель описывает ADDM как совокупность помощников. SQL Tuning Advisor помогает настраивать выполнение SQL, планы запросов.\n\n## 00:32:30 — Преподаватель\n\nSQL Access Advisor — это рекомендации об использовании индексов, материализованных представлений и других структур доступа, а не только настройка плана.\n\n## 00:33:00 — Преподаватель\n\nSQL Tuning Advisor настраивает выполнение SQL; SQL Access Advisor рекомендует структуры доступа — индексы и материализованные представления.\n\n## 00:33:30 — Преподаватель\n\nMemory Advisors: PGA Advisor помогает выбрать размер PGA; SGA Advisor включает помощников для компонентов SGA; Buffer Cache Advisor — для buffer cache.\n\n## 00:34:00 — Преподаватель\n\nShared Pool Advisor, Java Pool Advisor и другие помощники для компонентов SGA можно использовать самостоятельно. Далее — Space, Segment Advisor и Undo Advisor.\n\n## 00:34:30 — Преподаватель\n\nUndo Advisor помогает выбрать размер undo tablespace. MTTR означает Mean Time To Recover.\n\n## 00:35:00 — Преподаватель\n\nЕсли я задам желаемое время восстановления экземпляра и использую MTTR Advisor, то, в объяснении преподавателя, система подберёт внутренние параметры Oracle.\n\n## 00:35:30 — Преподаватель\n\nПреподаватель связывает подбор внутренних параметров с восстановлением экземпляра за желаемый интервал; MTTR — среднее время восстановления. [Это не безусловная гарантия времени; см. uncertainties.md.]\n\n## 00:36:00 — Преподаватель\n\nПреподаватель связывает выбранные параметры с восстановлением экземпляра за желаемое время. Помощников для обслуживания много; некоторые рассмотрим дальше.\n\n## 00:36:30 — Преподаватель\n\nВ Enterprise Manager есть ссылка Advisor Central, в том числе внизу страниц. Там собраны помощники.\n\n## 00:37:00 — Преподаватель\n\nВ Advisor Central показаны ADDM и отдельные advisors. Также есть вкладка Checkers.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 27, 28, 30"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/appdev.112/e40758/d_advis.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-health-monitor",
+      "topic": "advisors-maintenance",
+      "level": "foundation",
+      "front": "Какие структуры проверяет Health Monitor?",
+      "answer_short": "Шесть видов проверок: структура БД, блоки данных, redo, undo-сегменты, отдельная транзакция и основные объекты словаря. Цель — найти недоступность и нарушения целостности.",
+      "answer_deep": "DB Structure в MOUNT/OPEN проверяет datafiles и logs по control file, в NOMOUNT — control files. Проверки запускают через DBMS_HM или Checkers; результат диагностики не равен автоматическому исправлению.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Шесть видов проверок: структура БД, блоки данных, redo, undo-сегменты, отдельная транзакция и основные объекты словаря. Цель — найти недоступность и нарушения целостности.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture09 · обработанная редакция записи",
+        "text": "## 00:37:30 — Преподаватель\n\nCheckers проверяют состояние физических объектов базы данных.\n\n## 00:38:00 — Преподаватель\n\nDB Structure Integrity Check проверяет целостность и доступность файлов базы данных.\n\n## 00:38:30 — Преподаватель\n\nПроверяются повреждения и недоступность файлов. При открытой базе DB Structure Integrity Check проверяет log files и data files; далее рассматривается случай NOMOUNT.\n\n## 00:39:00 — Преподаватель\n\nВ NOMOUNT проверяются control files. Data Block Integrity Check ищет повреждения отдельных блоков.\n\n## 00:39:30 — Преподаватель\n\nData Block Integrity Check ищет повреждения блоков, в том числе ошибки контрольных сумм и нарушения внутренней целостности блока.\n\n## 00:40:00 — Преподаватель\n\nRedo Integrity Check проверяет доступность и целостность redo log и архивных журналов.\n\n## 00:40:30 — Преподаватель\n\nТакже есть Undo Segment Integrity Check, Transaction Integrity Check и Dictionary Integrity Check. Проверяется работоспособность структур базы данных.\n\n## 00:41:00 — Преподаватель\n\nС checkers можно работать программно через DBMS_HM — Health Monitor, а не только через Enterprise Manager.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture09",
+        "time_range": "00:37:30–00:41:30"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 29"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/diag.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-automatic-maintenance",
+      "topic": "advisors-maintenance",
+      "level": "foundation",
+      "front": "Какие задачи автоматического обслуживания есть по умолчанию?",
+      "answer_short": "Сбор статистик оптимизатора, Automatic SQL Tuning Advisor и Automatic Segment Advisor. Их можно включать и отключать глобально и для конкретных окон обслуживания.",
+      "answer_deep": "Отключение автоматической задачи не запрещает отдельный ручной запуск соответствующей операции.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Сбор статистик оптимизатора, Automatic SQL Tuning Advisor и Automatic Segment Advisor. Их можно включать и отключать глобально и для конкретных окон обслуживания.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture09 · обработанная редакция записи",
+        "text": "## 00:43:30 — Преподаватель\n\nТеперь автоматизированные задачи обслуживания. Возвращаемся к схеме автоматизации обслуживания.\n\n## 00:44:00 — Преподаватель\n\nАнализируется информация AWR. По умолчанию есть три задачи обслуживания.\n\n## 00:44:30 — Преподаватель\n\nПервая — сбор статистик оптимизатора; вторая — автоматическая настройка SQL-запросов.\n\n## 00:45:00 — Преподаватель\n\nТретья — Automatic Segment Advisor. Преподаватель говорит, что он отслеживает свободное место и автоматически уменьшает, сжимает сегменты. [Документально подтверждены анализ и рекомендации; автоматическое shrink этим не доказано.]\n\n## 00:45:30 — Преподаватель\n\nИнфраструктура использует Scheduler, чтобы запускать задачи по расписанию.\n\n## 00:46:00 — Преподаватель\n\nScheduler запускает задачи по расписанию в предопределённые окна обслуживания.\n\n## 00:46:30 — Преподаватель\n\nПо объяснению преподавателя, незаконченная задача сохраняет состояние и продолжается в следующем окне без прерывания. [Это обобщение не принято как подтверждённое универсальное поведение.]\n\n## 00:47:00 — Преподаватель\n\nКогда открывается окно обслуживания, фоновый процесс автоматизации включает работы в расписание; Scheduler запускает задачи.\n\n## 00:47:30 — Преподаватель\n\nResource Manager ограничивает потребление ресурсов задачами, чтобы они не потребовали слишком много ресурсов.\n\n## 00:48:00 — Преподаватель\n\nResource Manager ограничивает ресурсы задач; Scheduler их запускает. На схеме показаны три автоматические задачи: сбор статистик, настройка SQL и Segment Advisor.\n\n## 00:48:30 — Преподаватель\n\nAutomatic Segment Advisor отслеживает сегменты и свободное место. На схеме advisory framework он тоже есть.\n\n## 00:49:00 — Преподаватель\n\nSegment Advisor автоматически работает в окне обслуживания. В Enterprise Manager показаны несколько окон обслуживания и три задачи.\n\n## 00:49:30 — Преподаватель\n\nПоказаны Optimizer Statistics Gathering, Segment Advisor и Automatic SQL Tuning. Тёмно-синим обозначены уже прошедшие окна; детали даты и времени примера не устанавливаются как расписание VM.\n\n## 00:50:00 — Преподаватель\n\nНа схеме различаются уже прошедшие и будущие окна. Задачи выполнялись в прошедшем окне и будут выполняться в следующих по расписанию.\n\n## 00:50:30 — Преподаватель\n\nМожно конфигурировать автоматические задачи: включать и отключать глобально либо по отдельности.\n\n## 00:51:00 — Преподаватель\n\nНапример, отключить сбор статистик. Любая из трёх задач может быть отключена. Можно отключить определённую задачу в определённом окне, в выбранный день.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture09",
+        "time_range": "00:43:30–00:51:30"
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 31, 32, 33, 34"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/tasks.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-maintenance-window",
+      "topic": "advisors-maintenance",
+      "level": "foundation",
+      "front": "Как связаны окно обслуживания, Scheduler и Resource Manager?",
+      "answer_short": "Окно определяет период обслуживания; Scheduler запускает работы; Resource Manager ограничивает потребление ими ресурсов. Эти роли различны.",
+      "answer_deep": "",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Окно определяет период обслуживания; Scheduler запускает работы; Resource Manager ограничивает потребление ими ресурсов. Эти роли различны.",
+        "documentation_correction": [
+          "Лекционное обещание продолжения любой незавершённой задачи в следующем окне не универсально: остановка и повторный запуск зависят от типа задачи."
+        ],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture09 · обработанная редакция записи",
+        "text": "## 00:43:30 — Преподаватель\n\nТеперь автоматизированные задачи обслуживания. Возвращаемся к схеме автоматизации обслуживания.\n\n## 00:44:00 — Преподаватель\n\nАнализируется информация AWR. По умолчанию есть три задачи обслуживания.\n\n## 00:44:30 — Преподаватель\n\nПервая — сбор статистик оптимизатора; вторая — автоматическая настройка SQL-запросов.\n\n## 00:45:00 — Преподаватель\n\nТретья — Automatic Segment Advisor. Преподаватель говорит, что он отслеживает свободное место и автоматически уменьшает, сжимает сегменты. [Документально подтверждены анализ и рекомендации; автоматическое shrink этим не доказано.]\n\n## 00:45:30 — Преподаватель\n\nИнфраструктура использует Scheduler, чтобы запускать задачи по расписанию.\n\n## 00:46:00 — Преподаватель\n\nScheduler запускает задачи по расписанию в предопределённые окна обслуживания.\n\n## 00:46:30 — Преподаватель\n\nПо объяснению преподавателя, незаконченная задача сохраняет состояние и продолжается в следующем окне без прерывания. [Это обобщение не принято как подтверждённое универсальное поведение.]\n\n## 00:47:00 — Преподаватель\n\nКогда открывается окно обслуживания, фоновый процесс автоматизации включает работы в расписание; Scheduler запускает задачи.\n\n## 00:47:30 — Преподаватель\n\nResource Manager ограничивает потребление ресурсов задачами, чтобы они не потребовали слишком много ресурсов.\n\n## 00:48:00 — Преподаватель\n\nResource Manager ограничивает ресурсы задач; Scheduler их запускает. На схеме показаны три автоматические задачи: сбор статистик, настройка SQL и Segment Advisor.\n\n## 00:48:30 — Преподаватель\n\nAutomatic Segment Advisor отслеживает сегменты и свободное место. На схеме advisory framework он тоже есть.\n\n## 00:49:00 — Преподаватель\n\nSegment Advisor автоматически работает в окне обслуживания. В Enterprise Manager показаны несколько окон обслуживания и три задачи.\n\n## 00:49:30 — Преподаватель\n\nПоказаны Optimizer Statistics Gathering, Segment Advisor и Automatic SQL Tuning. Тёмно-синим обозначены уже прошедшие окна; детали даты и времени примера не устанавливаются как расписание VM.\n\n## 00:50:00 — Преподаватель\n\nНа схеме различаются уже прошедшие и будущие окна. Задачи выполнялись в прошедшем окне и будут выполняться в следующих по расписанию.\n\n## 00:50:30 — Преподаватель\n\nМожно конфигурировать автоматические задачи: включать и отключать глобально либо по отдельности.\n\n## 00:51:00 — Преподаватель\n\nНапример, отключить сбор статистик. Любая из трёх задач может быть отключена. Можно отключить определённую задачу в определённом окне, в выбранный день.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture09",
+        "time_range": "00:43:30–00:51:30"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель отдельно обсуждает незавершённую работу при смене окна; универсальность не подтверждена.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 31, 32, 33, 34"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/tasks.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-alert-types",
+      "topic": "alerts",
+      "level": "foundation",
+      "front": "Чем различаются пороговые и событийные предупреждения?",
+      "answer_short": "Пороговый alert основан на условии метрики с warning/critical порогами и правилами наблюдения. Событийный сообщает о событии без числового порога, например Snapshot Too Old.",
+      "answer_deep": "Направление опасного изменения зависит от метрики: для заполнения tablespace опасен рост процента занятого места.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Пороговый alert основан на условии метрики с warning/critical порогами и правилами наблюдения. Событийный сообщает о событии без числового порога, например Snapshot Too Old.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "[Лекция 9 · 00:51:30–00:56:30]\n## 00:51:30 — Преподаватель\n\nВ выбранный день сбор не выполнится. Настройки гибкие. Теперь сообщения, которые сервер генерирует для администратора.\n\n## 00:52:00 — Преподаватель\n\nПри превышении порога метрики информация о событии сохраняется и передаётся в Enterprise Manager администратору.\n\n## 00:52:30 — Преподаватель\n\nСобытий бывает много, поэтому сообщения помещаются в очередь server alerts и поступают в Enterprise Manager по мере обработки.\n\n## 00:53:00 — Преподаватель\n\nПороги задаются в Enterprise Manager через Metric Settings; можно редактировать значения для выбранных метрик.\n\n## 00:53:30 — Преподаватель\n\nПорог можно редактировать. Три шага проверки: определить порог, создать тест для его превышения и проверить получение предупреждения.\n\n## 00:54:00 — Преподаватель\n\nНужно удостовериться, что сообщение пришло при превышении порога метрики. В примере порог изменён и затем запускается тест.\n\n## 00:54:30 — Преподаватель\n\nТест: создаётся таблица, порог относится к проценту использованного места в tablespace, Tablespace Space Used.\n\n## 00:55:00 — Преподаватель\n\nВ примере критический порог 75%, warning 70%. После установки проверяем их, создавая таблицу в табличном пространстве INVENTORY.\n\n## 00:55:30 — Преподаватель\n\nДля таблицы задаётся INITIAL 8 MB [по GigaAM; Whisper ошибочно распознал гигабайты; точная надпись требует визуального подтверждения]. Данные берутся из EMPLOYEES. Возникает critical alert: заполнение около 80%.\n\n## 00:56:00 — Преподаватель\n\nПри установке порогов обязательно проверяйте, что они работают. Далее — типы предупреждений и очистка информации об alerts.\n\n[Лекция 9 · 00:56:30–00:59:00]\n## 00:56:30 — Преподаватель\n\nDBA_OUTSTANDING_ALERTS — действующие, неустранённые предупреждения. DBA_ALERT_HISTORY — история предупреждений.\n\n## 00:57:00 — Преподаватель\n\nПри превышении порога информация появляется в DBA_OUTSTANDING_ALERTS. После исправления ситуации метрика больше не превышает порог.\n\n## 00:57:30 — Преподаватель\n\nИнформация о прежнем превышении доступна через DBA_ALERT_HISTORY, а в DBA_OUTSTANDING_ALERTS её уже нет.\n\n## 00:58:00 — Преподаватель\n\nЭто threshold alerts на основе метрик. Есть event-based, nonthreshold alerts без числового порога. Например, Snapshot Too Old.\n\n## 00:58:30 — Преподаватель\n\nПример Snapshot Too Old преподаватель связывает с невозможностью получить нужную информацию из undo и истечением retention time. Это пример события, не превышения метрики. [Техническое уточнение в uncertainties.md.]",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 35, 36, 37, 40"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/monitoring.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-alert-test",
+      "topic": "alerts",
+      "level": "foundation",
+      "front": "Как проверить предупреждение и проследить его устранение?",
+      "answer_short": "Задать порог, создать условие нарушения и проверить получение alert — преподаватель требует все три шага. Действующие предупреждения видны в DBA_OUTSTANDING_ALERTS, история — в DBA_ALERT_HISTORY.",
+      "answer_deep": "В примере warning=70%, critical=75%, заполнение около 80%. После нормализации пороговое предупреждение уходит из outstanding; доставка уведомления настраивается отдельно.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Задать порог, создать условие нарушения и проверить получение alert — преподаватель требует все три шага. Действующие предупреждения видны в DBA_OUTSTANDING_ALERTS, история — в DBA_ALERT_HISTORY.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "[Лекция 9 · 00:51:30–00:56:30]\n## 00:51:30 — Преподаватель\n\nВ выбранный день сбор не выполнится. Настройки гибкие. Теперь сообщения, которые сервер генерирует для администратора.\n\n## 00:52:00 — Преподаватель\n\nПри превышении порога метрики информация о событии сохраняется и передаётся в Enterprise Manager администратору.\n\n## 00:52:30 — Преподаватель\n\nСобытий бывает много, поэтому сообщения помещаются в очередь server alerts и поступают в Enterprise Manager по мере обработки.\n\n## 00:53:00 — Преподаватель\n\nПороги задаются в Enterprise Manager через Metric Settings; можно редактировать значения для выбранных метрик.\n\n## 00:53:30 — Преподаватель\n\nПорог можно редактировать. Три шага проверки: определить порог, создать тест для его превышения и проверить получение предупреждения.\n\n## 00:54:00 — Преподаватель\n\nНужно удостовериться, что сообщение пришло при превышении порога метрики. В примере порог изменён и затем запускается тест.\n\n## 00:54:30 — Преподаватель\n\nТест: создаётся таблица, порог относится к проценту использованного места в tablespace, Tablespace Space Used.\n\n## 00:55:00 — Преподаватель\n\nВ примере критический порог 75%, warning 70%. После установки проверяем их, создавая таблицу в табличном пространстве INVENTORY.\n\n## 00:55:30 — Преподаватель\n\nДля таблицы задаётся INITIAL 8 MB [по GigaAM; Whisper ошибочно распознал гигабайты; точная надпись требует визуального подтверждения]. Данные берутся из EMPLOYEES. Возникает critical alert: заполнение около 80%.\n\n## 00:56:00 — Преподаватель\n\nПри установке порогов обязательно проверяйте, что они работают. Далее — типы предупреждений и очистка информации об alerts.\n\n[Лекция 9 · 00:56:30–00:59:00]\n## 00:56:30 — Преподаватель\n\nDBA_OUTSTANDING_ALERTS — действующие, неустранённые предупреждения. DBA_ALERT_HISTORY — история предупреждений.\n\n## 00:57:00 — Преподаватель\n\nПри превышении порога информация появляется в DBA_OUTSTANDING_ALERTS. После исправления ситуации метрика больше не превышает порог.\n\n## 00:57:30 — Преподаватель\n\nИнформация о прежнем превышении доступна через DBA_ALERT_HISTORY, а в DBA_OUTSTANDING_ALERTS её уже нет.\n\n## 00:58:00 — Преподаватель\n\nЭто threshold alerts на основе метрик. Есть event-based, nonthreshold alerts без числового порога. Например, Snapshot Too Old.\n\n## 00:58:30 — Преподаватель\n\nПример Snapshot Too Old преподаватель связывает с невозможностью получить нужную информацию из undo и истечением retention time. Это пример события, не превышения метрики. [Техническое уточнение в uncertainties.md.]",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "reconciled_not_manually_audio_verified",
+          "text": "«При установке порогов обязательно проверяйте, что они работают» — формулировка обработанной редакции 00:56:00, не проверенная дословная цитата.",
+          "time_range": "00:51:30–00:56:30"
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Устный разбор проводит настройку, создание таблицы и полученное предупреждение как единый тест.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 35, 36, 37, 38, 39, 40"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/monitoring.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-performance-route",
+      "topic": "performance",
+      "level": "foundation",
+      "front": "Как от графика Performance перейти к причине замедления?",
+      "answer_short": "Выбрать проблемный интервал, разделить CPU и ожидания, перейти к Top SQL/Sessions/Services, затем к тексту SQL, плану и конкретному событию.",
+      "answer_deep": "Большая доля Top SQL не означает самое медленное одиночное выполнение: важна частота. Рост throughput также не означает ухудшение сам по себе.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Выбрать проблемный интервал, разделить CPU и ожидания, перейти к Top SQL/Sessions/Services, затем к тексту SQL, плану и конкретному событию.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture09 · обработанная редакция записи",
+        "text": "## 01:02:30 — Преподаватель\n\nPerformance Monitoring включает несколько задач: определить требования к памяти, объёмы PGA, SGA и отдельных буферов.\n\n## 01:03:00 — Преподаватель\n\nТакже надо решать проблемы ввода-вывода, конкуренции за устройства и ресурсы.\n\n## 01:03:30 — Преподаватель\n\nАдминистратор распределяет ресурсы между пользователями, ищет сетевые узкие места и проблемы кода приложений.\n\n## 01:04:00 — Преподаватель\n\nВ Enterprise Manager вкладка Performance показывает метрики и их изменение во времени, использование хоста.\n\n## 01:04:30 — Преподаватель\n\nПоказаны графики хоста и активных сеансов. Можно выбрать интересующий временной интервал.\n\n## 01:05:00 — Преподаватель\n\nНа Active Session можно выделить окно и подробно посмотреть производительность за этот период.\n\n## 01:05:30 — Преподаватель\n\nНапример, одна команда SELECT занимает около 24%, другая 3% [учебная иллюстрация]. По ссылке можно открыть текст SQL.\n\n## 01:06:00 — Преподаватель\n\nМожно смотреть активность SQL, Top Sessions с наибольшими затратами, Top Services и другие разрезы вкладки Performance.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture09",
+        "time_range": "01:02:30–01:06:30"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель показывает выделение временного окна и переход от долей активности к тексту SQL.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less13_Performance.pdf, физические страницы 3, 4, 5, 6, 7, 8"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/autostat.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-performance-views",
+      "topic": "performance",
+      "level": "foundation",
+      "front": "Какие V$ используют для статистик и ожиданий экземпляра, сеанса и сервиса?",
+      "answer_short": "Статистики: V$SYSSTAT, V$SESSTAT, V$SERVICE_STATS. Ожидания: V$SYSTEM_EVENT, V$SESSION_EVENT, V$SERVICE_EVENT. V$SESSTAT связывают с V$STATNAME по STATISTIC#.",
+      "answer_deep": "TIME_WAITED — сотые секунды, TIME_WAITED_MICRO — микросекунды. Значения читают с учётом области, единиц и интервала.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Статистики: V$SYSSTAT, V$SESSTAT, V$SERVICE_STATS. Ожидания: V$SYSTEM_EVENT, V$SESSION_EVENT, V$SERVICE_EVENT. V$SESSTAT связывают с V$STATNAME по STATISTIC#.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "slide_and_documentation_only",
+        "locator_status": "slide_only_no_spoken_locator",
+        "source": "",
+        "text": "",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        }
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less13_Performance.pdf, физические страницы 15, 16"
+      ],
+      "oracle_docs": [],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-wait-classes",
+      "topic": "performance",
+      "level": "foundation",
+      "front": "Как классы ожиданий помогают выбрать направление диагностики?",
+      "answer_short": "User I/O ведёт к операциям чтения/записи; Concurrency — к конкуренции за внутренние структуры; Configuration — к настройкам; Commit — к подтверждению транзакций. Причину уточняют по событию, SQL и нагрузке.",
+      "answer_deep": "В нашей работе за Configuration стояло log file switch (checkpoint incomplete). DBWR пишет блоки данных, LGWR — redo; один цвет графика не обосновывает увеличение памяти.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "User I/O ведёт к операциям чтения/записи; Concurrency — к конкуренции за внутренние структуры; Configuration — к настройкам; Commit — к подтверждению транзакций. Причину уточняют по событию, SQL и нагрузке.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "slide_and_documentation_only",
+        "locator_status": "slide_only_no_spoken_locator",
+        "source": "",
+        "text": "",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        }
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less13_Performance.pdf, физические страницы 4, 5, 16, 19"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/autostat.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-memory-modes",
+      "topic": "memory-objects",
+      "level": "foundation",
+      "front": "Чем отличаются AMM, ASMM и ручное управление памятью?",
+      "answer_short": "AMM распределяет MEMORY_TARGET между SGA и PGA. ASMM распределяет SGA_TARGET внутри SGA, а PGA настраивают отдельно. В ручном режиме администратор задаёт размеры компонентов.",
+      "answer_deep": "MAX-параметры ограничивают допустимые размеры; PGA_AGGREGATE_TARGET — цель управления, а не жёсткий предел всей памяти процессов. Преподаватель отдельно требует помнить определение AMM.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "AMM распределяет MEMORY_TARGET между SGA и PGA. ASMM распределяет SGA_TARGET внутри SGA, а PGA настраивают отдельно. В ручном режиме администратор задаёт размеры компонентов.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "[Лекция 9 · 01:01:00–01:02:30]\n## 01:01:00 — Преподаватель\n\nAutomatic Memory Management. Преподаватель напоминает, что спрашивал это на первой лабораторной работе, и требует вспомнить определение.\n\n## 01:01:30 — Преподаватель\n\nAMM — автоматическое распределение оперативной памяти между PGA и SGA.\n\n## 01:02:00 — Преподаватель\n\nДалее Memory Advisor для размеров буферов, динамические представления производительности, invalid и unusable objects. Эти темы перечислены в плане; подробно в этой записи рассмотрены память и интерфейс мониторинга.\n\n[Лекция 9 · 01:06:30–01:10:30]\n## 01:06:30 — Преподаватель\n\nAMM позволяет задать общий объём памяти экземпляра, включая SGA и PGA, и автоматически распределять его между ними.\n\n## 01:07:00 — Преподаватель\n\nASMM — Automatic Shared Memory Management — автоматически распределяет объём SGA между её компонентами: буферами и пулами.\n\n## 01:07:30 — Преподаватель\n\nРазмер SGA задаётся одним параметром инициализации, а размеры автоматически управляемых компонентов определяет система.\n\n## 01:08:00 — Преподаватель\n\nПеречислены shared pool, Java pool, buffer cache, Streams pool и large pool. Чего не хватает? Redo log buffer.\n\n## 01:08:30 — Преподаватель\n\nRedo log buffer не входит в автоматическое перераспределение. Преподаватель считает бессмысленным делать его большим и напоминает условия сброса LGWR: три секунды, треть буфера, мегабайт. [Обобщение о размере не принято как правило настройки.]\n\n## 01:09:00 — Преподаватель\n\nВ ASMM задаётся общий размер SGA; в AMM — общий бюджет SGA и PGA с перераспределением между ними.\n\n## 01:09:30 — Преподаватель\n\nМожно вручную задавать размеры компонентов SGA, используя рекомендации Memory Advisor.\n\n## 01:10:00 — Преподаватель\n\nМожно использовать соответствующий Memory Advisor или собственные измерения; выбранный размер задаётся параметром инициализации.",
+        "explicit_importance_marker": {
+          "present": true,
+          "status": "reconciled_not_manually_audio_verified",
+          "text": "Преподаватель напоминает вопрос первой лабораторной и требует вспомнить определение AMM.",
+          "time_range": "01:01:00–01:02:30"
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less13_Performance.pdf, физические страницы 9, 10, 11, 13"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/memory.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-sga-components",
+      "topic": "memory-objects",
+      "level": "foundation",
+      "front": "Какие компоненты SGA охватывает ASMM, а какие требуют отдельной настройки?",
+      "answer_short": "Автоматически настраиваются основной buffer cache, shared pool, large pool, Java pool и Streams pool. LOG_BUFFER, KEEP/RECYCLE и nonstandard-block caches управляются отдельно.",
+      "answer_deep": "Ненулевое явное значение автоматически управляемого компонента может задавать минимум.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Автоматически настраиваются основной buffer cache, shared pool, large pool, Java pool и Streams pool. LOG_BUFFER, KEEP/RECYCLE и nonstandard-block caches управляются отдельно.",
+        "documentation_correction": [
+          "Устное «всё, кроме redo» неполно: есть и другие исключения."
+        ],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture09 · обработанная редакция записи",
+        "text": "## 01:06:30 — Преподаватель\n\nAMM позволяет задать общий объём памяти экземпляра, включая SGA и PGA, и автоматически распределять его между ними.\n\n## 01:07:00 — Преподаватель\n\nASMM — Automatic Shared Memory Management — автоматически распределяет объём SGA между её компонентами: буферами и пулами.\n\n## 01:07:30 — Преподаватель\n\nРазмер SGA задаётся одним параметром инициализации, а размеры автоматически управляемых компонентов определяет система.\n\n## 01:08:00 — Преподаватель\n\nПеречислены shared pool, Java pool, buffer cache, Streams pool и large pool. Чего не хватает? Redo log buffer.\n\n## 01:08:30 — Преподаватель\n\nRedo log buffer не входит в автоматическое перераспределение. Преподаватель считает бессмысленным делать его большим и напоминает условия сброса LGWR: три секунды, треть буфера, мегабайт. [Обобщение о размере не принято как правило настройки.]\n\n## 01:09:00 — Преподаватель\n\nВ ASMM задаётся общий размер SGA; в AMM — общий бюджет SGA и PGA с перераспределением между ними.\n\n## 01:09:30 — Преподаватель\n\nМожно вручную задавать размеры компонентов SGA, используя рекомендации Memory Advisor.\n\n## 01:10:00 — Преподаватель\n\nМожно использовать соответствующий Memory Advisor или собственные измерения; выбранный размер задаётся параметром инициализации.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture09",
+        "time_range": "01:06:30–01:10:30"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель просит заметить отсутствующий redo log buffer; карточка дополняет границу по документации.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less13_Performance.pdf, физические страницы 9, 11, 13"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/memory.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-memory-advice",
+      "topic": "memory-objects",
+      "level": "foundation",
+      "front": "Как читать графики Memory Advisors и выбирать размер?",
+      "answer_short": "Сначала проверить оси: Memory/SGA Advisor связывает размер с оценкой DB Time, Buffer Cache Advisor — с физическими чтениями. Плато означает малую отдачу от добавленной памяти для наблюдавшейся нагрузки.",
+      "answer_deep": "Преподаватель разбирает выбор точки у начала плато. Advice показывает оценку, Enable меняет режим; график не гарантирует эффект для другой нагрузки.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Сначала проверить оси: Memory/SGA Advisor связывает размер с оценкой DB Time, Buffer Cache Advisor — с физическими чтениями. Плато означает малую отдачу от добавленной памяти для наблюдавшейся нагрузки.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture08 · обработанная редакция записи",
+        "text": "[Лекция 9 · 01:10:30–01:17:24]\n## 01:10:30 — Преподаватель\n\nПараметры задают в файлах инициализации PFILE/SPFILE [сверка по Whisper и контексту]. В учебной базе сейчас автоматический режим. Далее показано включение AMM в Enterprise Manager.\n\n## 01:11:00 — Преподаватель\n\nЧерез Advisor Central выбирается Memory Advisor. В интерфейсе Enable включает автоматическое управление; Advice позволяет посмотреть рекомендации.\n\n## 01:11:30 — Преподаватель\n\nMemory Size Advisor показывает зависимость изменения DB Time от размера памяти.\n\n## 01:12:00 — Преподаватель\n\nПо горизонтальной оси — размер Memory Size; по вертикальной — изменение затрат времени. Точные небольшие числа на рисунке [неразборчиво 01:12:00].\n\n## 01:12:30 — Преподаватель\n\nПри увеличении памяти улучшение сначала заметно, затем на участке примерно 500–650 MB изменения DB Time нет.\n\n## 01:13:00 — Преподаватель\n\nПозже улучшение возобновляется. На графике выбирают разумный размер у нижней границы плато; точные численные отметки [неразборчиво 01:13:00].\n\n## 01:13:30 — Преподаватель\n\nВыбор конкретной точки зависит от решения администратора. Далее показано автоматическое распределение памяти между компонентами SGA.\n\n## 01:14:00 — Преподаватель\n\nРассматривается SGA: Enable включает ASMM. Когда режим Disabled, размеры отдельных компонентов задаются вручную.\n\n## 01:14:30 — Преподаватель\n\nПри ручном выборе можно использовать Advice для shared pool и buffer cache.\n\n## 01:15:00 — Преподаватель\n\nAdvisors похожи: размер SGA сопоставляется с улучшением DB Time. Можно пользоваться рекомендацией или менять значения вручную.\n\n## 01:15:30 — Преподаватель\n\nНа рисунке рекомендован размер около 400 [единица и точное значение не утверждаются как настройка VM]. При ручном режиме значения вводятся в полях.\n\n## 01:16:00 — Преподаватель\n\nBuffer Cache Advisor показывает зависимость физических чтений от размера кэша. Надо уменьшать количество физических чтений.\n\n## 01:16:30 — Преподаватель\n\nПример: до размера около 60 количество физических чтений резко падает, затем дальнейшее увеличение буфера почти не даёт изменений. Здесь по оси отложен другой показатель.\n\n## 01:17:00 — Преподаватель\n\nФизические чтения — чтение данных из файлов. На сегодня всё; представления производительности будут рассмотрены отдельно, осталось немного материала.\n\n[Лекция 9 · 00:32:00–00:37:30]\n## 00:32:00 — Преподаватель\n\nПреподаватель описывает ADDM как совокупность помощников. SQL Tuning Advisor помогает настраивать выполнение SQL, планы запросов.\n\n## 00:32:30 — Преподаватель\n\nSQL Access Advisor — это рекомендации об использовании индексов, материализованных представлений и других структур доступа, а не только настройка плана.\n\n## 00:33:00 — Преподаватель\n\nSQL Tuning Advisor настраивает выполнение SQL; SQL Access Advisor рекомендует структуры доступа — индексы и материализованные представления.\n\n## 00:33:30 — Преподаватель\n\nMemory Advisors: PGA Advisor помогает выбрать размер PGA; SGA Advisor включает помощников для компонентов SGA; Buffer Cache Advisor — для buffer cache.\n\n## 00:34:00 — Преподаватель\n\nShared Pool Advisor, Java Pool Advisor и другие помощники для компонентов SGA можно использовать самостоятельно. Далее — Space, Segment Advisor и Undo Advisor.\n\n## 00:34:30 — Преподаватель\n\nUndo Advisor помогает выбрать размер undo tablespace. MTTR означает Mean Time To Recover.\n\n## 00:35:00 — Преподаватель\n\nЕсли я задам желаемое время восстановления экземпляра и использую MTTR Advisor, то, в объяснении преподавателя, система подберёт внутренние параметры Oracle.\n\n## 00:35:30 — Преподаватель\n\nПреподаватель связывает подбор внутренних параметров с восстановлением экземпляра за желаемый интервал; MTTR — среднее время восстановления. [Это не безусловная гарантия времени; см. uncertainties.md.]\n\n## 00:36:00 — Преподаватель\n\nПреподаватель связывает выбранные параметры с восстановлением экземпляра за желаемое время. Помощников для обслуживания много; некоторые рассмотрим дальше.\n\n## 00:36:30 — Преподаватель\n\nВ Enterprise Manager есть ссылка Advisor Central, в том числе внизу страниц. Там собраны помощники.\n\n## 00:37:00 — Преподаватель\n\nВ Advisor Central показаны ADDM и отдельные advisors. Также есть вкладка Checkers.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "",
+        "time_range": ""
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "Преподаватель отдельно подчёркивает смену показателя при переходе к Buffer Cache Advisor. Устный разбор подробно проходит падение кривой, плато и выбор разумной точки.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less13_Performance.pdf, физические страницы 10, 11, 12, 14",
+        "Less12_Proactive  ред 44.pdf, физические страницы 27, 28"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e25494/memory.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-object-states",
+      "topic": "memory-objects",
+      "level": "foundation",
+      "front": "Чем INVALID отличается от UNUSABLE и как это связано с обслуживанием?",
+      "answer_short": "INVALID программного объекта требует успешной перекомпиляции и устранения проблем зависимостей. UNUSABLE индекса означает непригодность его структуры; обычный способ восстановления — REBUILD.",
+      "answer_deep": "После ALTER TABLE MOVE меняются физические ROWID строк, поэтому индексные ссылки могут стать непригодными. Компиляция процедуры и перестроение индекса — разные операции.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "INVALID программного объекта требует успешной перекомпиляции и устранения проблем зависимостей. UNUSABLE индекса означает непригодность его структуры; обычный способ восстановления — REBUILD.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "slide_and_documentation_only",
+        "locator_status": "slide_only_no_spoken_locator",
+        "source": "",
+        "text": "",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        }
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less13_Performance.pdf, физические страницы 17, 19"
+      ],
+      "oracle_docs": [],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-assm",
+      "topic": "awr-addm",
+      "level": "foundation",
+      "front": "Чем MANUAL отличается от ASSM и что показал наш опыт?",
+      "answer_short": "MANUAL использует freelists для свободных блоков сегмента, ASSM — bitmap-механизм. В сопоставимой законченной нагрузке ASSM уменьшил вклад Concurrency и изменил рекомендации ADDM.",
+      "answer_deep": "LOCAL относится к экстентам, AUTOEXTEND — к росту файла. Они независимы от ASSM. Сравнивают одинаковый объём работы и конкретные ожидания; одно среднее AAS не доказывает улучшение или ухудшение.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "MANUAL использует freelists для свободных блоков сегмента, ASSM — bitmap-механизм. В сопоставимой законченной нагрузке ASSM уменьшил вклад Concurrency и изменил рекомендации ADDM.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "reconciled_excerpt",
+        "locator_status": "thematic_range_approx_30s",
+        "source": "s07-lecture09 · обработанная редакция записи",
+        "text": "## 00:26:00 — Преподаватель\n\nADDM — Automatic Database Diagnostic Monitor — автоматически запускается после создания каждого AWR-снимка.\n\n## 00:26:30 — Преподаватель\n\nОн контролирует экземпляр, обнаруживает узкие места, сохраняет результаты в репозитории и выдаёт рекомендации по их устранению.\n\n## 00:27:00 — Преподаватель\n\nПосле AWR-снимка информация поступает в ADDM. Результаты ADDM сохраняются в AWR и выводятся на страницу Enterprise Manager.\n\n## 00:27:30 — Преподаватель\n\nADDM запускается после каждого снимка и обнаруживает ситуации — findings. Их можно посмотреть в Enterprise Manager.\n\n## 00:28:00 — Преподаватель\n\nВ Enterprise Manager можно открыть finding и посмотреть обнаруженную ситуацию в таблице результатов.\n\n## 00:28:30 — Преподаватель\n\nВ примере обнаружена большая нагрузка при выполнении SQL-запросов; точные проценты и количество findings на иллюстрации [неразборчиво 00:28:30].\n\n## 00:29:00 — Преподаватель\n\nКроме findings выдаются рекомендации. Например, рассмотреть использование автоматического управления пространством сегментов.\n\n## 00:29:30 — Преподаватель\n\nРекомендация: использовать Automatic Segment Space Management в локально управляемом tablespace. Эти слова уже знакомы по лабораторной работе.\n\n## 00:30:00 — Преподаватель\n\nВспоминаем управление свободными блоками. Преподаватель связывает автоматический вариант с хранением информации непосредственно в табличном пространстве.\n\n## 00:30:30 — Преподаватель\n\nРазличаются AUTO и MANUAL для Segment Space Management. При MANUAL информация о свободных блоках хранится в списках свободных блоков. [Не смешивать с LOCAL extent management.]\n\n## 00:31:00 — Преподаватель\n\nПри MANUAL используются списки свободных блоков. В примере ADDM рекомендует перейти на автоматическое управление пространством сегментов.\n\n## 00:31:30 — Преподаватель\n\nЗдесь рекомендован переход на автоматическое управление пространством сегментов. К рекомендациям следует относиться критически: они не всегда правильны, но могут направить поиск причины.",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        },
+        "recording": "s07-lecture09",
+        "time_range": "00:26:00–00:32:00"
+      },
+      "teacher_detail": {
+        "present": true,
+        "reason": "При разборе рекомендации ADDM преподаватель возвращается к free lists и управлению свободными блоками.",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less12_Proactive  ред 44.pdf, физические страницы 24, 25, 26, 42"
+      ],
+      "oracle_docs": [
+        "https://docs.oracle.com/cd/E11882_01/server.112/e41573/autostat.htm"
+      ],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-index-access",
+      "topic": "memory-objects",
+      "level": "foundation",
+      "front": "Как восстановление индексов связано с изменением плана в нашей работе?",
+      "answer_short": "После MOVE индексы были UNUSABLE и использовался TABLE ACCESS FULL. После восстановления стали доступны INDEX UNIQUE SCAN и TABLE ACCESS BY INDEX ROWID: индекс находит ROWID, таблица отдаёт остальные столбцы.",
+      "answer_deep": "До и после использовались разные ключи, поэтому доказана смена пути доступа, а не точный процент ускорения. VALID индекс не обязан выбираться для каждого SQL.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "После MOVE индексы были UNUSABLE и использовался TABLE ACCESS FULL. После восстановления стали доступны INDEX UNIQUE SCAN и TABLE ACCESS BY INDEX ROWID: индекс находит ROWID, таблица отдаёт остальные столбцы.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "slide_and_documentation_only",
+        "locator_status": "slide_only_no_spoken_locator",
+        "source": "",
+        "text": "",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        }
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less13_Performance.pdf, физические страницы 17, 19"
+      ],
+      "oracle_docs": [],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
+    },
+    {
+      "id": "s07-b04-core-scheduled-statistics",
+      "topic": "work-evidence",
+      "level": "foundation",
+      "front": "Чем подтверждают реальный запуск сбора статистик по расписанию?",
+      "answer_short": "Сопоставляют действие и расписание конкретной Scheduler job, успешную запись её фактического запуска и LAST_ANALYZED нужных таблиц. Создания job или ручного Run Now недостаточно.",
+      "answer_deep": "В работе отдельно подтверждены ручной сбор и самостоятельный вечерний запуск для HR/OE. Свежий LAST_ANALYZED без истории job не устанавливает, кто выполнил сбор.",
+      "answer_layers": {
+        "teacher_default": "",
+        "default_defense_answer": "Сопоставляют действие и расписание конкретной Scheduler job, успешную запись её фактического запуска и LAST_ANALYZED нужных таблиц. Создания job или ручного Run Now недостаточно.",
+        "documentation_correction": [],
+        "documentation_addition": []
+      },
+      "teacher_evidence": {
+        "kind": "slide_and_documentation_only",
+        "locator_status": "slide_only_no_spoken_locator",
+        "source": "",
+        "text": "",
+        "explicit_importance_marker": {
+          "present": false,
+          "status": "not_established",
+          "text": ""
+        }
+      },
+      "teacher_detail": {
+        "present": false,
+        "reason": "",
+        "comparison_status": "retained_from_source_checked_expanded_bank"
+      },
+      "slides": [
+        "Less13_Performance.pdf, физические страницы 19"
+      ],
+      "oracle_docs": [],
+      "status": "condensed_source_grounded_study_card",
+      "terms": [],
+      "block": 4
     }
   ]
 }

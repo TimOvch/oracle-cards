@@ -78,11 +78,11 @@ select { width: 100%; padding: .55rem 2.2rem .55rem .8rem; }
 .badge.status-review { border-color: #755c2f; color: #ffd486; }
 .counter { color: var(--muted); font: 700 .8rem ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
 
-.flashcard { min-height: 32rem; border: 1px solid #d9d0c0; background: var(--paper); color: var(--paper-ink); box-shadow: var(--shadow); }
+.flashcard { min-height: 32rem; border: 1px solid #d9d0c0; background: var(--paper); color: var(--paper-ink); box-shadow: var(--shadow); overflow-wrap: anywhere; }
 .card-face { padding: clamp(1.6rem, 5vw, 4.6rem); }
 .question-face { min-height: 32rem; display: flex; flex-direction: column; align-items: flex-start; }
 .question-face .face-label { color: var(--amber-dark); }
-.question-face h2 { max-width: 24ch; margin: auto 0 1.2rem; font: 600 clamp(1.75rem, 4.3vw, 3.45rem)/1.08 "Iowan Old Style", Palatino, Georgia, serif; letter-spacing: -.02em; }
+.question-face h2 { max-width: min(24ch, 100%); margin: auto 0 1.2rem; font: 600 clamp(1.75rem, 4.3vw, 3.45rem)/1.08 "Iowan Old Style", Palatino, Georgia, serif; letter-spacing: -.02em; }
 .thinking-prompt { margin-bottom: 2rem; color: #596573; }
 .reveal-button { display: inline-flex; align-items: center; gap: 1rem; min-height: 3.3rem; padding: .65rem 1rem; border: 1px solid #8f826d; background: transparent; color: var(--paper-ink); font-weight: 750; }
 .reveal-button:hover { border-color: var(--amber-dark); color: #834714; }

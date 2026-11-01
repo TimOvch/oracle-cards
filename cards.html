@@ -15,7 +15,7 @@
   <header class="topbar">
     <a class="brand" href="index.html" aria-label="Карточки Oracle — начало">
       <span class="brand-mark" aria-hidden="true">OR</span>
-      <span><b>Oracle 11g</b><small>блоки 1–3 · семестр 7</small></span>
+      <span><b>Oracle 11g</b><small>блоки 1–4 · семестр 7</small></span>
     </a>
     <nav class="mode-nav" aria-label="Режим обучения"><a href="index.html#/course">Читать</a><a href="index.html#/map/course">Карта</a><a href="cards.html" aria-current="page">Повторить</a></nav>
   </header>
@@ -57,6 +57,7 @@
         <select id="source-filter">
           <option value="all">Все карточки</option>
           <option value="important">Отмечено преподавателем</option>
+          <option value="teacher-detail">Дополнительный устный разбор</option>
           <option value="conflict">Есть исправление по документации</option>
           <option value="documentation">Есть дополнение из документации</option>
           <option value="review">Помечено «повторить»</option>
@@ -109,6 +110,7 @@
               <span id="teacher-locator" class="locator"></span>
             </div>
             <p id="teacher-default" class="teacher-default"></p>
+            <p id="teacher-detail-note" class="source-note" hidden></p>
             <p id="importance-note" class="importance-note" hidden></p>
             <details id="transcript-details">
               <summary>Обработанный фрагмент транскрипции</summary>
