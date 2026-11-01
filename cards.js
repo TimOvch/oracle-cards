@@ -494,8 +494,8 @@ function bindEvents() {
   window.addEventListener('storage', event => {
     if (event.key === STORAGE_KEY) { progress = loadProgress(); rebuildVisible(); }
   });
-  window.addEventListener('pageshow', () => {
-    if (cards.length) { progress = loadProgress(); rebuildVisible(); }
+  window.addEventListener('pageshow', event => {
+    if (event.persisted && cards.length) { progress = loadProgress(); rebuildVisible(); }
   });
   document.addEventListener('keydown', event => {
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return;
