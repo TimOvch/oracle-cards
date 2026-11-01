@@ -7,9 +7,9 @@
   <meta name="theme-color" content="#091624">
   <title>Oracle 11g — учебные карточки</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="cards.css?v=20261018-book1">
+  <link rel="stylesheet" href="cards.css?v=20261101-standalone2">
   <script defer src="study-core.js?v=20261018-book1"></script>
-  <script defer src="cards.js?v=20261018-book1"></script>
+  <script defer src="cards.js?v=20261101-standalone2"></script>
 </head>
 <body>
   <header class="topbar">
@@ -25,7 +25,7 @@
       <div>
         <p class="kicker">ОСНОВА КУРСА · ORACLE 11.2</p>
         <h1 id="page-title">Фундамент Oracle</h1>
-        <p class="intro">Повтори основные понятия и связи. Для подробностей выбери «Углубление»; в ответах отдельно доступны пояснения, слова преподавателя и источники.</p>
+        <p class="intro">Каждая карточка содержит самостоятельное объяснение. Синтаксис, параметры и примеры находятся в ответе; фрагменты лекций и источники доступны отдельно.</p>
         <p id="chapter-context" class="intro" hidden></p>
       </div>
       <div class="progress-panel" aria-label="Общий прогресс">
@@ -92,8 +92,8 @@
 
         <div id="answer" class="answer-face" hidden>
           <section class="defense-answer" aria-labelledby="defense-title">
-            <p class="face-label">ОТВЕТ ПО УМОЛЧАНИЮ НА ЗАЩИТЕ</p>
-            <h3 id="defense-title" class="visually-hidden">Ответ по умолчанию на защите</h3>
+            <p class="face-label">ОСНОВНОЙ ОТВЕТ</p>
+            <h3 id="defense-title" class="visually-hidden">Основной ответ</h3>
             <p id="defense-text"></p>
           </section>
 
@@ -101,6 +101,8 @@
             <h3>Связь и механизм</h3>
             <p id="deep-text"></p>
           </section>
+
+          <div id="answer-blocks" hidden></div>
 
           <p id="oral-scope-note" class="oral-scope-note" hidden>Этот пункт объяснён по слайдам и документации. Устный разбор в доступной записи не установлен.</p>
 

@@ -108,6 +108,14 @@ select { width: 100%; padding: .55rem 2.2rem .55rem .8rem; }
 .source-path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
 .oral-scope-note { margin: 0; padding: 1rem clamp(1.6rem, 5vw, 4.6rem); border-top: 1px solid #d9d0c0; background: #e9edf0; color: #485968; font-size: .88rem; }
 #deep-text, #teacher-excerpt { white-space: pre-line; }
+#defense-text { white-space: pre-line; }
+.reference-block { min-width: 0; }
+.reference-block pre { max-width: 100%; overflow: auto; padding: 1rem; border: 1px solid #c6cbd0; background: #e8edf0; font: .88rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre; overflow-wrap: normal; tab-size: 2; }
+.reference-table { max-width: 100%; overflow: auto; margin: .8rem 0; }
+.reference-table table { width: 100%; border-collapse: collapse; min-width: 32rem; font-size: .92rem; }
+.reference-table th, .reference-table td { padding: .65rem .7rem; border: 1px solid #c6cbd0; text-align: left; vertical-align: top; }
+.reference-table th { background: #e6e0d5; }
+.reference-block pre:focus-visible, .reference-table:focus-visible { outline: 3px solid #a65f20; outline-offset: 2px; }
 details { color: inherit; }
 details summary { list-style-position: outside; }
 blockquote { margin: 1rem 0 .4rem; padding-left: 1rem; border-left: 2px solid #74899d; color: #3d4b59; }

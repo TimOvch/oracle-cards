@@ -222,6 +222,7 @@ function renderAnswer(card) {
   setText('defense-text', answer.defense);
   setText('deep-text', card.answer_deep || '');
   $('deep-section').hidden = !card.answer_deep || card.answer_deep === answer.defense;
+  renderAnswerBlocks(card.answer_blocks || []);
 
   const evidence = card.teacher_evidence;
   const showTeacher = Boolean(evidence?.text);
@@ -280,6 +281,78 @@ function renderAnswer(card) {
     li.append(link);
   });
   $('sources-details').hidden = !list(card.slides).length && !docs.length;
+}
+
+function renderAnswerBlocks(blocks) {
+  const root = $('answer-blocks');
+  root.replaceChildren();
+  root.hidden = !blocks.length;
+  for (const block of blocks) {
+    const section = document.createElement('section');
+    section.className = 'answer-section reference-block';
+    const title = document.createElement('h3');
+    title.textContent = block.title;
+    section.append(title);
+    if (block.kind === 'code') {
+      const pre = document.createElement('pre');
+      pre.tabIndex = 0;
+      pre.setAttribute('aria-label', block.title);
+      const code = document.createElement('code');
+      code.textContent = block.code;
+      pre.append(code);
+      section.append(pre);
+    } else if (block.kind === 'table') {
+      const scroll = document.createElement('div');
+      scroll.className = 'reference-table';
+      scroll.tabIndex = 0;
+      scroll.setAttribute('role', 'region');
+      scroll.setAttribute('aria-label', block.title);
+      const table = document.createElement('table');
+      const thead = document.createElement('thead');
+      const header = document.createElement('tr');
+      for (const value of block.headers) {
+        const th = document.createElement('th');
+        th.scope = 'col';
+        th.textContent = value;
+        header.append(th);
+      }
+      thead.append(header);
+      const tbody = document.createElement('tbody');
+      for (const values of block.rows) {
+        const row = document.createElement('tr');
+        for (const value of values) {
+          const td = document.createElement('td');
+          td.textContent = value;
+          row.append(td);
+        }
+        tbody.append(row);
+      }
+      table.append(thead, tbody);
+      scroll.append(table);
+      section.append(scroll);
+    } else if (block.kind === 'list') {
+      const ul = document.createElement('ul');
+      for (const value of block.items) {
+        const li = document.createElement('li');
+        li.textContent = value;
+        ul.append(li);
+      }
+      section.append(ul);
+    } else {
+      for (const value of block.text.split('\n\n')) {
+        const p = document.createElement('p');
+        p.textContent = value;
+        section.append(p);
+      }
+    }
+    if (block.note) {
+      const note = document.createElement('p');
+      note.className = 'source-note';
+      note.textContent = block.note;
+      section.append(note);
+    }
+    root.append(section);
+  }
 }
 
 function renderProgress() {
@@ -427,6 +500,7 @@ function bindEvents() {
   document.addEventListener('keydown', event => {
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return;
     if (['SELECT', 'BUTTON', 'A', 'SUMMARY'].includes(document.activeElement?.tagName)) return;
+    if (document.activeElement?.closest('#answer-blocks pre, #answer-blocks .reference-table')) return;
     if (event.code === 'Space') { event.preventDefault(); reveal(); }
     if (event.key === 'ArrowLeft') { event.preventDefault(); move(-1); }
     if (event.key === 'ArrowRight') { event.preventDefault(); move(1); }
@@ -466,7 +540,7 @@ async function load() {
     const target = cards.find(card => card.id === params.get('card'));
     if (target) {
       $('level-filter').value = target.level;
-      $('block-filter').value = 'all';
+      $('block-filter').value = requested && String(target.block) === requested ? requested : 'all';
       populateBlocks(); populateTopics(); rebuildVisible({ preserveId: false });
       const index = visible.findIndex(card => card.id === target.id);
       if (index >= 0) { cursor = index; render(); }
