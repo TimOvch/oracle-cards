@@ -373,6 +373,7 @@ function render() {
   renderProgress();
   const card = currentCard();
   const empty = !card;
+  $('reveal').disabled = empty;
   $('flashcard').hidden = empty;
   $('deck-meta').hidden = empty;
   $('navigation-row').hidden = empty;
